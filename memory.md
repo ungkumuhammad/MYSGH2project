@@ -120,11 +120,11 @@ material grade · throughput/phasing · number of parallel lines.
 
 - **2026-06-30** — Added third-party tolling/storage-and-cracking commercial
   documents, converted from PDF to Markdown via Microsoft `markitdown`, under a
-  new `Licensor/tolling/` folder with vendor subfolders:
-  `Licensor/tolling/vtti/VTTI_Cracker_Tolling_Fee.md` (VTTI "Commercial
+  new root-level `tolling/` folder (alongside `Licensor/`) with vendor
+  subfolders: `tolling/vtti/VTTI_Cracker_Tolling_Fee.md` (VTTI "Commercial
   Information Package: Tariff, carbon intensity and yield" — Project Amplifhy
   Rotterdam/Antwerp; indicative integrated ammonia storage + cracking tariff)
-  and `Licensor/tolling/vopak/Vopak_Cracker_Tolling_Fee.md` (Linde–Vopak–Gentari
+  and `tolling/vopak/Vopak_Cracker_Tolling_Fee.md` (Linde–Vopak–Gentari
   "Letter of Intent — Ammonia Storage and Cracking Services at Vopak Energy Park
   Antwerp", effective 20 Aug 2025). These are European reference/benchmark
   commercial terms (not MMHE-specific). Note: machine-extracted from PDF — treat
