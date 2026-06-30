@@ -28,6 +28,7 @@ cross-border H₂ pipeline to Singapore, defined on a permutation basis.
 |------|----------|-----------|--------|
 | 2026-06-30 | Created root `CLAUDE.md` + `memory.md` as project baseline | Establish scope, technical baseline, memory protocol | Done |
 | 2026-06-30 | Pipeline & sizing handled as **permutation matrix**, not single design | User requirement | Active |
+| 2026-06-30 | Refreshed KBR/Duiker/Casale content in `tcoedatabase` from Dec-2025 packages; kept file structure, fuel-mode & capacity basis per column; flagged gaps in red | User request ("update… without changing the nature of the file"); No-Fabrication Rule | Done |
 
 ## 3. Assumptions Register
 
@@ -118,6 +119,24 @@ material grade · throughput/phasing · number of parallel lines.
 
 ## 8. Changelog
 
+- **2026-06-30** — Updated `tcoedatabase/WIP_Ammonia_Cracker_Database.md` with the
+  December 2025 licensor packages for **KBR** (`Licensor/kbr/kbr-johor-hub.md`,
+  H2ACT® TIP Rev 0, 23 Dec 2025), **Duiker** (`Licensor/duiker/duiker-johor-hub.md`,
+  AHC proposal 122380, 05 Dec 2025) and **Casale** (`Licensor/Casale/…`, A23070S,
+  05 Dec 2025). Refreshed the §4.3/§4.4/§4.10 licensor profiles (KBR Hanwha 219 &
+  173 MTPD + ISU 10 MTPD + TRL-9-by-2028; Casale MACH²™ scale 1300+ MTPD, TRL 7–8,
+  H₂-rich burner since 2019; Duiker AHC = SCO+reactor+PSA, 50 barg, tube life
+  200,000 h, TRL 8, Ammonex pilot) and corrected the §6.1 Licensor Specifications
+  table (Casale Carbon Intensity 0.136 → 0, self-sustaining scheme). File
+  structure, table layout, fuel-mode and per-column capacity basis preserved (per
+  "do not change the nature of the file"). All edits + open gaps annotated **in
+  red** (`<span style="color:red">`) for user review. Key flagged gaps: KBR
+  "Daesan" & Casale "Elcogen" projects not in the Dec-2025 packages; Casale
+  specific-energy/electrical/footprint cells unsourced; Duiker pressure 50 barg
+  (PSA) vs 20 barg (B.L.) and CAPEX shown as $51 M = unstated EUR→USD of €47 M;
+  table fuel-mode header vs footnote inconsistency unresolved. Added a 30 Jun 2026
+  row to the document's revision history. No values fabricated (No-Fabrication
+  Rule); unsourced cells left as-is and flagged, not invented.
 - **2026-06-30** — Added internal "Large Scale Industrial Ammonia Cracking
   Technology Database" (WIP, Rev 0 issued 13 Oct 2025, updated 12 Nov 2025;
   prepared by Front End & Hydrogen Technology Solutions team) converted from
