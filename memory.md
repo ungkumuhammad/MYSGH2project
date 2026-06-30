@@ -38,8 +38,8 @@ cross-border H₂ pipeline to Singapore, defined on a permutation basis.
 |------|------------|-----|---------------|
 | 2026-06-30 | NH₃ stored as refrigerated liquid (~−33 °C, atmospheric) | Standard for large-scale import terminals | Storage concept selection |
 | 2026-06-30 | Crossing carrier = pure H₂ (base case) | Matches "crack at MMHE, pipe H₂" brief | Permutation study may add NH₃-further variants |
-| 2026-06-30 | **H₂-fired CCGT net efficiency = 59 % (range 57–61 %, LHV)** | No repo/OEM source yet; H-class on H₂ ≈ NG CCGT | OEM data |
-| 2026-06-30 | **100 % NH₃-fired CCGT net efficiency = 56 % (range 50–58 %, LHV)** | Pre-commercial; placeholder for P1-vs-P2 energy comparison | OEM data — governs the P1/P2 ranking |
+| 2026-06-30 | **H₂-fired CCGT net efficiency = 62 % (range 58–64 %, LHV)** — *now SOURCED* | GE 9HA.02 H-class: 64.0 % net CC on NG, 50 %→100 % H₂ roadmap (GE Vernova; Turbomachinery Mag.) | OEM quote at unit size |
+| 2026-06-30 | **100 % NH₃-fired CCGT net efficiency = 51 % (range 49–53 %, LHV)** — *now SOURCED* | Only near-commercial 100 % NH₃ machine = MHI H-25 40 MW class: 34.8 % SC → ~60 MW 1×1 CC ⇒ ~51 % GTCC (~2025) | OEM quote — governs the P1/P2 ranking |
 | 2026-06-30 | Shipping ~0.997 & NH₃ storage ~0.998 energy retention | Boil-off ~0.025 %/day; common-mode to both permutations, immaterial to ranking | Refine if needed |
 | 2026-06-30 | H₂ 16″ pipeline parasitic retention ~0.99 | Compression to maintain 15–20 barg over short cross-strait run | Pipeline hydraulics |
 
@@ -61,17 +61,17 @@ material grade · throughput/phasing · number of parallel lines.
 | P1 | MMHE (Johor) → Singapore | Pipeline | **H₂** | 16″ | 15–20 barg (Casale H₂ @ 20 barg) | *TBD* (H₂ service, ASME B31.12) | 650 ktpa NH₃ in → ~100 ktpa H₂ (NG-fired) / ~89 ktpa (clean) → H₂-CCGT | Crack at MMHE, pipe H₂, fire H₂ in CCGT in SG |
 | P2 | India → Singapore (no Johor) | n/a (NH₃ shipped all the way) | **NH₃** | n/a | n/a | n/a | 650 ktpa NH₃ → 100 % NH₃-fired CCGT | No cracking; ammonia stored & fired directly in SG |
 
-**Well-to-wire energy comparison (2026-06-30)** — see
+**Well-to-wire energy comparison (2026-06-30, Rev 1 — sourced CCGTs)** — see
 `permutations/P1_vs_P2_well-to-wire_energy.md`. Same 650 ktpa NH₃ from India;
 sea leg + NH₃ storage are common-mode (India→Johor ≈ India→Singapore).
-Result (LHV, base case): **P1 ≈ 51.7 %** usable energy at the wire vs
-**P2 ≈ 55.7 %**. P2 higher on energy because it avoids the cracking step
-(×0.89 ≈ 11 % loss). Ranking hinges on the (assumed, pre-commercial)
-ammonia-CCGT efficiency: **P1 only beats P2 if NH₃-CCGT net η < ~52 %**.
-Technical recommendation: **P1** overall (mature H₂ turbine, clean combustion,
-ammonia hazard kept in Johor, delivers H₂ per project premise) despite the
-~4-pt efficiency premium. Action: confirm H₂- and NH₃-CCGT net efficiency/TRL
-with OEMs before locking the ranking.
+**Rev 1 result (LHV, base case): P1 ≈ 54.4 % vs P2 ≈ 50.7 %** — i.e. **P1
+(hydrogen) now wins**, reversing Rev 0. Reason: CCGT efficiencies are no longer
+symmetric assumptions but sourced to the machines each fuel can actually run in
+— H₂ in a ~64 %-class H-machine (GE 9HA.02) vs 100 % NH₃ only in a ~51 %-class
+40 MW machine (MHI H-25). The ~13-pt turbine gap outweighs the ~11 % cracking
+penalty. Crossover: P2 only wins if a large ~55 %+ 100 % ammonia turbine exists
+(technology-parity case → P2 63 % vs P1 55 %). Recommendation unchanged and now
+stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
 
 ## 5. Open Questions
 

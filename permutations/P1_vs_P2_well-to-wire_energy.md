@@ -5,7 +5,8 @@
 > power plant in each permutation, and which is technically better?
 > **Basis:** LHV, steady-state, annual. **Reference energy = LHV of the ammonia
 > loaded in India** (identical for both permutations).
-> **Date:** 2026-06-30. See `memory.md` for sourcing/assumption status.
+> **Date:** 2026-06-30. **Rev 1** — CCGT efficiencies now anchored to published
+> OEM data (was assumption in Rev 0); result changed. See `memory.md`.
 
 ---
 
@@ -17,7 +18,7 @@
 | Landfall | MMHE, Pasir Gudang, Johor | Singapore |
 | Storage | Refrigerated NH₃ (Johor) | Refrigerated NH₃ (Singapore) |
 | Conversion | Ammonia cracker → **100 ktpa H₂** (user figure) | None |
-| Cross-border transport | 16″ H₂ pipeline, Johor → Singapore | None (NH₃ already in SG) |
+| Cross-border transport | 16″ H₂ pipeline, Johor → Singapore | None |
 | Power block | H₂-fired CCGT | 100 % NH₃-fired CCGT |
 | Product delivered to SG | **Hydrogen** | **Electricity (from ammonia)** |
 
@@ -25,141 +26,175 @@
 
 ## 2. Reference energy in (common to both)
 
-- NH₃ LHV = **18.6 MJ/kg** (CLAUDE.md §5, textbook).
+- NH₃ LHV = **18.6 MJ/kg**; H₂ LHV = **120 MJ/kg** (CLAUDE.md §5, textbook).
 - 650,000 t/yr × 18.6 GJ/t = **12.09 PJ/yr (LHV) = 100 % reference.**
 
 The **sea leg India → Johor and India → Singapore is effectively the same
-voyage** (Pasir Gudang and Singapore sit on opposite sides of the same strait,
-tens of km apart), and **both** permutations refrigerate-store ammonia. So
-*shipping + ammonia storage are common-mode* and do **not** differentiate the
-two on energy. The ranking is decided entirely **downstream** of storage.
+voyage** (Pasir Gudang and Singapore sit on opposite sides of the same strait),
+and **both** permutations refrigerate-store ammonia. So *shipping + ammonia
+storage are common-mode* and do **not** differentiate the two on energy. The
+ranking is decided entirely **downstream** of storage — at the cracker (P1) and
+at the turbine (both).
 
 ---
 
-## 3. Stage-by-stage energy waterfall (base case)
+## 3. The decisive new input — what turbine each fuel can actually run in
+
+This is the crux, and it is **not symmetric**:
+
+| | **Hydrogen (P1)** | **Ammonia (P2)** |
+|---|---|---|
+| Best commercially-offered machine for 100 % of this fuel | **Large H-class CCGT** | **40 MW-class GTCC** |
+| Reference unit | GE 9HA.02 | MHI/MHPS H-25 |
+| Net CC efficiency (LHV) | **64.0 %** on NG; **50 % H₂ today, roadmap to 100 %** | SC 34.8 % (ISO) → ~60 MW 1×1 CC ⇒ **GTCC ≈ 51 %** |
+| 100 % status | H-class H₂ roadmap to 100 % | **100 % NH₃ H-25, commercialisation ~2025** |
+| Sources | GE Vernova; Turbomachinery Mag. | Mitsubishi Power; MHPS; MHI |
+
+**Why it matters:** hydrogen can be burned in a ~64 %-class machine; 100 %
+ammonia firing is, today, only commercialised on a ~51 %-class machine. That
+~13-point turbine-efficiency gap largely **cancels the ~11 % cracking penalty**
+that P1 pays — and then some.
+
+**Working efficiencies adopted (LHV, net):**
+- **H₂-CCGT: 62 %** (range 58–64 %) — slight conservative derate from the 64 %
+  NG figure for 100 % H₂ on H-class.
+- **NH₃-CCGT: 51 %** (range 49–53 %) — H-25-class, the only near-commercial
+  100 % ammonia machine.
+
+---
+
+## 4. Stage-by-stage energy waterfall (base case)
 
 ### P1 — Crack in Johor → H₂ pipeline → H₂-CCGT
 
 | Stage | Stage η (LHV) | Energy after stage | % of NH₃-in | Basis |
 |---|---|---|---|---|
 | NH₃ delivered ex-India | — | 12.09 PJ | 100.0 % | LHV, sourced |
-| Sea transport + unload (→ Johor) | 0.997 | 12.05 PJ | 99.7 % | **assumption** (boil-off ~0.025 %/day) |
-| NH₃ refrigerated storage | 0.998 | 12.03 PJ | 99.5 % | **assumption** (boil-off + re-liquefaction) |
-| **Ammonia cracking → H₂** | **0.89** | 10.71 PJ | **88.6 %** | **sourced** (Casale energy eff. 89 %; Duiker ~91 %) |
-| H₂ pipeline → Singapore (16″) | 0.99 | 10.60 PJ | 87.7 % | **assumption** (compression parasitic) |
-| **H₂-fired CCGT (net)** | **0.59** | 6.25 PJ | **51.7 %** | **assumption** (H-class on H₂, 57–61 %) |
-| **Electricity out** | | **6.25 PJ/yr ≈ 1,740 GWh/yr** | **≈ 51.7 %** | |
+| Sea transport + unload (→ Johor) | 0.997 | 12.05 PJ | 99.7 % | assumption (boil-off ~0.025 %/day) |
+| NH₃ refrigerated storage | 0.998 | 12.03 PJ | 99.5 % | assumption |
+| **Ammonia cracking → H₂** | **0.89** | 10.71 PJ | **88.6 %** | **sourced** (Casale 89 %; Duiker ~91 %) |
+| H₂ pipeline → Singapore (16″) | 0.99 | 10.60 PJ | 87.7 % | assumption (compression) |
+| **H₂-fired CCGT (net)** | **0.62** | 6.57 PJ | **54.4 %** | **sourced basis** (GE 9HA.02) |
+| **Electricity out** | | **6.57 PJ/yr ≈ 1,826 GWh/yr** | **≈ 54.4 %** | |
 
-> Cracking at 89 % of ammonia LHV implies **≈ 89 ktpa H₂** in *clean-fuel mode*
-> (cracker burns part of its own product/ammonia for the endothermic heat,
-> ~7.0–7.2 t NH₃/t H₂, near-zero direct CO₂). The user's **100 ktpa** figure
-> corresponds to **6.5 t NH₃/t H₂ — i.e. natural-gas-fired mode**, where
-> external NG supplies the heat so all ammonia converts to product. That raises
-> H₂ tonnage **but adds fossil NG energy + ~0.9 kg CO₂/kg H₂** (database). The
-> 89 % energy efficiency already books this penalty either way, so the
-> well-to-wire % is essentially unchanged; only the CO₂ and the NG fuel bill
-> differ. (Sources: `tcoedatabase/WIP_Ammonia_Cracker_Database.md`,
-> `Licensor/duiker/duiker-johor-hub.md`.)
+> Cracking at 89 % of ammonia LHV ⇒ **≈ 89 ktpa H₂** in *clean-fuel mode*
+> (cracker burns part of its own product for heat, ~7.0–7.2 t NH₃/t H₂,
+> near-zero direct CO₂). The user's **100 ktpa** implies **6.5 t NH₃/t H₂ =
+> natural-gas-fired mode** (external NG supplies heat, +~0.9 kg CO₂/kg H₂,
+> database). The 89 % energy efficiency books that penalty either way, so the
+> well-to-wire % is essentially unchanged; only CO₂ and the NG bill differ.
 
 ### P2 — Ship NH₃ to Singapore → 100 % NH₃-CCGT
 
 | Stage | Stage η (LHV) | Energy after stage | % of NH₃-in | Basis |
 |---|---|---|---|---|
 | NH₃ delivered ex-India | — | 12.09 PJ | 100.0 % | LHV, sourced |
-| Sea transport + unload (→ Singapore) | 0.997 | 12.05 PJ | 99.7 % | **assumption** |
-| NH₃ refrigerated storage | 0.998 | 12.03 PJ | 99.5 % | **assumption** |
-| **100 % NH₃-fired CCGT (net)** | **0.56** | 6.74 PJ | **55.7 %** | **assumption** (pre-commercial, 50–58 %) |
-| **Electricity out** | | **6.74 PJ/yr ≈ 1,870 GWh/yr** | **≈ 55.7 %** | |
+| Sea transport + unload (→ Singapore) | 0.997 | 12.05 PJ | 99.7 % | assumption |
+| NH₃ refrigerated storage | 0.998 | 12.03 PJ | 99.5 % | assumption |
+| **100 % NH₃-fired CCGT (net)** | **0.51** | 6.14 PJ | **50.7 %** | **sourced basis** (MHI H-25 class) |
+| **Electricity out** | | **6.14 PJ/yr ≈ 1,704 GWh/yr** | **≈ 50.7 %** | |
 
 ---
 
-## 4. Headline result
+## 5. Headline result (Rev 1 — reversed from Rev 0)
 
 | | **P1 (H₂ route)** | **P2 (NH₃ route)** |
 |---|---|---|
-| **Usable energy at the wire (base case)** | **≈ 51.7 %** | **≈ 55.7 %** |
-| Electricity (illustrative) | ~1,740 GWh/yr | ~1,870 GWh/yr |
+| **Usable energy at the wire** | **≈ 54.4 %** ✅ | ≈ 50.7 % |
+| Electricity (illustrative) | ~1,826 GWh/yr | ~1,704 GWh/yr |
 | Product delivered to Singapore | Hydrogen | Electricity |
 
-**On pure usable-energy %, P2 (direct ammonia firing) is higher by ~4
-percentage points** — because it skips the cracking step, which alone costs
-~11 % of the chemical energy (×0.89), plus the H₂ pipeline parasitic.
-
-Differentially (cancelling the common ship + store terms), P1 delivers about
-**93 % of the electricity P2 delivers**:
-`(0.89 × 0.99 × 0.59) / 0.56 ≈ 0.93`.
+**With real turbine classes, P1 (hydrogen) is the more efficient route by ~3.7
+points (~122 GWh/yr).** This *reverses* the Rev 0 result, which had assumed both
+fuels run in equally-efficient turbines. They do not: the cracking penalty is
+out-weighed by hydrogen's access to a ~64 %-class machine versus ammonia's
+~51 %-class machine.
 
 ---
 
-## 5. The result hinges on one uncertain number — sensitivity
+## 6. Sensitivity — the answer is governed by turbine class
 
-The ranking is driven by the **ammonia-CCGT net efficiency**, which is the
-least mature, least certain input. Holding the rest of each chain fixed
-(P1 fixed factor 0.877 up to the turbine; P2 fixed factor 0.995):
+P1 fixed factor up to the turbine = 0.877; P2 fixed factor = 0.995.
 
-| H₂-CCGT η → | 57 % | 59 % | 61 % |
-|---|---|---|---|
-| **P1 well-to-wire** | 50.0 % | **51.7 %** | 53.5 % |
+| H₂-CCGT η → | 58 % | 60 % | **62 %** | 64 % |
+|---|---|---|---|---|
+| **P1 well-to-wire** | 50.8 % | 52.6 % | **54.4 %** | 56.1 % |
 
-| NH₃-CCGT η → | 50 % | 55 % | 58 % |
-|---|---|---|---|
-| **P2 well-to-wire** | 49.8 % | **54.7 %** | 57.7 % |
+| NH₃-CCGT η → | 49 % | **51 %** | 53 % | 55 % |
+|---|---|---|---|---|
+| **P2 well-to-wire** | 48.8 % | **50.7 %** | 52.7 % | 54.7 % |
 
-**Crossover:** P1 beats P2 only when the ammonia-CCGT net efficiency falls
-**below ≈ 52 %** (for a 59 % H₂-CCGT), i.e. when the ammonia turbine loses more
-than ~12 % (relative) against the hydrogen turbine. Current OEM ambition is for
-ammonia/hydrogen CCGTs to approach NG-CCGT efficiency, which would keep P2
-ahead on energy — **but 100 % ammonia firing in a large CCGT is still
-pre-commercial**, so this efficiency is exactly the figure to pin down with OEM
-data before trusting the ranking.
+- **Crossover:** P2 only catches P1 when the ammonia-CCGT net efficiency reaches
+  **≈ 55 %** (for a 62 % H₂-CCGT) — i.e. ammonia must move onto a large-class
+  machine. No 100 % ammonia turbine at that efficiency is commercially offered
+  today.
+- **Technology-parity case** (both on a 63 % large-class machine, hypothetical):
+  P1 = 55 %, **P2 = 63 %** — *then* P2 wins, because the cracking step becomes
+  pure deadweight. This is the bull case for direct ammonia firing and depends
+  entirely on large 100 % ammonia turbines maturing.
+
+So the energy verdict hinges on a single question: **will a large, high-
+efficiency 100 % ammonia turbine exist on the project timeline?** Until it does,
+hydrogen wins the energy race.
 
 ---
 
-## 6. "Better technicals" is more than efficiency
+## 7. "Better technicals" is more than efficiency
 
-Energy % favours **P2**. Most other technical axes favour **P1**:
+With Rev 1, P1 now leads on energy **and** on most other technical axes:
 
 | Axis | P1 — H₂ route | P2 — 100 % NH₃-CCGT |
 |---|---|---|
-| **Usable-energy %** | ~51.7 % | **~55.7 %** ✅ |
-| **Power-block maturity (TRL)** | **H₂-capable CCGTs commercially offered** ✅ | 100 % NH₃ large CCGT pre-commercial / demo-scale |
-| **Combustion** | High flame speed; no carbon; no N₂O ✅ | Low flame speed, narrow flammability, high NOx + **N₂O** (potent GHG), unburned-NH₃ slip → SCR + derate |
-| **Where the hazard sits** | Ammonia (hardest to permit) stays in **Johor**; only H₂ crosses ✅ | Large refrigerated **ammonia store + ammonia combustion in land-scarce Singapore** |
-| **Permitting** | Ammonia battery limits in Johor; new cross-border H₂ pipeline | Ammonia storage is the single hardest permit item (database) — now sited in Singapore |
-| **Strategic fit** | Delivers **H₂** — matches project premise + SG National Hydrogen Strategy ✅ | Delivers power, not H₂ |
-| **CAPEX / complexity** | Cracker + 16″ pipeline (more kit) | Fewer steps ✅ |
-| **CO₂** | Near-zero in clean-fuel mode; +CO₂ if NG-fired to hit 100 ktpa | Near-zero direct CO₂ (but N₂O risk) |
+| **Usable-energy %** | **~54.4 %** ✅ | ~50.7 % |
+| **Power-block maturity** | H-class H₂ CCGTs offered (50→100 % H₂) ✅ | 100 % NH₃ only at 40 MW class, ~2025 |
+| **Turbine efficiency class available** | ~64 % H-class ✅ | ~51 % mid-size |
+| **Combustion** | High flame speed; no carbon; no N₂O ✅ | Low flame speed; high NOx + **N₂O**; NH₃ slip → SCR + derate |
+| **Where the hazard sits** | Ammonia stays in **Johor**; only H₂ crosses ✅ | Large NH₃ store + NH₃ combustion in land-scarce Singapore |
+| **Permitting** | NH₃ battery limits in Johor + new H₂ pipeline | NH₃ storage (hardest permit item) now in Singapore |
+| **Strategic fit** | Delivers **H₂** — matches project + SG H₂ Strategy ✅ | Delivers power, not H₂ |
+| **CAPEX / steps** | Cracker + 16″ pipeline (more kit) | Fewer steps ✅ |
+| **CO₂** | ~Zero (clean-fuel) / +CO₂ if NG-fired to 100 ktpa | ~Zero direct CO₂ (but N₂O risk) |
 
 ---
 
-## 7. Recommendation
+## 8. Recommendation
 
-- **If the single decision metric is usable-energy efficiency: P2 wins**
-  (~55.7 % vs ~51.7 %), and the gap is the cracking penalty P2 avoids.
-- **As an overall technical choice: P1 is the more defensible pathway today.**
-  It pays a ~4-point efficiency premium to gain a *commercially available* power
-  block, clean (carbon- and N₂O-free) combustion, ammonia hazard kept on the
-  Malaysian side, and a hydrogen deliverable that is the whole point of the
-  project and of Singapore's import strategy. P2's higher number rests on an
-  ammonia-CCGT efficiency that is **not yet commercially demonstrated**; if that
-  efficiency lands below ~52 %, P2's only advantage disappears too.
+**Choose P1 (crack in Johor → pipe H₂ → H₂-CCGT).** On published OEM data it is
+now the **more energy-efficient** route (~54 % vs ~51 %), *and* it wins on
+maturity, combustion cleanliness, where the ammonia hazard sits, and strategic
+fit. P2's only path to winning is a large, high-efficiency 100 % ammonia turbine
+(~55 %+) that is not commercially available today.
 
-**Decision-gating action (no-fabrication):** confirm with turbine OEMs the
-**net LHV efficiency and TRL of (a) a 100 % H₂-fired CCGT and (b) a 100 %
-NH₃-fired CCGT** at the relevant unit size. Those two numbers, plus the
-clean-vs-NG cracker fuel mode, decide the comparison; everything else here is
-common-mode or sourced.
+**Decision-gating action (no-fabrication):** lock the two turbine efficiencies
+with OEM quotations at the project unit size — (a) a 100 % H₂ H-class CCGT and
+(b) a 100 % NH₃ CCGT — plus confirm the cracker fuel mode (clean vs NG). Those
+three numbers settle the comparison; everything else is common-mode or sourced.
 
 ---
 
-## 8. Sourcing summary
+## 9. Sourcing summary
 
-| Quantity | Value | Status |
+| Quantity | Value | Status / source |
 |---|---|---|
 | NH₃ LHV / H₂ LHV | 18.6 / 120 MJ/kg | Sourced (CLAUDE.md §5) |
 | Cracker energy efficiency | 89 % (Casale); 90.6–90.9 % (Duiker) | **Sourced** (internal licensor docs) |
 | NH₃:H₂ ratio | 7.0–7.2 (clean) / 6.3–6.5 (NG-fired) t/t | **Sourced** (database, Duiker) |
+| **H₂-CCGT efficiency** | 62 % (58–64 %), from 64 % NG H-class | **Sourced basis** — GE 9HA.02 (GE Vernova; Turbomachinery Mag.) |
+| **NH₃-CCGT efficiency** | 51 % (49–53 %), H-25 40 MW class | **Sourced basis** — MHI/MHPS H-25; 100 % NH₃ ~2025 (Mitsubishi Power) |
 | Shipping/storage parasitics | 0.997 / 0.998 | Assumption (common-mode, immaterial to ranking) |
 | H₂ pipeline parasitic | 0.99 | Assumption |
-| **H₂-CCGT net efficiency** | 59 % (57–61 %) | **Assumption — confirm with OEM** |
-| **NH₃-CCGT net efficiency** | 56 % (50–58 %) | **Assumption — confirm with OEM; pre-commercial** |
+
+### References
+- GE Vernova — 9HA gas turbine (64.0 % net CC, 826 MW 1×1, 50 % H₂→100 % roadmap):
+  https://www.gevernova.com/gas-power/products/gas-turbines/9ha
+- Turbomachinery Magazine — "GE 9HA.02 claims 64 % efficiency in combined cycle":
+  https://www.turbomachinerymag.com/view/market-challenged-ge-continues-to-improve-gas-turbine-efficiency
+- Mitsubishi Power — H-25 Series (41 MW SC, 34.8 % ISO, ~60 MW 1×1 CC):
+  https://power.mhi.com/products/gasturbines/lineup/h25/
+- Mitsubishi Power — World's first 40 MW-class 100 % ammonia gas turbine, ~2025:
+  https://power.mhi.com/news/20210301.html
+- Ammonia Energy Association — Ammonia-fuelled gas turbines, deployment update:
+  https://ammoniaenergy.org/articles/ammonia-fueled-gas-turbines-a-technology-and-deployment-update/
+- Gas Turbine World — Green hydrogen in gas turbines:
+  https://gasturbineworld.com/gas-turbines-burning-green-hydrogen/
+- Internal: `tcoedatabase/WIP_Ammonia_Cracker_Database.md`; `Licensor/duiker/duiker-johor-hub.md`; `Licensor/Casale/…`
