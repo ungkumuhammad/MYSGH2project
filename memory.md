@@ -118,6 +118,17 @@ material grade · throughput/phasing · number of parallel lines.
 
 ## 8. Changelog
 
+- **2026-06-30** — Added internal "Large Scale Industrial Ammonia Cracking
+  Technology Database" (WIP, Rev 0 issued 13 Oct 2025, updated 12 Nov 2025;
+  prepared by Front End & Hydrogen Technology Solutions team) converted from
+  DOCX to Markdown via Microsoft `markitdown`, stored at root-level
+  `tcoedatabase/WIP_Ammonia_Cracker_Database.md`. Covers ammonia/ammonia-cracker
+  intro, process overview (mass/energy balance, ISBL components, PFD) and a
+  technology-player survey (Topsoe, Technip Energies, KBR, Casale, AFC Energy,
+  Air Liquide, Hoegh EVI, ThyssenKrupp, Nippon Gases, etc.). Note: this `.md` is
+  machine-extracted from DOCX — treat any quantitative value as transcription
+  pending check against the original document before use in a deliverable
+  (no-fabrication rule). Marked WIP by the source.
 - **2026-06-30** — Added third-party tolling/storage-and-cracking commercial
   documents, converted from PDF to Markdown via Microsoft `markitdown`, under a
   new root-level `tolling/` folder (alongside `Licensor/`) with vendor
