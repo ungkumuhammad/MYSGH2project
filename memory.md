@@ -39,6 +39,8 @@ cross-border H₂ pipeline to Singapore, defined on a permutation basis.
 |------|------------|-----|---------------|
 | 2026-06-30 | NH₃ stored as refrigerated liquid (~−33 °C, atmospheric) | Standard for large-scale import terminals | Storage concept selection |
 | 2026-06-30 | Crossing carrier = pure H₂ (base case) | Matches "crack at MMHE, pipe H₂" brief | Permutation study may add NH₃-further variants |
+| 2026-06-30 | **A1** OSBL ~40% of ISBL at 100 ktpa cracker scale | KBR states ~55% at 12 ktpa, "reduces at larger capacity"; 40% is interpolated assumption | Confirm when KBR provides OSBL for 68–80 ktpa |
+| 2026-06-30 | KBR H2ACT® scaling exponent n≈0.53 derived from four data points | Power-law fit to 12/24/68/80 ktpa CAPEX points; range 0.52–0.56 | Stable unless KBR provides more data points |
 
 *(No project-specific capacities, distances, costs, or vessel sizes have been
 fixed yet — none should be invented. See CLAUDE.md §7.)*
@@ -118,6 +120,21 @@ material grade · throughput/phasing · number of parallel lines.
 - MHB (Malaysia Marine and Heavy Engineering): https://mhb.com.my/
 
 ## 8. Changelog
+
+- **2026-06-30** — CAPEX analysis for 100 ktpa H₂ cracker completed; document at
+  `analysis/ammonia_cracker_capex_100ktpa.md`. Key outputs:
+  - KBR H2ACT® quoted ISBL CAPEX: 12 ktpa=$78M, 24 ktpa=$110M, 68 ktpa=$191M,
+    80 ktpa=$209M (all Q3 2025 Class V ±50%, East Asia basis, ISBL only).
+  - Power-law scaling exponent derived from KBR data: **n ≈ 0.53** (range 0.52–0.56),
+    indicating better economy of scale than the classical six-tenths rule (n=0.6).
+  - **100 ktpa extrapolated ISBL CAPEX: ~$235M USD** (derived, ±50%, Q3 2025, no
+    forward escalation). OSBL estimated at ~$94M (Assumption A1: 40% of ISBL — unconfirmed).
+    Total ISBL+OSBL ~$329M (assumption).
+  - Casale MACH₂™ Dec-2025 proposal: **no CAPEX figures provided** (technical-only
+    package). Cannot produce Casale cost comparison until Casale provides cost data.
+  - Assumption A1 (OSBL at 40% of ISBL for 100 ktpa) logged below.
+
+
 
 - **2026-06-30** — Updated `tcoedatabase/WIP_Ammonia_Cracker_Database.md` with the
   December 2025 licensor packages for **KBR** (`Licensor/kbr/kbr-johor-hub.md`,
