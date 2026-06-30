@@ -14,7 +14,7 @@
 | **Rev No** | **Date** | **Revision Description** | **Reason For Revision** |
 | 0 | 13th October 2025 | Document Issuance | Issuance |
 |  | 12th November 2025 | Correction and information update | Update |
-|  |  |  |  |
+|  | 30th June 2026 | KBR, Duiker & Casale data refreshed from December 2025 technical packages | Update |
 |  |  |  |  |
 
 **Table Of Contents**
@@ -314,10 +314,13 @@ The development of ammonia cracking technologies is led by a small number of glo
 * Headquarters: United States
 * Specialization: Engineering, procurement, and technology for ammonia and hydrogen
 * Technology: H2ACT® ammonia cracking
-* Key Projects:
-  + ISU Chemical, Ulsan, South Korea 10 MTPD demonstration facility, start-up planned 2026 (Pilot/Demo).
-  + Daesan, South Korea: Commercial-scale H₂ACT cracker, ~200 MTPD hydrogen, under development.
-  + Hanwha Impact, South Korea World’s first commercial-scale H₂ACT cracker, >200 MTPD hydrogen (Operational).
+* Key Projects: <span style="color:red">**[Rev 30-Jun-2026 — refreshed from KBR H2ACT® Technical Information Package, Rev 0, 23 Dec 2025]**</span>
+  + Hanwha Impact, South Korea — World's first large-scale commercial H₂ACT® cracker, 219 MTPD H₂; Licensor Proprietary Engineering Design (LPED) + FEED completed (Operational).
+  + Hanwha Impact, South Korea — Large-scale commercial H₂ACT® cracker for power generation, 173 MTPD H₂; LPED + FEED completed.
+  + ISU Chemical, Ulsan, South Korea — 10 MTPD H₂ commercial small-scale unit; LPED + FEED completed; operated as H₂ACT® demonstration unit from 2026 to 2031, commercial operation thereafter (Pilot/Demo).
+  + 24+ feasibility and de-risking studies executed worldwide.
+  + Daesan, South Korea: Commercial-scale H₂ACT cracker, ~200 MTPD hydrogen, under development. <span style="color:red">[Remark: retained from earlier source — not listed in the Dec-2025 KBR package; confirm or remove.]</span>
+* Technology Readiness: novel technology elements on KBR's roadmap to TRL-9 by 2028; offered single-train scale 10–1200 MTPD H₂. <span style="color:red">[Rev 30-Jun-2026 — added from Dec-2025 KBR package.]</span>
 * Geographical Presence: South Korea (current focus), North America, Middle East, Asia
 
 **![Casale • Together for a new planet](data:image/jpeg;base64...)**
@@ -326,9 +329,10 @@ The development of ammonia cracking technologies is led by a small number of glo
 
 * Headquarters: Switzerland
 * Specialization: Ammonia, methanol, syngas processes, plant revamping
-* Technology: MACH² ammonia cracking
+* Technology: MACH²™ ammonia cracking (FLEXIGREEN® family; launched 2021; catalyst-agnostic; proprietary axial-radial adiabatic cracker + top-fired cracking furnace). <span style="color:red">**[Rev 30-Jun-2026 — refreshed from Casale Technical Proposal A23070S, MACH²™, 05 Dec 2025]**</span>
+* Scale & maturity: single-train capacity up to 1300+ MTPD H₂ (>9900 MTPD NH₃); overall TRL 7–8 (limited by commercial catalyst availability, not unit size); furnace catalytic tubes designed for 100,000 h; H₂-rich (≈85 %v H₂) burner tested and in continuous operation since 2019. <span style="color:red">[Rev 30-Jun-2026 — added from Dec-2025 Casale package.]</span>
 * Key Projects:
-  + MACH² Demonstrations (Europe): Partnership with Elcogen to integrate SOEC with MACH² cracking, targeting higher efficiency (Pilot/Demo).
+  + MACH² Demonstrations (Europe): Partnership with Elcogen to integrate SOEC with MACH² cracking, targeting higher efficiency (Pilot/Demo). <span style="color:red">[Remark: retained from earlier source — not referenced in the Dec-2025 Casale package; confirm or remove.]</span>
 * Geographical Presence: India, Australia, Europe
 
 ### **AFC Energy (Hyamtec)  ![Exclusive: AFC Energy CEO explains the benefits of ammonia to hydrogen cracker technology | Exclusive | H2 View](data:image/jpeg;base64...)**
@@ -387,10 +391,11 @@ The development of ammonia cracking technologies is led by a small number of glo
 
 * Headquarters: Netherlands
 * Specialization: thermal process equipment, industrial furnaces, ammonia cracking technology and hydrogen production systems
-* Technology: ammonia cracking furnace and thermal process systems for hydrogen generation
+* Technology: Ammonia to Hydrogen Converter (AHC) — three core units: Stoichiometry Controlled Oxidation (SCO) combustor + ammonia cracking reactor + PSA; operates at 50 bar(g); convective (non-radiant) reactor with tube life up to 200,000 h. <span style="color:red">**[Rev 30-Jun-2026 — refreshed from Duiker AHC Concept Study / Budgetary Proposal 122380, 05 Dec 2025]**</span>
 * Key Projects:
+  + Ammonex pilot plant — SCO plus a cracking reactor with full-scale reactor tubes, to demonstrate operational efficiency and catalyst performance over a 6-month pilot (Pilot/Demo).
   + Development and supply of ammonia cracking furnaces for hydrogen production in industrial applications (including large-scale hydrogen supply and energy transition projects).
-  + Participation in projects supporting ammonia-to-hydrogen conversion as part of the global hydrogen supply chain.
+* Technology Readiness: TRL 8 (system complete and qualified), ready for commercial-scale deployment; ultra-low NOx (5 ppm @ 3% O₂ with small-size SCR). <span style="color:red">[Rev 30-Jun-2026 — added from Dec-2025 Duiker package.]</span>
 * Geographical presence: Europe, Asia and Middle East, supporting international hydrogen and industrial gas projects.
 
 *\*Additional information is available at the hyperlink above.*
@@ -458,7 +463,7 @@ Ranking depends on specific business value driver (e.g. CAPEX, OPEX, schedule, C
 | Hydrogen capacity (as 100% H2) | Mtpd (ktpa) | 150.00 (50) | 142.86 (50) | 194.3 | 142.86 (50) | 36 |
 | Ammonia feed (as 100% NH3) | mtpd | 1080.00 | 1013.21 | 1233.7 | 1028.57 | 251 |
 | Hydrogen Output Pressure | bar(g) |  |  | 28 | 20 | 50 |
-| Carbon Intensity | kgCO2e/kgH2 | 0.136 | 0.136 | 0.80 | 0.136 | 0.0 |
+| Carbon Intensity | kgCO2e/kgH2 | 0.136 | 0.136 | 0.80 | 0 | 0.0 |
 | Hydrogen efficiency | wt% | 78.20 | 80 | 88.8 | 78 | 80.5 |
 | Energy Efficiency | % | 96$ ^{2}$ | 88 | 89.8 | 89 | 90.9 |
 | Hydrogen purity | % | 99.9 | 99.95 | 99.97 | 99.999 | 99.97 |
@@ -471,6 +476,18 @@ Ranking depends on specific business value driver (e.g. CAPEX, OPEX, schedule, C
 $ ^{1}$*For natural gas fuel mode; a detailed assessment will be conducted by the Gentari Hydrogen Technical Center of Excellence.*
 
 $ ^{2}$*The efficiency values may not align with those of other licensors; a detailed assessment will be conducted by the Gentari Hydrogen Technical Center of Excellence.*
+
+<span style="color:red">**[Rev 30-Jun-2026 — KBR / Duiker / Casale data-review remarks (in red for review)]**</span>
+
+* <span style="color:red">**Casale Carbon Intensity corrected from 0.136 → 0.** Casale's self-sustaining (clean fuel) scheme is 0 kgCO₂/kg H₂ (Low-Carbon up to 0.3; Maximum-fuel >1.2). Source: Casale Technical Proposal A23070S, Table 1, 05 Dec 2025. The prior 0.136 appears to have been copied from the Topsoe/Technip columns.</span>
+* <span style="color:red">**Casale column reflects the self-sustaining scheme** (NH₃ 7.2 t/t, ~78% yield, ~89% energy efficiency). Casale data is given as a range across three schemes — Self-sustaining / Low-carbon / Maximum-fuel: NH₃ 7.2 / 6.4 / <6.4 t/t; H₂ yield up to 78 / 87 / 96%; energy efficiency up to 89 / 90 / 90+%.</span>
+* <span style="color:red">**Casale "Specific Energy Consumption" (8.18) and "Electrical power consumption" (0.04)** are not stated in the Dec-2025 Casale package — values unverified, retained pending vendor confirmation.</span>
+* <span style="color:red">**Casale "Footprint (ISBL) 80 × 80"** is not stated in the Dec-2025 package ("Licensor will define the required plot area") — placeholder, to be confirmed. Casale CAPEX correctly remains "Not available at current maturity" (Dec-2025 proposal is technical only, no cost figures).</span>
+* <span style="color:red">**Column fuel-mode basis differs and is retained as-is:** KBR = 100% NG fuel mode (CI 0.80); Casale & Duiker = clean fuel mode (CI 0). Note the table title "Clean Fuel Mode" vs footnote ¹ "natural gas fuel mode" remains internally inconsistent — to reconcile.</span>
+* <span style="color:red">**KBR column = 68 ktpa, 100% NG fuel mode**, verified against KBR Technical Information Package, Rev 0, 23 Dec 2025 (H₂ 194.3 TPD, NH₃ 1233.7 TPD, 6.35 t/t, energy eff 89.8%, yield 88.8%, elec 0.290 kWh/kg, 28 bar(g), footprint 95×75, CAPEX 191 MMUSD). No change required.</span>
+* <span style="color:red">**Duiker column = 12 ktpa, NH₃-fired**, verified against Duiker Budgetary Proposal 122380, 05 Dec 2025. No numeric change required, except notes below.</span>
+* <span style="color:red">**Duiker "Hydrogen Output Pressure 50 bar(g)"** is the PSA delivery pressure; the project battery-limit spec is 20 bar(g), achieved by letdown after the PSA.</span>
+* <span style="color:red">**Duiker "CAPEX (ISBL) 51 (lumpsum) USD"** is an unstated EUR→USD conversion; the source figure is €47 M lump-sum turnkey (±40%). Related: OPEX €2.9 M/yr; licence fees €2.7 M (construction) + €8.50/t H₂ (operation).</span>
 
 ## **Tolling Model Specifications as of October 2025**
 
