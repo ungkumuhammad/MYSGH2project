@@ -39,6 +39,10 @@ cross-border H₂ pipeline to Singapore, defined on a permutation basis.
 |------|------------|-----|---------------|
 | 2026-06-30 | NH₃ stored as refrigerated liquid (~−33 °C, atmospheric) | Standard for large-scale import terminals | Storage concept selection |
 | 2026-06-30 | Crossing carrier = pure H₂ (base case) | Matches "crack at MMHE, pipe H₂" brief | Permutation study may add NH₃-further variants |
+| 2026-06-30 | **H₂-fired CCGT net efficiency = 62 % (range 58–64 %, LHV)** — *now SOURCED* | GE 9HA.02 H-class: 64.0 % net CC on NG, 50 %→100 % H₂ roadmap (GE Vernova; Turbomachinery Mag.) | OEM quote at unit size |
+| 2026-06-30 | **100 % NH₃-fired CCGT net efficiency = 51 % (range 49–53 %, LHV)** — *now SOURCED* | Only near-commercial 100 % NH₃ machine = MHI H-25 40 MW class: 34.8 % SC → ~60 MW 1×1 CC ⇒ ~51 % GTCC (~2025) | OEM quote — governs the P1/P2 ranking |
+| 2026-06-30 | Shipping ~0.997 & NH₃ storage ~0.998 energy retention | Boil-off ~0.025 %/day; common-mode to both permutations, immaterial to ranking | Refine if needed |
+| 2026-06-30 | H₂ 16″ pipeline parasitic retention ~0.99 | Compression to maintain 15–20 barg over short cross-strait run | Pipeline hydraulics |
 
 *(No project-specific capacities, distances, costs, or vessel sizes have been
 fixed yet — none should be invented. See CLAUDE.md §7.)*
@@ -55,6 +59,20 @@ material grade · throughput/phasing · number of parallel lines.
 | ID | Route/landfall | Crossing | Medium | Dia. | Pressure | Material | Throughput | Notes |
 |----|----------------|----------|--------|------|----------|----------|------------|-------|
 | P0 | *TBD* | *TBD* | H₂ | *TBD* | *TBD* | *TBD* | *TBD* | Template — populate when study starts |
+| P1 | MMHE (Johor) → Singapore | Pipeline | **H₂** | 16″ | 15–20 barg (Casale H₂ @ 20 barg) | *TBD* (H₂ service, ASME B31.12) | 650 ktpa NH₃ in → ~100 ktpa H₂ (NG-fired) / ~89 ktpa (clean) → H₂-CCGT | Crack at MMHE, pipe H₂, fire H₂ in CCGT in SG |
+| P2 | India → Singapore (no Johor) | n/a (NH₃ shipped all the way) | **NH₃** | n/a | n/a | n/a | 650 ktpa NH₃ → 100 % NH₃-fired CCGT | No cracking; ammonia stored & fired directly in SG |
+
+**Well-to-wire energy comparison (2026-06-30, Rev 1 — sourced CCGTs)** — see
+`permutations/P1_vs_P2_well-to-wire_energy.md`. Same 650 ktpa NH₃ from India;
+sea leg + NH₃ storage are common-mode (India→Johor ≈ India→Singapore).
+**Rev 1 result (LHV, base case): P1 ≈ 54.4 % vs P2 ≈ 50.7 %** — i.e. **P1
+(hydrogen) now wins**, reversing Rev 0. Reason: CCGT efficiencies are no longer
+symmetric assumptions but sourced to the machines each fuel can actually run in
+— H₂ in a ~64 %-class H-machine (GE 9HA.02) vs 100 % NH₃ only in a ~51 %-class
+40 MW machine (MHI H-25). The ~13-pt turbine gap outweighs the ~11 % cracking
+penalty. Crossover: P2 only wins if a large ~55 %+ 100 % ammonia turbine exists
+(technology-parity case → P2 63 % vs P1 55 %). Recommendation unchanged and now
+stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
 
 ## 5. Open Questions
 
@@ -119,6 +137,17 @@ material grade · throughput/phasing · number of parallel lines.
 
 ## 8. Changelog
 
+- **2026-06-30** — Built the first end-to-end permutation comparison: **P1**
+  (crack at MMHE → 16″ H₂ pipeline → H₂-CCGT in SG) vs **P2** (ship 650 ktpa NH₃
+  India → Singapore → 100 % NH₃-CCGT). Deliverable
+  `permutations/P1_vs_P2_well-to-wire_energy.md` + 8-slide deck
+  `permutations/P1_vs_P2_comparison_deck.pptx`. **Rev 1** anchors CCGT
+  efficiencies to published OEM data (H₂ ~62 % on GE 9HA.02 H-class; 100 % NH₃
+  ~51 % on MHI H-25 40 MW class), which **reverses** the Rev 0 result: usable
+  energy at the wire **P1 ≈ 54.4 % vs P2 ≈ 50.7 %** — hydrogen's access to a
+  ~64 %-class turbine outweighs the ~11 % cracking penalty. Crossover: P2 only
+  wins if a large ~55 %+ 100 % ammonia turbine exists. Cracking 89–91 % from
+  internal Casale/Duiker docs; recommendation **P1**.
 - **2026-06-30** — Updated `tcoedatabase/WIP_Ammonia_Cracker_Database.md` with the
   December 2025 licensor packages for **KBR** (`Licensor/kbr/kbr-johor-hub.md`,
   H2ACT® TIP Rev 0, 23 Dec 2025), **Duiker** (`Licensor/duiker/duiker-johor-hub.md`,
