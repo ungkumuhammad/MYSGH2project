@@ -118,6 +118,16 @@ material grade · throughput/phasing · number of parallel lines.
 
 ## 8. Changelog
 
+- **2026-06-30** — Added Casale licensor documents (Job No. A23070S, "NH₃
+  Cracking Technology Assessment", Issued for Proposal 05.12.2025) converted
+  from PDF to Markdown via Microsoft `markitdown`, stored under
+  `Licensor/Casale/`: `Casale_Cracker_Design_Basis__JohorHub.md`
+  (A23070S-E-PRZ-0001), `Casale_Cracker_Process_Description__JohorHub.md`
+  (A23070S-E-PRZ-0002), and `Casale_Ammonia_Cracker__JohorHub.md` (technical
+  proposal, MACH™ cracking technology). Source PDFs are vendor-confidential
+  Casale SA material. Note: these `.md` files are machine-extracted from PDF —
+  treat any quantitative value as transcription pending check against the
+  original PDF before use in a deliverable (no-fabrication rule).
 - **2026-06-30** — Initialised repository memory. Created `CLAUDE.md` (scope,
   value chain, permutation basis, cited technical baseline, no-fabrication rule)
   and this `memory.md` (facts, decisions, assumptions, permutation template,
