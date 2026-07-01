@@ -223,6 +223,25 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
   `markitdown` could not extract into the `.md` version — see prior entry.
   from a commercially confidential internal deck — treat as transcription
   pending verification, not a sourced public reference (no-fabrication rule).
+- **2026-07-01** — Since the `.pptx` is too large for Claude Design to load
+  directly, extracted its visual design tokens by reading the OOXML inside
+  the zip (`ppt/theme/theme2.xml`, `ppt/theme/theme3.xml`,
+  `srgbClr`/`rPr` attributes in `ppt/slides/slide1–9.xml`) and wrote
+  `presentationstyle/Design_Style_Guide.md`. Finding: the deck mixes **two
+  themes** — the generic PowerPoint "Office" default (Aptos fonts, slides 1,
+  4–9) and a custom **"Gentari-Update-feb23"** brand theme (Verdana, slides
+  2–3) — with a **hardcoded purple `#7030A0`** applied directly to
+  titles/branding across nearly the whole deck (97 occurrences), which is
+  the deck's real visual identity rather than either theme's native
+  palette. **Decision:** future Claude-generated decks for this project
+  default to the Gentari brand palette (`#7030A0` titles;
+  `#60269E`/`#00C5E5`/`#B2007F`/`#ED2B60`/`#FAD83A`/`#556938` accents, plus
+  topic-relevant extensions Hydrogen `#0062E4` / Renewable `#F58222` /
+  Green `#58C549`) and Verdana, falling back to the Office palette/Aptos
+  only when matching the Office-themed half of the source deck — full
+  12-role color tables, type scale (7–24pt), and 16:9 canvas dims (12.192M ×
+  6.858M EMU) are recorded in the style guide. All values are
+  machine-extracted directly from the `.pptx` XML (no-fabrication rule).
 - **2026-06-30** — Initialised repository memory. Created `CLAUDE.md` (scope,
   value chain, permutation basis, cited technical baseline, no-fabrication rule)
   and this `memory.md` (facts, decisions, assumptions, permutation template,
