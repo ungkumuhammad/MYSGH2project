@@ -7,7 +7,7 @@
 
 **Project:** Green ammonia import to Johor (MMHE) → on-site cracking to H₂ →
 cross-border H₂ pipeline to Singapore, defined on a permutation basis.
-**Last updated:** 2026-06-30.
+**Last updated:** 2026-07-01.
 
 ---
 
@@ -43,6 +43,7 @@ cross-border H₂ pipeline to Singapore, defined on a permutation basis.
 | 2026-06-30 | **100 % NH₃-fired CCGT net efficiency = 51 % (range 49–53 %, LHV)** — *now SOURCED* | Only near-commercial 100 % NH₃ machine = MHI H-25 40 MW class: 34.8 % SC → ~60 MW 1×1 CC ⇒ ~51 % GTCC (~2025) | OEM quote — governs the P1/P2 ranking |
 | 2026-06-30 | Shipping ~0.997 & NH₃ storage ~0.998 energy retention | Boil-off ~0.025 %/day; common-mode to both permutations, immaterial to ranking | Refine if needed |
 | 2026-06-30 | H₂ 16″ pipeline parasitic retention ~0.99 | Compression to maintain 15–20 barg over short cross-strait run | Pipeline hydraulics |
+| 2026-07-01 | **100 %-H₂ CCGT installed capital cost ≈ $1,000–1,400/kW ("normal" market) or ≈ $2,400–3,200/kW (2025–26 supply-constrained market)** — derived, *not* an OEM quote | NG H-class CCGT baseline (EIA/S&L) + literature hydrogen-firing premium (~+8.5 % on GT subsystem, Chalmers 2022), sanity-checked vs. real hydrogen-ready projects (IPP Renewed ~$1,030/kW, Long Ridge ~$1,235/kW) | OEM/EPC quote sized to actual Singapore offtake MW |
 
 *(No project-specific capacities, distances, costs, or vessel sizes have been
 fixed yet — none should be invented. See CLAUDE.md §7.)*
@@ -113,6 +114,33 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
 - National Hydrogen Strategy (25 Oct 2022): H₂ up to ~50 % of power by 2050;
   Singapore a net importer of low-carbon H₂/NH₃. — EMA Singapore.
 
+**H₂-fired CCGT capital cost (Singapore offtake, P1 demand side) — 2026-07-01**
+- No OEM/EPC publishes a clean 100 %-H₂ CCGT $/kW; no such plant is
+  commercially operating yet (closest real projects are hydrogen-*blend*-
+  ready, not 100 % H₂). Figures below are a **derived range**, not a quote.
+- NG H-class CCGT baseline: **$900–1,100/kW** (2023$, EIA/Sargent & Lundy
+  engineering basis) vs. **$2,200–2,800/kW** (2025 actual market, driven by
+  global turbine supply crunch, +195 % since ~2020 per Wood Mackenzie).
+- Real hydrogen-*ready* H/J-class CCGT projects (blend-capable, pre-crunch
+  pricing): IPP Renewed (Utah, MHI M501JAC, 840 MW, $865 M) ≈ **$1,030/kW**;
+  Long Ridge (Ohio, GE 7HA.02, 485 MW, ~$599 M financing basis) ≈
+  **$1,235/kW**.
+- Hydrogen-firing premium: one techno-economic study (Chalmers Univ., Int'l J.
+  Hydrogen Energy 2022) finds **~+8.5 % on the gas-turbine subsystem**; diluted
+  across a full CCGT (GT ≈20–30 % of plant CAPEX per Wood Mackenzie) to
+  roughly **low-single-digit–5 %** on the whole plant. Premium scales with H₂
+  vol% (qualitative, multiple trade sources; no single agreed % for 100 % H₂).
+- **Derived range (this study, not a vendor quote):** 100 %-H₂ CCGT ≈
+  **$1,000–1,400/kW** at "normal" market pricing; **≈$2,400–3,200/kW** at
+  today's (2025–2026) supply-constrained market pricing.
+- All US-market data (EIA, IPP Renewed, Long Ridge) — no Singapore/ASEAN EPC
+  benchmark found; turbine hardware price is set by the global OEM backlog
+  regardless of plant location, so a regional discount would apply mainly to
+  civil/installation labor, not equipment.
+- Full write-up: `market_research/H2_CCGT_capex_market_study.md`.
+  — EIA AEO2025/AEO2026; Wood Mackenzie; Utility Dive; Mitsubishi Power (IPP
+  Renewed); GE Vernova (Long Ridge); Int'l J. Hydrogen Energy 2022 (Chalmers).
+
 ## 7. References
 
 - Ammonia Energy Association — "Liquid Ammonia for Hydrogen Storage":
@@ -134,9 +162,44 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
 - Singapore EDB — Johor–Singapore Special Economic Zone (JS-SEZ):
   https://www.edb.gov.sg/en/johor-singapore-special-economic-zone.html
 - MHB (Malaysia Marine and Heavy Engineering): https://mhb.com.my/
+- EIA — Capital Cost and Performance Characteristics for Utility-Scale Electric
+  Power Generating Technologies (AEO2025):
+  https://www.eia.gov/analysis/studies/powerplants/capitalcost/pdf/capital_cost_AEO2025.pdf
+- EIA — Assumptions to the Annual Energy Outlook 2026: Electricity Market
+  Module: https://www.eia.gov/outlooks/aeo/assumptions/pdf/EMM_Assumptions.pdf
+- Wood Mackenzie — "Gas turbine prices soar 195% as market faces
+  supply-demand crisis":
+  https://www.woodmac.com/press-releases/gas-turbine-prices-soar-195-as-market-faces-supply-demand-crisis/
+- Mitsubishi Power Americas — IPP Renewed:
+  https://power.mhi.com/regions/amer/success-stories/ipp-renewed
+- GE Vernova — Long Ridge Energy case study:
+  https://www.gevernova.com/gas-power/resources/case-studies/long-ridge-energy
+- International Journal of Hydrogen Energy (2022, Chalmers Univ.) — "The
+  value of flexible fuel mixing in hydrogen-fueled gas turbines – A
+  techno-economic study": https://www.sciencedirect.com/science/article/pii/S0360319922030890
 
 ## 8. Changelog
 
+- **2026-07-01** — Quick market study on **hydrogen-fired CCGT capital cost
+  (USD/kW)** for the Singapore offtake side of P1, stored at
+  `market_research/H2_CCGT_capex_market_study.md`. No public source publishes
+  a clean 100 %-H₂-CCGT $/kW (no such plant is commercially operating; closest
+  analogues are hydrogen-blend-ready, not 100 % H₂). Derived a range from: (a)
+  NG H-class CCGT baselines — $900–1,100/kW engineering basis (EIA/Sargent &
+  Lundy, 2023$) vs. $2,200–2,800/kW current 2025 market (Wood Mackenzie
+  turbine supply crunch, +195 % since ~2020); (b) two real hydrogen-ready
+  H/J-class CCGT projects as sanity checks — IPP Renewed (Utah, MHI M501JAC,
+  840 MW, $865 M ≈ $1,030/kW) and Long Ridge (Ohio, GE 7HA.02, 485 MW, ~$599 M
+  financing basis ≈ $1,235/kW); (c) one techno-economic literature source
+  (Chalmers Univ., Int'l J. Hydrogen Energy 2022) quantifying a ~+8.5 %
+  hydrogen-firing premium on the gas-turbine subsystem, diluted to roughly
+  low-single-digit–5 % across a full CCGT since the steam bottoming cycle is
+  fuel-agnostic. **Result: ≈$1,000–1,400/kW at "normal" market pricing,
+  ≈$2,400–3,200/kW at today's supply-constrained pricing** — flagged
+  throughout as a derived estimate, not an OEM/EPC quote (no-fabrication
+  rule). All figures are US-market; no Singapore/ASEAN CCGT EPC benchmark was
+  located. Added corresponding entries to the Sourced Data Registry (§6),
+  Assumptions Register (§3), and References (§7).
 - **2026-06-30** — Built the first end-to-end permutation comparison: **P1**
   (crack at MMHE → 16″ H₂ pipeline → H₂-CCGT in SG) vs **P2** (ship 650 ktpa NH₃
   India → Singapore → 100 % NH₃-CCGT). Deliverable
