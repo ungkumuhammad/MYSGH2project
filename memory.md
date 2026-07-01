@@ -126,6 +126,21 @@ material grade · throughput/phasing · number of parallel lines.
 
 ## 8. Changelog
 
+- **2026-07-01** — 160 ktpa CAPEX & LCOH analysis completed; document at
+  `analysis/ammonia_cracker_capex_160ktpa.md`. Key findings:
+  - KBR 160 ktpa ISBL: **~$302M** (extrapolated, n=0.53, single train — 457 MTPD is within
+    KBR's 1,200 MTPD single-train max). Total TIC ~$393M (ISBL + 30% OSBL, Assumption A4 revised).
+  - Duiker 160 ktpa: **2 trains required** (max single train ~276 MTPD ≈ 97 ktpa). Total LSTK
+    ~$346M + ~$22M OSBL = ~$367M total TIC. Near-linear doubling from 80 ktpa — loses
+    single-train economy of scale vs KBR.
+  - CAPEX gap at 160 ktpa narrows vs 80 ktpa: KBR ~$393M vs Duiker ~$367M (~7% apart,
+    within uncertainty). Contrast with 80 ktpa where Duiker held clearer advantage.
+  - LCOH ($500/t NH₃): KBR $3.64/kg vs Duiker $3.86/kg (NG mode vs NH₃ fired). Gap widens
+    vs 80 ktpa due to Duiker losing single-train scale benefit + higher NH₃ consumption ×2.
+  - **If zero-CI required** (KBR clean-fuel mode): KBR NH₃ consumption rises to 7.20 t/t H₂
+    → LCOH ~$3.85/kg ≈ Duiker $3.86/kg. LCOH-equivalent at zero-CI.
+  - Key open item: Duiker max single-train capacity — if >276 MTPD is possible, the 2-train
+    penalty disappears and comparison returns to 80 ktpa pattern.
 - **2026-06-30** — KBR vs Duiker CAPEX & LCOH comparison at 80 ktpa completed;
   document at `analysis/kbr_vs_duiker_80ktpa_capex_lcoh.md`. Key findings:
   - Comparison is **NOT apple-to-apple** on 5 material axes: CAPEX scope (KBR ISBL only vs
