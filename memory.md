@@ -39,6 +39,11 @@ cross-border H₂ pipeline to Singapore, defined on a permutation basis.
 |------|------------|-----|---------------|
 | 2026-06-30 | NH₃ stored as refrigerated liquid (~−33 °C, atmospheric) | Standard for large-scale import terminals | Storage concept selection |
 | 2026-06-30 | Crossing carrier = pure H₂ (base case) | Matches "crack at MMHE, pipe H₂" brief | Permutation study may add NH₃-further variants |
+| 2026-06-30 | **Duiker AHC vs KBR H2ACT® are fundamentally different machines**: Duiker = convective-only reactor + SCO combustor (purpose-built, no flames on tubes, no steam/CW); KBR = radiant fired-tube reformer furnace (SMR lineage, steam system, CW required). Casale MACH₂™ is also SMR-lineage (top-fired). This architectural difference governs utility requirements, footprint, tube life, NOx profile, and scaling behaviour — must never be treated as equivalent technology variants in any assessment. | Established from Dec-2025 licensor packages | Standing |
+| 2026-06-30 | **A2** EUR/USD = 1.08 for Duiker cost conversions | Approximate Q4 2025 rate; ±5% impact on Duiker USD figures | Finance / project FX basis |
+| 2026-06-30 | **A3** Duiker scaling exponent n=0.60 (six-tenths rule) | Only one Duiker data point (12 ktpa); n cannot be derived — 0.6 used as default | Duiker to provide 80 ktpa or full-train CAPEX |
+| 2026-06-30 | **A4** KBR OSBL at 80 ktpa = 35% of ISBL | KBR states 55% at 12 ktpa, "reduces at larger capacity"; 35% interpolated at 80 ktpa | KBR to provide explicit OSBL breakdown |
+| 2026-06-30 | **A5** Duiker €2.9M/yr OPEX (12 ktpa) excludes main NH₃ feedstock cost | At 7.03 t/t H₂ and €600/t, feedstock = €50.6M/yr — incompatible with €2.9M total OPEX; feedstock added separately | Confirm with Duiker |
 | 2026-06-30 | **A1** OSBL ~40% of ISBL at 100 ktpa cracker scale | KBR states ~55% at 12 ktpa, "reduces at larger capacity"; 40% is interpolated assumption | Confirm when KBR provides OSBL for 68–80 ktpa |
 | 2026-06-30 | KBR H2ACT® scaling exponent n≈0.53 derived from four data points | Power-law fit to 12/24/68/80 ktpa CAPEX points; range 0.52–0.56 | Stable unless KBR provides more data points |
 
@@ -121,6 +126,19 @@ material grade · throughput/phasing · number of parallel lines.
 
 ## 8. Changelog
 
+- **2026-06-30** — KBR vs Duiker CAPEX & LCOH comparison at 80 ktpa completed;
+  document at `analysis/kbr_vs_duiker_80ktpa_capex_lcoh.md`. Key findings:
+  - Comparison is **NOT apple-to-apple** on 5 material axes: CAPEX scope (KBR ISBL only vs
+    Duiker LSTK), Duiker requires extrapolation (1 data point), OPEX structures differ,
+    currencies differ, fuel modes differ in CI.
+  - CAPEX: Duiker total TIC ~$190–200M vs KBR ~$282M (ISBL+OSBL) at 80 ktpa — Duiker
+    lower, but rests on n=0.60 scaling assumption (A3).
+  - LCOH: KBR marginally cheaper at all NH₃ prices ($3.81 vs $3.88/kg at $500/t; $6.67 vs
+    $7.04/kg at $950/t) because KBR consumes less NH₃ (6.35 vs 7.03 t/t H₂) in NG mode.
+    Gap widens at higher NH₃ price. If KBR operates in clean-fuel mode (zero CI), NH₃
+    consumption rises to 7.20 t/t H₂ → Duiker becomes LCOH-competitive or cheaper.
+  - To make comparison apple-to-apple: need Duiker 80 ktpa CAPEX quote, OPEX structure
+    confirmation (A5), aligned fuel mode, KBR OSBL for large cases.
 - **2026-06-30** — CAPEX analysis for 100 ktpa H₂ cracker completed; document at
   `analysis/ammonia_cracker_capex_100ktpa.md`. Key outputs:
   - KBR H2ACT® quoted ISBL CAPEX: 12 ktpa=$78M, 24 ktpa=$110M, 68 ktpa=$191M,
