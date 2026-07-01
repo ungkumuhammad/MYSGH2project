@@ -217,6 +217,10 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
   visual design tokens were captured, only content structure. Any
   quantitative figures inside (e.g. "Taurus 7.4 USD/kgH2 vs 12 USD/kgH2 ELY",
   "USD 44,000 FTE cost", "EUR 300,000 cost avoidance") are machine-extracted
+- **2026-07-01** — Attached the original source file alongside the Markdown
+  conversion: `presentationstyle/Reference_Deck.pptx` (binary PPTX, ~6.6 MB).
+  Kept for visual styling reference (colors, fonts, layout/theme) that
+  `markitdown` could not extract into the `.md` version — see prior entry.
   from a commercially confidential internal deck — treat as transcription
   pending verification, not a sourced public reference (no-fabrication rule).
 - **2026-06-30** — Initialised repository memory. Created `CLAUDE.md` (scope,
