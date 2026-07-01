@@ -200,6 +200,25 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
   Casale SA material. Note: these `.md` files are machine-extracted from PDF —
   treat any quantitative value as transcription pending check against the
   original PDF before use in a deliverable (no-fabrication rule).
+- **2026-07-01** — Added a "Reference_Deck" presentation (CrackerTech /
+  Floating Ammonia Storage and Cracker Unit (FASCU) collaboration deck: OKRs,
+  licensor engagement, floating-cracker partner selection (SwitcH2, BW
+  Offshore, Hoegh Evi, Toyo Engineering/Mitsubishi Shipbuilding), TCA/JFSA
+  contracting workflow, visit/way-forward timeline), converted from PPTX to
+  Markdown via Microsoft `markitdown`, stored at new root-level
+  `presentationstyle/Reference_Deck.md`. Per user instruction this file is
+  intended as the **reference for Claude's design system / presentation
+  style** going forward — i.e., its structure (slide titles, section
+  hierarchy, notes blocks) should inform how future decks/reports for this
+  project are organised, not as sourced technical data. Note: `markitdown`
+  extracts text/structure only (slide titles, body text, tables, image
+  captions as alt-text placeholders like `![Picture6.jpg]`) — it does NOT
+  extract visual styling (colors, fonts, layout/theme) from the PPTX, so no
+  visual design tokens were captured, only content structure. Any
+  quantitative figures inside (e.g. "Taurus 7.4 USD/kgH2 vs 12 USD/kgH2 ELY",
+  "USD 44,000 FTE cost", "EUR 300,000 cost avoidance") are machine-extracted
+  from a commercially confidential internal deck — treat as transcription
+  pending verification, not a sourced public reference (no-fabrication rule).
 - **2026-06-30** — Initialised repository memory. Created `CLAUDE.md` (scope,
   value chain, permutation basis, cited technical baseline, no-fabrication rule)
   and this `memory.md` (facts, decisions, assumptions, permutation template,
