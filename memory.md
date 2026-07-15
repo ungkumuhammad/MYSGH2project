@@ -29,6 +29,7 @@ cross-border H₂ pipeline to Singapore, defined on a permutation basis.
 | 2026-06-30 | Created root `CLAUDE.md` + `memory.md` as project baseline | Establish scope, technical baseline, memory protocol | Done |
 | 2026-06-30 | Pipeline & sizing handled as **permutation matrix**, not single design | User requirement | Active |
 | 2026-06-30 | Refreshed KBR/Duiker/Casale content in `tcoedatabase` from Dec-2025 packages; kept file structure, fuel-mode & capacity basis per column; flagged gaps in red | User request ("update… without changing the nature of the file"); No-Fabrication Rule | Done |
+| 2026-07-15 | Created `power_generation/` folder + resident domain-expert agent (gas engine vs gas turbine incl. CCGT, on NG/H₂/NH₃) | User request: build the ammonia gas-engine vs ammonia gas-turbine/CCGT power-gen comparison; agent must not fabricate — all numbers sourced/labelled/derived | Agent built; comparison deliverables are the next task |
 
 ## 3. Assumptions Register
 
@@ -180,6 +181,21 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
 
 ## 8. Changelog
 
+- **2026-07-15** — Created new root-level folder **`power_generation/`** with a
+  **resident domain-expert agent**: a senior power-generation engineer
+  experienced in **reciprocating gas engines** and **gas turbines (incl. CCGT
+  configuration)** across **natural gas, hydrogen and ammonia**. Purpose: build
+  and maintain the **ammonia gas engine vs. ammonia gas turbine/CCGT** power-
+  generation comparison for the Singapore offtake side, benchmarked against NG
+  (mature) and H₂ (P1). Agent is defined in two synced places:
+  `.claude/agents/powergen-engine-vs-turbine.md` (authoritative, invocable
+  Claude Code subagent charter with the full comparison framework/axes) and
+  `power_generation/AGENT.md` (resident persona); plus `power_generation/
+  README.md`. Charter enforces the repo **No-Fabrication Rule** (every number
+  sourced/assumption-labelled/derived; blank+flagged beats invented),
+  distinguishes fuel from technology, and reuses already-sourced repo anchors
+  (P1/P2 CCGT efficiencies §3/§6, H₂-CCGT capex study). Only the agent was
+  built this session; the comparison deliverables are the agreed **next task**.
 - **2026-07-01** — Quick market study on **hydrogen-fired CCGT capital cost
   (USD/kW)** for the Singapore offtake side of P1, stored at
   `market_research/H2_CCGT_capex_market_study.md`. No public source publishes
