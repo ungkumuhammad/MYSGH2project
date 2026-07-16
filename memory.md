@@ -7,7 +7,7 @@
 
 **Project:** Green ammonia import to Johor (MMHE) → on-site cracking to H₂ →
 cross-border H₂ pipeline to Singapore, defined on a permutation basis.
-**Last updated:** 2026-07-01.
+**Last updated:** 2026-07-16.
 
 ---
 
@@ -31,6 +31,7 @@ cross-border H₂ pipeline to Singapore, defined on a permutation basis.
 | 2026-06-30 | Refreshed KBR/Duiker/Casale content in `tcoedatabase` from Dec-2025 packages; kept file structure, fuel-mode & capacity basis per column; flagged gaps in red | User request ("update… without changing the nature of the file"); No-Fabrication Rule | Done |
 | 2026-07-15 | Created `power_generation/` folder + resident domain-expert agent (gas engine vs gas turbine incl. CCGT, on NG/H₂/NH₃) | User request: build the ammonia gas-engine vs ammonia gas-turbine/CCGT power-gen comparison; agent must not fabricate — all numbers sourced/labelled/derived | Agent built |
 | 2026-07-16 | Built first **NH₃-focused 50 MW data-center engine-vs-CCGT comparison matrix** (`power_generation/50MW_datacenter_NH3_engine_vs_CCGT_matrix.md`) | User use-case: 50 MW firm clean block on 100 % NH₃, grid tops up larger total demand until NH₃ affordable for 100 % clean | Matrix-only first pass done; deeper study (per-cell NH₃ premiums, emissions ppm) is next |
+| 2026-07-16 | Applied the scoring-matrix template to score **NH₃ engine vs NH₃ turbine (CCGT)** → weighted result **engine 3.96 vs turbine 2.84 /5** for the grow-the-clean-share use-case (`scoring_matrix/NH3_engine_vs_turbine_scoring_matrix.md`) | User request; 7 weighted criteria over the sourced axes + 2024–26 studies; ranking robust to sensitivity check | Done; C2/C6 (NH₃ premium, maturity) to close with OEM/EPC before investment-grade use |
 
 ## 3. Assumptions Register
 
@@ -235,6 +236,23 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
 
 ## 8. Changelog
 
+- **2026-07-16** — Applied the reusable scoring-matrix template
+  (`scoring_matrix/Scoring_Weightage_Matrix_Template.md`) to the **NH₃
+  reciprocating engine vs. NH₃ gas turbine (CCGT)** decision, producing
+  `scoring_matrix/NH3_engine_vs_turbine_scoring_matrix.md`. Turned the earlier
+  qualitative 14-axis comparison + 2024–26 studies (MDPI *Energies* 2025 "Ammonia
+  Combustion: ICEs and Gas Turbines"; ScienceDirect/ASME ammonia-GT reviews;
+  Wärtsilä 25 A; MAN NH3-Spark full-load milestone; EIA/GridLab/Thunder Said cost
+  anchors) into a **weighted score**. Seven higher=better criteria (cost/emissions
+  inverted), weights summing to 100 %: Modularity/redundancy 20, Maturity-on-NH₃
+  20, Part-load/flexibility 18, Peak efficiency 15, Emissions manageability 12,
+  CAPEX 10 (held low — NH₃ premium unpublished for both), Footprint 5. **Result:
+  engine 3.96 vs turbine 2.84 /5** — engine wins the grow-the-clean-share
+  use-case (N+1 modularity, flat part-load, fast/black-start, near-zero water);
+  turbine leads only on peak efficiency + land. **Sensitivity** (efficiency-first
+  weights: C4→30 %, C1→5 %) still gives engine **3.81 vs 3.29** — ranking robust.
+  Scores are judgements over the sourced axes; unpublished NH₃ values flagged, not
+  invented (No-Fabrication Rule). Logged in Decisions (§2).
 - **2026-07-16** — Built the first **NH₃-focused, 50 MW data-center power-block
   comparison matrix**: **reciprocating ammonia gas engine vs. ammonia gas
   turbine in CCGT config**, at
