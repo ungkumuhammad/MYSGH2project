@@ -29,7 +29,8 @@ cross-border H₂ pipeline to Singapore, defined on a permutation basis.
 | 2026-06-30 | Created root `CLAUDE.md` + `memory.md` as project baseline | Establish scope, technical baseline, memory protocol | Done |
 | 2026-06-30 | Pipeline & sizing handled as **permutation matrix**, not single design | User requirement | Active |
 | 2026-06-30 | Refreshed KBR/Duiker/Casale content in `tcoedatabase` from Dec-2025 packages; kept file structure, fuel-mode & capacity basis per column; flagged gaps in red | User request ("update… without changing the nature of the file"); No-Fabrication Rule | Done |
-| 2026-07-15 | Created `power_generation/` folder + resident domain-expert agent (gas engine vs gas turbine incl. CCGT, on NG/H₂/NH₃) | User request: build the ammonia gas-engine vs ammonia gas-turbine/CCGT power-gen comparison; agent must not fabricate — all numbers sourced/labelled/derived | Agent built; comparison deliverables are the next task |
+| 2026-07-15 | Created `power_generation/` folder + resident domain-expert agent (gas engine vs gas turbine incl. CCGT, on NG/H₂/NH₃) | User request: build the ammonia gas-engine vs ammonia gas-turbine/CCGT power-gen comparison; agent must not fabricate — all numbers sourced/labelled/derived | Agent built |
+| 2026-07-16 | Built first **NH₃-focused 50 MW data-center engine-vs-CCGT comparison matrix** (`power_generation/50MW_datacenter_NH3_engine_vs_CCGT_matrix.md`) | User use-case: 50 MW firm clean block on 100 % NH₃, grid tops up larger total demand until NH₃ affordable for 100 % clean | Matrix-only first pass done; deeper study (per-cell NH₃ premiums, emissions ppm) is next |
 
 ## 3. Assumptions Register
 
@@ -45,6 +46,7 @@ cross-border H₂ pipeline to Singapore, defined on a permutation basis.
 | 2026-06-30 | Shipping ~0.997 & NH₃ storage ~0.998 energy retention | Boil-off ~0.025 %/day; common-mode to both permutations, immaterial to ranking | Refine if needed |
 | 2026-06-30 | H₂ 16″ pipeline parasitic retention ~0.99 | Compression to maintain 15–20 barg over short cross-strait run | Pipeline hydraulics |
 | 2026-07-01 | **100 %-H₂ CCGT installed capital cost ≈ $1,000–1,400/kW ("normal" market) or ≈ $2,400–3,200/kW (2025–26 supply-constrained market)** — derived, *not* an OEM quote | NG H-class CCGT baseline (EIA/S&L) + literature hydrogen-firing premium (~+8.5 % on GT subsystem, Chalmers 2022), sanity-checked vs. real hydrogen-ready projects (IPP Renewed ~$1,030/kW, Long Ridge ~$1,235/kW) | OEM/EPC quote sized to actual Singapore offtake MW |
+| 2026-07-16 | Data-center 50 MW clean block framed as **firm NH₃ generation + temporary grid top-up**, transitioning to 100 % clean as NH₃ becomes affordable | User use-case definition; favours modular/phased capacity that can grow the clean share unit-by-unit | Confirm total DC demand, target 100 %-clean date, and grid interconnection terms |
 
 *(No project-specific capacities, distances, costs, or vessel sizes have been
 fixed yet — none should be invented. See CLAUDE.md §7.)*
@@ -142,6 +144,36 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
   — EIA AEO2025/AEO2026; Wood Mackenzie; Utility Dive; Mitsubishi Power (IPP
   Renewed); GE Vernova (Long Ridge); Int'l J. Hydrogen Energy 2022 (Chalmers).
 
+**Ammonia power-gen: engine vs. gas turbine (CCGT) — 50 MW DC study, 2026-07-16**
+- **Maturity (both pre-commercial at 50 MW on 100 % NH₃):** Wärtsilä 25 Ammonia
+  engine = marine, 1.9–3.1 MW/unit, commercial deliveries **2028**; MAN NH₃
+  genset (NH3-Spark / AmmoniaMot 2) = R&D, testing 2025; Wärtsilä currently
+  markets **NG (34SG), not NH₃, for data centers**. Mitsubishi H-25 **40 MW-class
+  100 % NH₃ gas turbine** targeted ~2025 commercialization but **still in
+  feasibility/demo study as of 2025** (slipped).
+- **Efficiency (LHV):** gas engine ≈46–49 % simple cycle (OEM parity w/ DF-LNG;
+  34SG NG = **48.9 %**); Wärtsilä Flexicycle engine-CC **>54 %** (NG). NH₃-CCGT
+  (H-25 1×1) ≈**50–51 %** (SC ≈34.8 % + steam bottoming) — see also §3.
+- **Part-load:** engine pulse efficiency **>46 %** vs aeroderivative GT **<36 %**
+  (Wärtsilä). **Water:** engine SC **<5 L/h** vs CCGT recirculating **~780 L/MWh**
+  (Flexicycle ~409 L/MWh). **Footprint:** GT smaller per MW (Wärtsilä concedes).
+  **Start:** engine ~2 min to full load, black-start capable.
+- **Emissions on NH₃:** high raw NOx → SCR + AMOX/ASC slip catalyst; **N₂O**
+  (potent GHG) needs a **dedicated catalyst**; dual-function SCR shown **<2.5 ppm
+  NOx, ~zero slip** for turbines. Wärtsilä 25 A: up to **90 % GHG cut** at 95 %
+  NH₃ energy share (~5 % pilot). MAN NH3-Spark targets **pilot-free**.
+- **CAPEX (NG anchors only; NH₃ premium NOT sourced — do not quote):** NG RICE
+  **≈$1,250–1,500/kW**; NG CCGT **$921/kW** (EIA 2023$) → **$1,116–1,427/kW**
+  (2026–27 projects) → **~$2,000/kW** recent actuals.
+- **Provisional read:** for a clean block that grows from a partial share to
+  100 %, the **engine** fits the transition better (modular N+1, flat part-load,
+  fast/black-start, near-zero water); the **CCGT** wins peak efficiency &
+  footprint but is a coarse single train, water-hungry, slower-start. Neither is
+  buyable at 50 MW on pure NH₃ today → grid bridge required.
+- Full matrix: `power_generation/50MW_datacenter_NH3_engine_vs_CCGT_matrix.md`.
+  — Wärtsilä; Mitsubishi Power; MAN ES; EIA AEO2025; GridLab; Thunder Said
+  Energy; Power Engineering. (See References.)
+
 ## 7. References
 
 - Ammonia Energy Association — "Liquid Ammonia for Hydrogen Storage":
@@ -178,9 +210,51 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
 - International Journal of Hydrogen Energy (2022, Chalmers Univ.) — "The
   value of flexible fuel mixing in hydrogen-fueled gas turbines – A
   techno-economic study": https://www.sciencedirect.com/science/article/pii/S0360319922030890
+- Wärtsilä — 25 Ammonia engine power upgrade (deliveries 2028):
+  https://www.wartsila.com/media/news/16-04-2026-power-increase-for-wartsila-25-ammonia-engine-supports-more-efficient-ammonia%E2%80%91fuelled-vessel-designs-3739966
+- Wärtsilä — 4-stroke ammonia engine testing, up to 90 % GHG reduction:
+  https://www.wartsila.com/media/news/27-05-2025-extensive-testing-of-wartsila-s-4-stroke-ammonia-engine-demonstrates-ghg-emission-reductions-by-up-to-90-percent-3590235
+- Wärtsilä 34SG gas engine (48.9 % efficiency, ~2 min to full load):
+  https://www.wartsila.com/energy/solutions/engine-power-plants/wartsila-34sg-gas-engine
+- Wärtsilä Flexicycle (engine combined cycle, >54 % ISO):
+  https://www.wartsila.com/energy/engine-power-plant-solutions/engine-power-plant-products/applications/flexicycle-power-plants
+- Wärtsilä — Technology comparison, engines vs. aeroderivative gas turbines
+  (part-load, water, footprint): https://www.wartsila.com/energy/learn-more/technology-comparison-engines-vs-aeros
+- Wärtsilä — ammonia for marine, gas for data centers:
+  https://www.powertraininternationalweb.com/news/wartsila-ammonia-marine-34sg-data-centers/
+- Mitsubishi Power — world's first 40 MW-class 100 % ammonia gas turbine:
+  https://power.mhi.com/news/20210301.html
+- MAN Energy Solutions — ammonia genset R&D (NH3-Spark / AmmoniaMot 2):
+  https://www.man-es.com/company/press-releases/press-details/2025/05/22/man-energy-solutions-to-lead--new-ammonia-genset-project
+- GridLab — The New Reality of Power Generation (2025 gas turbine costs):
+  https://gridlab.org/wp-content/uploads/2025/09/GridLab_Gas-Turbine-Costs-Report-1.pdf
+- Thunder Said Energy — reciprocating gas engines, levelized costs:
+  https://thundersaidenergy.com/downloads/reciprocating-gas-engines-levelized-costs/
+- Power Engineering — dual-function SCR catalyst (<2.5 ppm NOx, ~zero NH₃ slip,
+  gas turbines): https://www.power-eng.com/gas/turbines/scr-catalysts-dual-function-catalyst-promises-high-nosubx-sub-removal-with-zero-ammonia-slip-for-gas-turbine-applications/
 
 ## 8. Changelog
 
+- **2026-07-16** — Built the first **NH₃-focused, 50 MW data-center power-block
+  comparison matrix**: **reciprocating ammonia gas engine vs. ammonia gas
+  turbine in CCGT config**, at
+  `power_generation/50MW_datacenter_NH3_engine_vs_CCGT_matrix.md`. Use-case: a
+  **50 MW firm clean block on 100 % green NH₃** with the **grid temporarily
+  topping up** the larger total DC demand until ammonia is affordable for 100 %
+  clean supply. **Headline: neither engine nor turbine is a buyable, proven
+  50 MW / 100 %-NH₃ product today** — both pre-commercial (Wärtsilä 25 A engine
+  marine-first, deliveries 2028; MHI H-25 40 MW-class NH₃ GT still pre-demo),
+  which is why the grid bridge is needed. Matrix (14 axes) sourced to Wärtsilä,
+  Mitsubishi Power, MAN ES, EIA AEO2025, GridLab, Thunder Said Energy, Power
+  Engineering; NH₃-specific efficiency/emissions-ppm/CAPEX-premium flagged as
+  **not published** and NOT invented (No-Fabrication Rule). Provisional read:
+  **engine** fits the grow-the-clean-share transition better (modular N+1, flat
+  part-load >46 % vs GT <36 %, ~2-min/black-start, <5 L/h water); **CCGT** wins
+  peak efficiency (~51 %) and footprint but is a coarse, single-train,
+  water-hungry (~780 L/MWh), slower-start block. Added datapoints to the Sourced
+  Data Registry (§6), an assumption (§3), and 12 references (§7). This was the
+  agreed matrix-only first pass; deeper study (NH₃ premiums, emissions ppm,
+  investment-grade CAPEX) is the next task.
 - **2026-07-15** — Created new root-level folder **`power_generation/`** with a
   **resident domain-expert agent**: a senior power-generation engineer
   experienced in **reciprocating gas engines** and **gas turbines (incl. CCGT
