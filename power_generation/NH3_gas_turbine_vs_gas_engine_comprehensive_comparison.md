@@ -55,7 +55,7 @@ matter if the duty is load-following or grows incrementally.
 | A3 | Pilot / ignition fuel needed | **None** (combustor-based) | **Yes, ~5 %** (Wärtsilä 25 A; ME-LGIA "5 % SPOC"). MAN *NH3-Spark* targets pilot-free — **R&D** | [7][9][11] |
 | A4 | **Highest TRL on 100 % NH₃, stationary** | **TRL 7–8** — 2 MW machine, ~3,000 h endurance + load rejection/dump | **TRL 5–6 stationary** (marine TRL 7–8; no stationary ammonia genset in service) | [3][4][7][9] |
 | A5 | Largest frame with NH₃ hardware demonstrated | **F-class (6F.03 / 7F / 9F)** combustion system, full-scale, 100 % NH₃ | **~3.1 MW/cyl-set unit** (W25 A, 1.9–3.1 MW); MAN roadmap 4-stroke DF to **26 MW**, 2-stroke **12–68 MW** | [1][2][7][10] |
-| A6 | Commercial availability (stationary NH₃) | **~2030** for F-class retrofit combustor; 2 MW IM270 near-term; MHI H-25 40 MW-class **slipped past its ~2025 target** | **≥2028** and marine-first; stationary genset programme runs to ~2027–28 | [1][2][13][14][7][10] |
+| A6 | Commercial availability (stationary NH₃) | **~2030** for F-class retrofit combustor; 2 MW IM270 near-term; MHI H-25 40 MW-class targeted **"~2025"** (announced 2021) with **no confirming or revising update located since** — treat as stale/unconfirmed, not as a confirmed slip (§2 row M5) | **≥2028** and marine-first; stationary genset programme runs to ~2027–28 | [1][2][13][14][7][10] |
 | A7 | **Retrofit path on existing fleet** | **Yes — explicitly the GE/IHI product concept** (retrofittable combustion system for installed 6F/7F/9F) | Retrofit offered on marine 2-stroke; **no stationary retrofit product** | [1][2][11] |
 | A8 | Fuel-flexibility of the same asset | NG ↔ H₂ ↔ NH₃ across a blend range; Baker Hughes/Hanwha NovaLT16 claims **100 % NH₃ ↔ 100 % gas and any blend** | DF: NG/diesel now → NH₃ later on the same block | [15][16][7] |
 
@@ -131,7 +131,35 @@ matter if the duty is load-following or grows incrementally.
 
 ---
 
-## 2. Derived fuel consumption — what the efficiency gap actually costs
+## 2. MHI actual/demonstrated data vs. the literature/theoretical studies used above
+
+Section 1's efficiency and NOx rows lean on **generic literature/simulation
+studies** (ScienceDirect, MDPI, NETL) because no OEM publishes an ammonia-specific
+efficiency or emissions curve for a named machine. MHI is the exception — it has
+**real hardware test results** on record, separate from its H-25 100 %-NH₃
+*headline* product. Laid side by side, MHI's actual numbers are **materially
+behind** the literature's optimised/simulated cases, and one long-standing
+assumption in this repo needs a flag.
+
+| # | Axis | **Literature / theoretical study (§1)** | **MHI actual / demonstrated data** | Read | Source |
+|---|------|------------------------------------------|-------------------------------------|------|--------|
+| M1 | **Ammonia co-firing ratio, real hardware** | Cracked-NH₃ CC study models the **0→100 %** cracking range in simulation (not built hardware) [21] | **20 % NH₃ (LHV) co-firing demonstrated in an actual 2 MW-class gas turbine** — combustor-only modification of an **IHI IM270** airframe, tested at **Yokohama, Oct 2020** | MHI's *proven, hardware* ceiling (20 %) sits far below both the literature's simulated 100 % case and IHI's own later **100 % liquid-NH₃ solo-fire** on the same IM270 platform (§1 row A2/A4) — the clearest theory-vs-hardware gap in this whole comparison | [33][34] |
+| M2 | **NOx at high ammonia ratio** | NETL: rich-lean staged combustion **modelled/lab-tested to <100 ppm** in "optimised configurations" (generic, not tied to a named machine) [24] | **Raw (pre-treatment) NOx = 287 ppm @16 %O₂ at 20 % NH₃ mixing ratio**, rising sharply up to ~5 % mixing then flattening to 20 %; reduced to **<7 ppm only after an SCR/NOx-removal device** | MHI's actual combustor-out NOx at just 20 % ammonia is **~3× the literature's "optimised <100 ppm"** claim — 2020-vintage hardware ran well behind the lab-scale optimised designs the literature cites. The <7 ppm figure (matching IHI's IM270 solo-fire number, §1 D2) is an **after-treatment result, not a combustion result** | [33] |
+| M3 | **100 % NH₃ simple-cycle efficiency (H-25)** | This repo's own anchor: **34.8 %** SC (memory.md §3, used throughout §1 B1–B3) | **⚠️ Not confirmed as an ammonia-specific figure.** MHI's H-25 datasheet efficiency is published on its **natural-gas** baseline; no MHI source located in this session states a **100 %-ammonia-specific** SC efficiency for the H-25. The 34.8 % figure this repo carries forward from prior sessions appears to be the **NG-class spec applied by assumption**, not a disclosed ammonia number | **This is a live gap, not a resolved anchor.** Everything downstream in §1 (B1–B3, the P1-vs-P2 turbine-efficiency case in memory.md §4) inherits this assumption. Recommend requesting the OEM-quoted ammonia-specific efficiency before using 34.8 % in an investment-grade deliverable | memory.md §3 (assumption, not re-verified this session); [13][14] |
+| M4 | **100 % NH₃ GTCC project status, Singapore** | n/a — real project, not modelled | **Two separate MHI-linked Singapore MoUs on record, both from 2022, neither updated since:** (a) **Jurong Port + MHI Asia Pacific + JERA Asia**, Aug 2022 — **60 MW-class 100 % NH₃ GTCC**, to also seed ammonia-bunkering demand; (b) **Keppel Infrastructure + MHI + DNV**, Sep 2022 — high-level **QRA** for a 100 % NH₃ CCGT, "focus on maintaining high efficiency and low NOx" (no numbers published) | **⚠️ Relationship to the 2025 EMA/MPA project (§1 G2, memory.md §6) is UNCONFIRMED.** The 2022 MoUs name MHI as turbine partner and Keppel as a common thread; the 2025 EMA/MPA release (Keppel-led with Sumitomo/Advario, 55–65 MW, FEED) does **not** name a turbine OEM in the sources found. Whether the 2025 project is a continuation of the 2022 MHI-linked work, or MHI was not carried forward into the selected consortium, could not be established this session — **open question, do not assume continuity** | [35][36][6][5] |
+| M5 | **H-25 100 %-NH₃ commercialisation date** | n/a | "Commercialisation **around 2025**" — announced **2021**. **No MHI update (2023–2026) located** confirming, revising, or retracting that date, despite repeated searching | Treat as **stale/unconfirmed**, not as "on track" and not as "officially delayed" — the silence itself is the finding | [14][37] |
+| M6 | **Context: MHI's more mature H₂ co-firing track record** | n/a — comparison context | **30 % H₂ co-firing demonstrated grid-connected** on a large-frame **JAC (J-series Air-Cooled)** turbine at **T-Point 2**, Nov 2023; later raised to **50 vol %**; at 50 % H₂, **CO₂ cut ≈22 %** vs 100 % NG | Within MHI's own portfolio, **hydrogen co-firing has dated, large-frame, grid-connected milestones that ammonia direct-firing does not** — ammonia visibly lags hydrogen inside the same OEM's roadmap | [38][39] |
+| M7 | **Separate technology track — ammonia *boiler* co-firing (not a gas turbine)** | n/a | Ammonia single-fuel **burner** (not turbine) tested at **0.5 t/h** scale, Nagasaki, **Nov 2023**, for **coal-boiler** retrofits: stable combustion, complete NH₃ burnout, NOx reduced vs coal baseline | **Different technology, different application (thermal boiler, not GTCC)** — flagged only so it is not mistaken for gas-turbine progress when scanning MHI's ammonia news flow | [40][41] |
+
+**Net read:** MHI is transparent about **partial (20 %) co-firing hardware**
+and about **H₂ co-firing at large-frame scale**, but has gone quiet on **100 %
+NH₃ at the H-25/utility scale** since 2021–2022 — in contrast to IHI, which has
+kept publishing dated, incremental 100 %-NH₃ milestones (2 MW class) through
+Jan 2026. This reinforces §0's read that **IHI currently carries the more
+credible demonstrated 100 %-NH₃ turbine track record**, while MHI's H-25
+remains the **larger nameplate (40 MW) but the less recently evidenced** claim.
+
+## 3. Derived fuel consumption — what the efficiency gap actually costs
 
 *Shown calculation. Inputs: 50 MWe net; NH₃ LHV 18.6 MJ/kg (CLAUDE.md §5);
 90 % capacity factor = 7,884 h/yr (**assumption**, flagged).*
@@ -153,7 +181,7 @@ so a 50 MW block consumes **~23–26 %** of that stream.
 
 ---
 
-## 3. Verdict
+## 4. Verdict
 
 | Decision driver | Winner | Confidence |
 |-----------------|--------|-----------|
@@ -194,10 +222,21 @@ stands for that framing.
 
 ---
 
-## 4. Open questions / needs verification
+## 5. Open questions / needs verification
 
-- [ ] MHI **H-25 100 % NH₃**: current status and revised commercialisation date
-      (the ~2025 target has slipped; no 2026 update located).
+- [ ] MHI **H-25 100 % NH₃**: current status and a confirmed (not just
+      quiet-since-2021) commercialisation date. **Correction:** earlier repo
+      language calling this "slipped" overstates what's known — no MHI source
+      located confirms *either* an on-track or a delayed status; the finding is
+      **silence**, not a confirmed slip (see §2 row M5).
+- [ ] **Which of the two 2022 MHI-linked Singapore MoUs (Jurong Port/JERA or
+      Keppel/DNV), if either, continues into the 2025 EMA/MPA-selected
+      consortium** — turbine OEM not named in the 2025 release (see §2 row M4).
+- [ ] **Ammonia-specific SC efficiency for the H-25** — is the 34.8 % figure
+      this repo has used since 2026-06-30 (memory.md §3) actually an
+      ammonia-specific OEM number, or the NG-class spec carried over by
+      assumption? Needs a direct OEM query (see §2 row M3) — this underwrites
+      the P1-vs-P2 turbine-efficiency ranking in memory.md §4.
 - [ ] **NH₃ CAPEX premium** on either technology — still unquoted by any OEM/EPC.
 - [ ] **Stationary** ammonia genset: does any OEM offer one, at what MW, when?
 - [ ] IM270 **net electrical efficiency on ammonia** (2 MW class SC) — not located.
@@ -210,7 +249,7 @@ stands for that framing.
 
 ---
 
-## 5. Sources
+## 6. Sources
 
 1. GE Vernova / IHI — 100 % ammonia combustion achieved in F-class gas turbine
    test (Mar 2026): https://www.gevernova.com/news/press-releases/ihi-ge-vernova-achieve-milestone-100-ammonia
@@ -307,10 +346,42 @@ stands for that framing.
 32. USPE Global — Gas Turbine EPC Costs 2026 (major overhaul 25,000–35,000 h,
     $4–8 M; combustion inspection ~24,000 h, $1.2–2.5 M) — *US market, NG basis,
     trade source*: https://uspeglobal.com/articles/gas-turbine-epc-costs-2026/
+33. SpringerLink — "Demonstration Tests of Ammonia/Natural Gas Co-firing Power
+    Generation with a 2-MW-Class Gas Turbine" (IM270 airframe, Yokohama, Oct
+    2020; 20 % NH₃ LHV mixing ratio; raw NOx 287 ppm @16 %O₂ at 20 % mixing;
+    <7 ppm with NOx-removal device):
+    https://link.springer.com/chapter/10.1007/978-981-19-4767-4_35
+34. Ammonia Energy Association — Performance of Ammonia-Natural Gas Co-Fired
+    Gas Turbine for Power Generation (presentation, corroborating the 2 MW-class
+    IM270 co-firing test): https://ammoniaenergy.org/presentations/performance-of-ammonia-natural-gas-co-fired-gas-turbine-for-power-generation/
+35. JERA — Jurong Port, Mitsubishi Heavy Industries Asia Pacific and JERA Asia
+    MoU to explore a 60 MW-class 100 % ammonia direct-combustion GTCC on Jurong
+    Island (Aug 2022): https://www.jera.co.jp/en/news/information/20220819_961 ;
+    IFRF — "60MWe ammonia power plant and marine fuel bunkering terminal planned
+    for Jurong Port, Singapore": https://ifrf.net/ifrf-blog/60mwe-ammonia-power-plant-and-marine-fuel-bunkering-terminal-planned-for-jurong-port-singapore/
+36. Mitsubishi Power — Keppel, MHI and DNV sign agreement to explore adoption of
+    an ammonia-fired gas turbine on Jurong Island (Sep 2022, high-level QRA for
+    a 100 % NH₃ CCGT): https://power.mhi.com/news/20220927.html ; DNV —
+    same announcement: https://www.dnv.com/news/keppel-mhi-and-dnv-sign-agreement-to-explore-adoption-of-ammonia-fired-gas-turbine-on-jurong-island-231948/
+37. POWER Magazine — Mitsubishi Power Developing 100 % Ammonia-Capable Gas
+    Turbine (2021 announcement, "commercialization around 2025"):
+    https://www.powermag.com/mitsubishi-power-developing-100-ammonia-capable-gas-turbine/
+38. Mitsubishi Heavy Industries — Mitsubishi Power Successfully Operates an
+    Advanced Class Gas Turbine with 30 % Hydrogen Fuel Co-Firing at
+    Grid-Connected T-Point 2 (Nov 2023): https://www.mhi.com/news/23113001.html
+39. Turbomachinery Magazine — Mitsubishi Power Executes 30 % Hydrogen-Fuel Blend
+    in JAC Gas Turbine (context for the later 50 vol % H₂ figure and ~22 % CO₂
+    cut at 50 % H₂): https://www.turbomachinerymag.com/view/mitsubishi-power-executes-30-hydrogen-fuel-blend-in-jac-gas-turbine
+40. Mitsubishi Heavy Industries — MHI Succeeded Combustion Test of Ammonia
+    Single-Fuel Burners (boiler application, 0.5 t/h furnace, Nagasaki, Nov
+    2023): https://www.mhi.com/news/23112801.html
+41. Power Engineering — Mitsubishi says it successfully tested an ammonia
+    single-fuel burner (corroborating boiler-burner test, distinct from GT):
+    https://www.power-eng.com/gas/turbines/mitsubishi-says-it-successfully-tested-an-ammonia-single-fuel-burner/
 
 ---
 
-*Rev 1, 2026-07-28. Every quantitative cell is sourced, a shown calculation, or
-marked **[not published]**. NH₃-specific efficiency premia, CAPEX premia and
-stationary-genset availability remain genuinely unpublished — flagged, not
-invented (CLAUDE.md §7).*
+*Rev 1, 2026-07-28 (§2 MHI cross-check added same day). Every quantitative cell
+is sourced, a shown calculation, or marked **[not published]**. NH₃-specific
+efficiency premia, CAPEX premia and stationary-genset availability remain
+genuinely unpublished — flagged, not invented (CLAUDE.md §7).*
