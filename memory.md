@@ -443,6 +443,28 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
 
 ## 8. Changelog
 
+- **2026-07-28 (4)** — Revised the interactive infographic
+  (`power_generation/NH3_ammonia_energy_pathway_infographic.html`, Rev 1.1) per
+  user request: (1) generalized the MHI-only Simple/Combined-Cycle toggle into
+  a **"Cycle configuration" input available on all three pathways** — Gas
+  Turbine and Gas Engine now also carry an explicit Open Cycle / Combined
+  Cycle choice, each with its own status/note/spec text; per the
+  No-Fabrication Rule, turbine Combined Cycle and engine Combined Cycle (WHR
+  bottoming) both ship as **"not published"** (blank input, gap badge) since
+  no source states an efficiency for either — only MHI's combined cycle has a
+  documented capacity ratio (60/41 MW) to derive from; (2) **forced light mode
+  only** — removed the `prefers-color-scheme: dark` media query and the
+  `data-theme="dark"` override entirely, so the page no longer switches dark
+  regardless of viewer or system theme; (3) renamed the document title/H1 from
+  "Storage to Wire" to **"Well to Wake"**; (4) added a **Comparison Table tab**
+  alongside the existing Pathway Explorer tab, listing all six equipment ×
+  cycle combinations (pathway, cycle, capacity class, provenance status, net
+  efficiency, MJₑ/kg, kWhₑ/kg, annual NH₃ at the current plant-scale capacity)
+  computed live from the same LHV input, manual efficiency overrides, and
+  plant-scale inputs as the explorer tab, with the active combination
+  highlighted. Verified in a headless Chromium render (light mode holds even
+  with a dark browser preference forced; JS syntax-checked; all
+  `getElementById` targets resolve) before considering the update complete.
 - **2026-07-28 (3)** — Built an **interactive HTML infographic**,
   `power_generation/NH3_ammonia_energy_pathway_infographic.html`, at user
   request, and published it as a Claude Artifact. Shows the direct-ammonia-
