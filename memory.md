@@ -443,6 +443,43 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
 
 ## 8. Changelog
 
+- **2026-07-28 (6)** — New study **`power_generation/NH3_powerplant_land_footprint_study.md`**:
+  land footprint per MW for the P2 power-block technologies, filling the
+  qualitative gap in the comprehensive comparison's §1 row E5. Key sourced/derived
+  figures: **gas turbine (CCGT anchor) 0.111–0.139 acres/MW** (≈450–563 m²/MW),
+  from a real UAMPS filing for a 360 MW frame-style combined-cycle plant
+  (plant-site only, excludes construction-phase land); **reciprocating engine
+  plant 0.33–0.56 acres/MW** (≈1,335–2,270 m²/MW), *derived* as the GT figure
+  × 3–4×, per a Power Engineering trade-press claim that turbines use
+  "approximately one-third to one-quarter" of an equivalent engine plant's
+  area. Open-cycle GT and MHI H-25 (both cycles) use the same GT figure as a
+  flagged assumption (no cycle- or OEM-specific site-area source located).
+  Explicitly excluded the oft-cited Strata (2017) "~12.4 acres/MW for natural
+  gas" figure from the sizing table — that number is cradle-to-grave
+  (upstream gas field + pipelines), not applicable to a ship-delivered-ammonia
+  site. Flagged throughout that every figure is NG-basis and **excludes
+  ammonia's toxicity-driven safety envelope** (gas-detection perimeters,
+  release-mitigation cofferdams) — real ammonia plot sizes are expected to
+  exceed these figures; the study is a floor, not a design figure. Also
+  defined **sparing/redundancy philosophy** (N, N+1, N+2, 2N) as generic
+  engineering convention. Ported into the infographic
+  (`power_generation/NH3_ammonia_energy_pathway_infographic.html`, Rev 1.3) as
+  a new **"5 · Land footprint & sparing philosophy"** section under the
+  Theoretical tab's master matrix: the sourced/derived land-intensity table,
+  the sparing-philosophy definitions table, and a **land-size calculator**
+  (inputs: required firm MW, sparing philosophy, technology + cycle reusing
+  the pathway taxonomy already in the app; outputs: duty vs. spare unit
+  count, installed capacity, land area in acres/hectares/m²) with its own
+  3-entry source addendum (sources 42–44, appended to the tab's existing
+  41-entry list). While building this, caught and fixed a real bug: the
+  Explorer tab's pathway-selector click handler queried `.selbtn` **document-wide**
+  or (unscoped), so it also fired on the new land calculator's technology
+  buttons (which reuse the same CSS class) and corrupted the Explorer's
+  state — scoped the handler to `.selbtn[data-path]` to fix. Verified in
+  headless Chromium: no console/page errors across tech/cycle/sparing
+  combinations including the "not computable" gap state (engine or turbine
+  combined cycle, which have no published unit size), and confirmed the
+  Explorer tab still functions correctly afterward.
 - **2026-07-28 (5)** — Added a third **"Theoretical" tab** to the interactive
   infographic (Rev 1.2), reproducing the full qualitative master matrix from
   `power_generation/NH3_gas_turbine_vs_gas_engine_comprehensive_comparison.md`
