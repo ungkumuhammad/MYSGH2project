@@ -1,0 +1,905 @@
+<title>Ammonia Energy Pathway — Storage to Wire</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  /* ============================= TOKENS ============================= */
+  :root {
+    --font-plate: 'Arial Narrow', 'Liberation Sans Narrow', Arial, sans-serif;
+    --font-body: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
+    --font-mono: 'SF Mono', 'JetBrains Mono', Consolas, Menlo, monospace;
+
+    --bg: #EDE9DC;
+    --surface: #F8F5EC;
+    --surface-2: #FFFFFF;
+    --border: rgba(18,56,66,0.22);
+    --border-strong: rgba(18,56,66,0.42);
+    --text: #16262A;
+    --text-muted: #4B5D61;
+    --text-faint: #7C8B8E;
+    --shadow: 0 1px 2px rgba(18,56,66,0.06), 0 6px 20px rgba(18,56,66,0.07);
+
+    --cat-turbine: #1E88A8;
+    --cat-engine: #C46A2E;
+    --cat-mhi: #8A4FA0;
+
+    --status-sourced: #2E8050;      --status-sourced-bg: #E1EFE6;
+    --status-assumption: #B8862B;   --status-assumption-bg: #F3E8D2;
+    --status-gap: #A6473F;          --status-gap-bg: #F2DEDC;
+    --status-derived: #3D5FA8;      --status-derived-bg: #E1E6F3;
+
+    --lost-fill: repeating-linear-gradient(45deg,
+      rgba(18,56,66,0.11), rgba(18,56,66,0.11) 6px,
+      rgba(18,56,66,0.03) 6px, rgba(18,56,66,0.03) 12px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0E1517;
+      --surface: #141D20;
+      --surface-2: #182226;
+      --border: rgba(232,228,214,0.16);
+      --border-strong: rgba(232,228,214,0.32);
+      --text: #E8E4D6;
+      --text-muted: #A9B7B9;
+      --text-faint: #77878A;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+
+      --cat-turbine: #2CA0C8;
+      --cat-engine: #D17A3A;
+      --cat-mhi: #A672B8;
+
+      --status-sourced: #1FBE84;   --status-sourced-bg: #14302A;
+      --status-assumption: #D4A83B; --status-assumption-bg: #332B14;
+      --status-gap: #E06A62;       --status-gap-bg: #331B1B;
+      --status-derived: #7C97DE;   --status-derived-bg: #1C2340;
+
+      --lost-fill: repeating-linear-gradient(45deg,
+        rgba(232,228,214,0.09), rgba(232,228,214,0.09) 6px,
+        rgba(232,228,214,0.02) 6px, rgba(232,228,214,0.02) 12px);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #EDE9DC; --surface: #F8F5EC; --surface-2: #FFFFFF;
+    --border: rgba(18,56,66,0.22); --border-strong: rgba(18,56,66,0.42);
+    --text: #16262A; --text-muted: #4B5D61; --text-faint: #7C8B8E;
+    --shadow: 0 1px 2px rgba(18,56,66,0.06), 0 6px 20px rgba(18,56,66,0.07);
+    --cat-turbine: #1E88A8; --cat-engine: #C46A2E; --cat-mhi: #8A4FA0;
+    --status-sourced: #2E8050; --status-sourced-bg: #E1EFE6;
+    --status-assumption: #B8862B; --status-assumption-bg: #F3E8D2;
+    --status-gap: #A6473F; --status-gap-bg: #F2DEDC;
+    --status-derived: #3D5FA8; --status-derived-bg: #E1E6F3;
+    --lost-fill: repeating-linear-gradient(45deg, rgba(18,56,66,0.11), rgba(18,56,66,0.11) 6px, rgba(18,56,66,0.03) 6px, rgba(18,56,66,0.03) 12px);
+  }
+  :root[data-theme="dark"] {
+    --bg: #0E1517; --surface: #141D20; --surface-2: #182226;
+    --border: rgba(232,228,214,0.16); --border-strong: rgba(232,228,214,0.32);
+    --text: #E8E4D6; --text-muted: #A9B7B9; --text-faint: #77878A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+    --cat-turbine: #2CA0C8; --cat-engine: #D17A3A; --cat-mhi: #A672B8;
+    --status-sourced: #1FBE84; --status-sourced-bg: #14302A;
+    --status-assumption: #D4A83B; --status-assumption-bg: #332B14;
+    --status-gap: #E06A62; --status-gap-bg: #331B1B;
+    --status-derived: #7C97DE; --status-derived-bg: #1C2340;
+    --lost-fill: repeating-linear-gradient(45deg, rgba(232,228,214,0.09), rgba(232,228,214,0.09) 6px, rgba(232,228,214,0.02) 6px, rgba(232,228,214,0.02) 12px);
+  }
+
+  /* ============================= RESET ============================= */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+  h1, h2, h3, .plate-title { text-wrap: balance; }
+  a { color: inherit; }
+  .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+  input[type="number"] {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    background: var(--surface-2);
+    color: var(--text);
+    border: 1.5px solid var(--border-strong);
+    border-radius: 4px;
+    padding: 5px 8px;
+    font-size: 0.95rem;
+    width: 6.5em;
+  }
+  input[type="number"]:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--cat-turbine);
+    outline-offset: 2px;
+  }
+  input[type="number"]::placeholder { color: var(--text-faint); font-style: italic; }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px 64px; }
+
+  /* ============================= HEADER ============================= */
+  .titleblock {
+    border-bottom: 3px solid var(--border-strong);
+    padding: 28px 0 20px;
+    margin-bottom: 28px;
+  }
+  .eyebrow {
+    font-family: var(--font-plate);
+    font-stretch: condensed;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    font-weight: 700;
+  }
+  h1 {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+    margin: 0.2em 0 0.15em;
+    letter-spacing: -0.01em;
+  }
+  .dek { color: var(--text-muted); max-width: 62ch; font-size: 1rem; }
+  .scope-note {
+    margin-top: 12px; font-size: 0.86rem; color: var(--text-faint);
+    font-family: var(--font-plate); font-stretch: condensed;
+  }
+
+  /* ============================= REFERENCE STRIP ============================= */
+  .refstrip {
+    display: flex; flex-wrap: wrap; align-items: stretch; gap: 0;
+    background: var(--surface);
+    border: 1.5px solid var(--border-strong);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow);
+  }
+  .refstrip > div {
+    flex: 1 1 200px;
+    padding: 16px 20px;
+    border-right: 1px solid var(--border);
+  }
+  .refstrip > div:last-child { border-right: none; }
+  .ref-label {
+    font-family: var(--font-plate); font-stretch: condensed;
+    text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.7rem;
+    color: var(--text-muted); margin-bottom: 6px; font-weight: 700;
+  }
+  .ref-value { font-size: 1.5rem; font-weight: 700; }
+  .ref-value .unit { font-size: 0.85rem; font-weight: 400; color: var(--text-muted); margin-left: 0.3em; }
+  .ref-input-row { display: flex; align-items: baseline; gap: 8px; }
+  .ref-sub { font-size: 0.78rem; color: var(--text-faint); margin-top: 4px; }
+
+  /* ============================= STATUS BADGE ============================= */
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-family: var(--font-plate); font-stretch: condensed;
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px 3px 6px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .badge svg { width: 11px; height: 11px; flex: none; }
+  .badge.sourced { color: var(--status-sourced); background: var(--status-sourced-bg); }
+  .badge.assumption { color: var(--status-assumption); background: var(--status-assumption-bg); }
+  .badge.gap { color: var(--status-gap); background: var(--status-gap-bg); }
+  .badge.derived { color: var(--status-derived); background: var(--status-derived-bg); }
+
+  /* ============================= PATHWAY SELECTOR ============================= */
+  .selector-label {
+    font-family: var(--font-plate); font-stretch: condensed;
+    text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.76rem;
+    color: var(--text-muted); font-weight: 700; margin-bottom: 10px;
+  }
+  .selector {
+    display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px;
+  }
+  .selbtn {
+    font-family: var(--font-plate); font-stretch: condensed;
+    font-weight: 700; font-size: 0.92rem;
+    background: var(--surface);
+    border: 2px solid var(--border-strong);
+    border-radius: 6px;
+    padding: 10px 18px;
+    cursor: pointer;
+    color: var(--text-muted);
+    display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+    transition: border-color .15s ease, background .15s ease, color .15s ease;
+  }
+  .selbtn .selbtn-sub { font-family: var(--font-body); font-weight: 400; font-size: 0.76rem; color: var(--text-faint); }
+  .selbtn[aria-pressed="true"] { color: var(--text); background: var(--surface-2); }
+  .selbtn:hover { background: var(--surface-2); }
+  .selbtn[data-cat="turbine"][aria-pressed="true"] { border-color: var(--cat-turbine); box-shadow: inset 0 0 0 1px var(--cat-turbine); }
+  .selbtn[data-cat="engine"][aria-pressed="true"] { border-color: var(--cat-engine); box-shadow: inset 0 0 0 1px var(--cat-engine); }
+  .selbtn[data-cat="mhi"][aria-pressed="true"] { border-color: var(--cat-mhi); box-shadow: inset 0 0 0 1px var(--cat-mhi); }
+
+  .subtoggle { display: none; gap: 8px; margin: 4px 0 24px; }
+  .subtoggle.active { display: flex; }
+  .subtoggle button {
+    font-family: var(--font-plate); font-stretch: condensed; font-weight: 700;
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em;
+    background: transparent; border: 1.5px solid var(--border-strong);
+    border-radius: 16px; padding: 5px 14px; cursor: pointer; color: var(--text-muted);
+  }
+  .subtoggle button[aria-pressed="true"] { background: var(--cat-mhi); border-color: var(--cat-mhi); color: #fff; }
+
+  /* ============================= FLOW DIAGRAM ============================= */
+  .flowscroll { overflow-x: auto; padding-bottom: 6px; margin-bottom: 6px; }
+  .flow {
+    display: flex; align-items: stretch; gap: 0; min-width: 780px;
+  }
+  .node {
+    flex: 1 1 0;
+    background: var(--surface);
+    border: 1.5px solid var(--border-strong);
+    border-radius: 6px;
+    min-width: 220px;
+    box-shadow: var(--shadow);
+    display: flex; flex-direction: column;
+  }
+  .node-head {
+    padding: 12px 16px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .node-tag {
+    font-family: var(--font-plate); font-stretch: condensed;
+    text-transform: uppercase; letter-spacing: 0.09em; font-size: 0.66rem;
+    font-weight: 700; color: var(--text-faint); margin-bottom: 3px;
+  }
+  .node-title { font-family: var(--font-plate); font-stretch: condensed; font-weight: 700; font-size: 1.05rem; }
+  .node-sub { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+  .node[data-cat="turbine"] .node-head { border-top: 4px solid var(--cat-turbine); }
+  .node[data-cat="engine"] .node-head { border-top: 4px solid var(--cat-engine); }
+  .node[data-cat="mhi"] .node-head { border-top: 4px solid var(--cat-mhi); }
+  .node[data-cat="fixed"] .node-head { border-top: 4px solid var(--border-strong); }
+
+  .node-body { padding: 12px 16px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .node-stat { font-size: 1.3rem; font-weight: 700; }
+  .node-stat .unit { font-size: 0.72rem; font-weight: 400; color: var(--text-muted); }
+  .eff-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 2px; }
+  .eff-row label { font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-plate); font-stretch: condensed; }
+
+  details.spec { margin-top: auto; padding-top: 6px; }
+  details.spec summary {
+    cursor: pointer; list-style: none;
+    font-family: var(--font-plate); font-stretch: condensed;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--text-muted);
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 0;
+  }
+  details.spec summary::-webkit-details-marker { display: none; }
+  details.spec summary .chev { transition: transform .15s ease; flex: none; }
+  details.spec[open] summary .chev { transform: rotate(90deg); }
+  details.spec .spec-content {
+    font-size: 0.85rem; color: var(--text);
+    padding: 4px 0 4px;
+  }
+  details.spec .spec-content ul { margin: 6px 0; padding-left: 1.1em; }
+  details.spec .spec-content li { margin-bottom: 5px; }
+  details.spec .spec-content .cite { color: var(--text-faint); font-size: 0.76rem; }
+  .callout {
+    font-size: 0.8rem; padding: 8px 10px; border-radius: 4px;
+    margin-top: 6px; border-left: 3px solid;
+  }
+  .callout.gap { background: var(--status-gap-bg); border-color: var(--status-gap); color: var(--text); }
+  .callout.assumption { background: var(--status-assumption-bg); border-color: var(--status-assumption); color: var(--text); }
+
+  .connector {
+    flex: 0 0 46px; display: flex; align-items: center; justify-content: center;
+    color: var(--text-faint);
+  }
+  .connector svg { width: 34px; height: 20px; }
+
+  /* ============================= WATERFALL ============================= */
+  .waterfall { margin: 28px 0 8px; }
+  .wf-bar {
+    display: flex; height: 40px; border-radius: 4px; overflow: hidden;
+    border: 1px solid var(--border-strong);
+  }
+  .wf-seg { display: flex; align-items: center; padding: 0 10px; font-size: 0.78rem; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; }
+  .wf-seg.lost { background: var(--lost-fill); color: var(--text); justify-content: flex-end; }
+  .wf-caption { display: flex; justify-content: space-between; font-size: 0.76rem; color: var(--text-faint); margin-top: 6px; font-family: var(--font-plate); font-stretch: condensed; }
+
+  /* ============================= RESULT TILE ============================= */
+  .resultband {
+    display: flex; flex-wrap: wrap; gap: 18px;
+    background: var(--surface-2); border: 1.5px solid var(--border-strong);
+    border-radius: 6px; padding: 20px 24px; margin: 22px 0 40px; box-shadow: var(--shadow);
+    align-items: center;
+  }
+  .resultband .big {
+    font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; line-height: 1;
+  }
+  .resultband .big .unit { font-size: 0.9rem; font-weight: 400; color: var(--text-muted); }
+  .resultband .rlabel {
+    font-family: var(--font-plate); font-stretch: condensed; text-transform: uppercase;
+    letter-spacing: 0.1em; font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 4px;
+  }
+  .resultband .rnote { font-size: 0.84rem; color: var(--text-muted); flex: 1 1 260px; }
+
+  /* ============================= SECTION HEAD ============================= */
+  .sectionhead { display: flex; align-items: baseline; gap: 12px; margin: 44px 0 16px; }
+  .sectionhead h2 {
+    font-family: var(--font-plate); font-stretch: condensed; font-weight: 700;
+    font-size: 1.25rem; text-transform: uppercase; letter-spacing: 0.04em; margin: 0;
+  }
+  .sectionhead .rule { flex: 1; height: 1px; background: var(--border-strong); }
+
+  /* ============================= PLANT SCALE PANEL ============================= */
+  .plantpanel {
+    background: var(--surface); border: 1.5px solid var(--border-strong);
+    border-radius: 6px; padding: 22px 24px; box-shadow: var(--shadow);
+  }
+  .plant-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 20px; }
+  .plant-input, .plant-output {
+    background: var(--surface-2); border: 1px solid var(--border); border-radius: 5px; padding: 12px 14px;
+  }
+  .plant-output.emph { border-color: var(--cat-turbine); border-width: 1.5px; }
+  .plant-label {
+    font-family: var(--font-plate); font-stretch: condensed; text-transform: uppercase;
+    letter-spacing: 0.08em; font-size: 0.68rem; color: var(--text-muted); font-weight: 700; margin-bottom: 8px;
+  }
+  .plant-value { font-size: 1.4rem; font-weight: 700; }
+  .plant-value .unit { font-size: 0.72rem; font-weight: 400; color: var(--text-muted); }
+  .plant-sub { font-size: 0.74rem; color: var(--text-faint); margin-top: 4px; }
+
+  /* ============================= FOOTER ============================= */
+  footer {
+    margin-top: 56px; border-top: 3px solid var(--border-strong); padding-top: 20px;
+    font-family: var(--font-plate); font-stretch: condensed;
+  }
+  .titleblock-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px 24px; font-size: 0.78rem; margin-bottom: 22px;
+  }
+  .titleblock-grid dt { text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-faint); font-size: 0.66rem; font-weight: 700; margin-bottom: 3px; }
+  .titleblock-grid dd { margin: 0; color: var(--text); font-family: var(--font-body); }
+  .sources {
+    font-family: var(--font-body); font-size: 0.78rem; color: var(--text-muted);
+    columns: 2; column-gap: 32px;
+  }
+  .sources ol { margin: 0; padding-left: 1.2em; }
+  .sources li { margin-bottom: 8px; break-inside: avoid; }
+  .sources a { color: var(--text-muted); text-decoration: underline; text-decoration-color: var(--border-strong); }
+  .nofab {
+    font-family: var(--font-body); font-size: 0.82rem; color: var(--text-muted);
+    background: var(--surface); border-left: 3px solid var(--status-assumption);
+    padding: 10px 14px; border-radius: 4px; margin: 18px 0;
+  }
+
+  @media (max-width: 720px) {
+    .refstrip > div { flex: 1 1 45%; }
+  }
+</style>
+
+<div class="wrap">
+
+  <div class="titleblock">
+    <div class="eyebrow">MYSGH2 · Power Generation · Interactive Instrument</div>
+    <h1>Ammonia Energy Pathway — Storage to Wire</h1>
+    <p class="dek">One kilogram of green ammonia lands at storage carrying its full lower-heating-value
+      energy. Pick an equipment pathway below to see how much of that energy actually reaches the wire,
+      and where the rest goes.</p>
+    <p class="scope-note">Scope: the direct ammonia-firing branch (P2 in memory.md §4) — ship ammonia,
+      fire it as-is. The alternative branch (P1: crack at MMHE → pipe H₂ → H₂-CCGT in Singapore) is a
+      separate pathway, covered in <span class="num">permutations/P1_vs_P2_well-to-wire_energy.md</span>.</p>
+  </div>
+
+  <!-- ============================= REFERENCE STRIP ============================= -->
+  <div class="refstrip">
+    <div>
+      <div class="ref-label">Basis</div>
+      <div class="ref-value">Net · LHV</div>
+      <div class="ref-sub">All efficiencies below are net electrical, lower-heating-value.</div>
+    </div>
+    <div>
+      <div class="ref-label">Ammonia LHV <span class="badge sourced" style="margin-left:6px;">✓ sourced</span></div>
+      <div class="ref-input-row">
+        <input type="number" id="lhvInput" value="18.6" step="0.1" min="10" max="25" aria-label="Ammonia LHV in MJ per kg" />
+        <span class="unit">MJ / kg</span>
+      </div>
+      <div class="ref-sub">Textbook constant — CLAUDE.md §5 / memory.md §6.</div>
+    </div>
+    <div>
+      <div class="ref-label">= In kWh (thermal)</div>
+      <div class="ref-value"><span class="num" id="lhvKwh">5.17</span><span class="unit">kWh / kg</span></div>
+      <div class="ref-sub">= LHV ÷ 3.6 MJ per kWh.</div>
+    </div>
+    <div>
+      <div class="ref-label">Landed state</div>
+      <div class="ref-value" style="font-size:1.05rem;">Refrigerated liquid</div>
+      <div class="ref-sub">≈−33 °C atmospheric · ρ ≈680 kg/m³ · boil-off ≈0.025 %/day.</div>
+    </div>
+  </div>
+
+  <!-- ============================= PATHWAY SELECTOR ============================= -->
+  <div class="selector-label">Choose the power-generation equipment</div>
+  <div class="selector" role="group" aria-label="Equipment pathway">
+    <button class="selbtn" data-cat="turbine" data-path="turbine" aria-pressed="true">
+      Gas Turbine
+      <span class="selbtn-sub">IHI IM270 · 100 % NH₃ proven</span>
+    </button>
+    <button class="selbtn" data-cat="engine" data-path="engine" aria-pressed="false">
+      Gas Engine
+      <span class="selbtn-sub">Wärtsilä 25 Ammonia</span>
+    </button>
+    <button class="selbtn" data-cat="mhi" data-path="mhi" aria-pressed="false">
+      MHI Equipment
+      <span class="selbtn-sub">Mitsubishi Power H-25</span>
+    </button>
+  </div>
+  <div class="subtoggle" id="mhiSubtoggle">
+    <button data-cc="sc" aria-pressed="true">Simple cycle (41 MW)</button>
+    <button data-cc="cc" aria-pressed="false">Combined cycle, 1×1 (~60 MW)</button>
+  </div>
+
+  <!-- ============================= FLOW DIAGRAM ============================= -->
+  <div class="flowscroll">
+    <div class="flow">
+
+      <!-- NODE 1: STORAGE -->
+      <div class="node" data-cat="fixed">
+        <div class="node-head">
+          <div class="node-tag">01 · Reference point</div>
+          <div class="node-title">Ammonia Storage</div>
+          <div class="node-sub">Landed, refrigerated liquid</div>
+        </div>
+        <div class="node-body">
+          <div class="node-stat"><span class="num">100</span><span class="unit">% of LHV</span></div>
+          <div class="node-stat" style="font-size:1rem;"><span class="num" id="storageMJ">18.60</span><span class="unit">MJ/kg</span> = <span class="num" id="storageKWh">5.17</span><span class="unit">kWh/kg</span></div>
+          <details class="spec">
+            <summary><svg class="chev" viewBox="0 0 8 8"><path d="M2 1l4 3-4 3" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>Storage detail</summary>
+            <div class="spec-content">
+              <ul>
+                <li>Refrigerated liquid NH₃, ≈−33 °C at atmospheric pressure (or ≈8.6 bar at ambient).</li>
+                <li>Liquid density ≈680 kg/m³ — derived from 121 kg H₂/m³ ÷ 0.178 wt% H₂ content.</li>
+                <li>Boil-off ≈0.025 %/day — negligible at normal ship-to-genset turnover; only matters at long stream-day storage horizons.</li>
+              </ul>
+              <div class="cite">Ammonia Energy Association · BBA Consultants — memory.md §6</div>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div class="connector"><svg viewBox="0 0 34 20"><path d="M0 10h26M20 4l8 6-8 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+      <!-- NODE 2: EQUIPMENT (dynamic) -->
+      <div class="node" id="equipNode" data-cat="turbine">
+        <div class="node-head">
+          <div class="node-tag" id="equipTag">02 · Conversion equipment</div>
+          <div class="node-title" id="equipTitle">IHI IM270</div>
+          <div class="node-sub" id="equipSub">2 MW-class · 100 % liquid NH₃ direct-spray</div>
+        </div>
+        <div class="node-body">
+          <div class="eff-row">
+            <label for="effInput">Net electrical efficiency</label>
+            <span class="badge" id="effBadge">— </span>
+          </div>
+          <div class="eff-row">
+            <input type="number" id="effInput" step="0.1" min="1" max="65" placeholder="enter %" aria-label="Net electrical efficiency percent" />
+            <span class="unit">%</span>
+          </div>
+          <div class="callout gap" id="effNote"></div>
+          <details class="spec" id="equipDetails" open>
+            <summary><svg class="chev" viewBox="0 0 8 8"><path d="M2 1l4 3-4 3" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>Equipment detail</summary>
+            <div class="spec-content" id="equipSpecContent"></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="connector"><svg viewBox="0 0 34 20"><path d="M0 10h26M20 4l8 6-8 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+      <!-- NODE 3: OUTPUT -->
+      <div class="node" data-cat="fixed">
+        <div class="node-head">
+          <div class="node-tag">03 · End of chain</div>
+          <div class="node-title">Net Usable Energy</div>
+          <div class="node-sub">Electricity actually delivered</div>
+        </div>
+        <div class="node-body">
+          <div class="node-stat"><span class="num" id="outPct">—</span><span class="unit">% of landed LHV</span></div>
+          <div class="node-stat" style="font-size:1rem;"><span class="num" id="outMJ">—</span><span class="unit">MJₑ/kg</span> = <span class="num" id="outKWh">—</span><span class="unit">kWhₑ/kg</span></div>
+          <details class="spec">
+            <summary><svg class="chev" viewBox="0 0 8 8"><path d="M2 1l4 3-4 3" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>What "usable" means here</summary>
+            <div class="spec-content">
+              <ul>
+                <li>Net = after the plant's own auxiliary/parasitic load — OEM efficiency figures used above are already stated net.</li>
+                <li>The remainder is rejected as combustor/cylinder heat, exhaust enthalpy, and mechanical/electrical losses — see the waterfall below.</li>
+                <li>Pilot fuel (engine pathway, ~5 % by energy) is an <em>additional external</em> input, not deducted from the NH₃ figures shown here.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================= WATERFALL ============================= -->
+  <div class="waterfall">
+    <div class="wf-bar">
+      <div class="wf-seg" id="wfRetained" style="width:0%;">retained</div>
+      <div class="wf-seg lost" id="wfLost" style="width:100%;">rejected as heat / exhaust / losses</div>
+    </div>
+    <div class="wf-caption">
+      <span>0 % of landed LHV</span>
+      <span>100 % of landed LHV</span>
+    </div>
+  </div>
+
+  <!-- ============================= RESULT BAND ============================= -->
+  <div class="resultband">
+    <div>
+      <div class="rlabel">Net usable electricity, per kg NH₃</div>
+      <div class="big"><span class="num" id="resultKWh">—</span><span class="unit">kWhₑ / kg</span></div>
+    </div>
+    <div class="rnote" id="resultNote">Enter an equipment efficiency to compute the usable-energy figure for this pathway.</div>
+  </div>
+
+  <!-- ============================= PLANT SCALE ============================= -->
+  <div class="sectionhead"><h2>Scale to a plant</h2><div class="rule"></div></div>
+  <div class="plantpanel">
+    <div class="plant-grid">
+      <div class="plant-input">
+        <div class="plant-label">Net capacity</div>
+        <div class="ref-input-row"><input type="number" id="capInput" value="50" step="1" min="1" aria-label="Net plant capacity in megawatts"/><span class="unit">MWₑ</span></div>
+        <div class="plant-sub">Default matches the 50 MW data-centre case study in this repo.</div>
+      </div>
+      <div class="plant-input">
+        <div class="plant-label">Stream days / yr <span class="badge assumption" style="margin-left:4px;">~ assumption</span></div>
+        <div class="ref-input-row"><input type="number" id="streamInput" value="330" step="1" min="1" max="366" aria-label="Operating stream days per year"/><span class="unit">days</span></div>
+        <div class="plant-sub">≈90 % capacity factor — engineering assumption, not project-specific data.</div>
+      </div>
+      <div class="plant-output emph">
+        <div class="plant-label">Annual net electricity</div>
+        <div class="plant-value"><span class="num" id="outGWh">—</span><span class="unit">GWh / yr</span></div>
+      </div>
+      <div class="plant-output">
+        <div class="plant-label">Annual NH₃ required</div>
+        <div class="plant-value"><span class="num" id="outKtpa">—</span><span class="unit">kt / yr</span></div>
+        <div class="plant-sub" id="outShare"></div>
+      </div>
+      <div class="plant-output">
+        <div class="plant-label">Implied NH₃ mass flow</div>
+        <div class="plant-value"><span class="num" id="outTph">—</span><span class="unit">t / h</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nofab">
+    <strong>No-fabrication basis (CLAUDE.md §7):</strong> every default above is either cited to a public
+    source (green <span class="badge sourced" style="vertical-align:1px;">✓</span>), an explicitly labelled
+    assumption (amber <span class="badge assumption" style="vertical-align:1px;">~</span>), a shown
+    calculation (blue <span class="badge derived" style="vertical-align:1px;">ƒ</span>), or flagged as not
+    publicly disclosed (red <span class="badge gap" style="vertical-align:1px;">?</span>) — never invented.
+    Change any number; the chain recomputes live.
+  </div>
+
+  <!-- ============================= FOOTER / TITLE BLOCK ============================= -->
+  <footer>
+    <dl class="titleblock-grid">
+      <div><dt>Document</dt><dd>NH₃ Energy Pathway — Interactive</dd></div>
+      <div><dt>Project</dt><dd>MYSGH2</dd></div>
+      <div><dt>Revision</dt><dd>Rev 1.0</dd></div>
+      <div><dt>Date</dt><dd>2026-07-28</dd></div>
+      <div><dt>Basis</dt><dd>Net, LHV</dd></div>
+      <div><dt>Companion doc</dt><dd>power_generation/NH3_gas_turbine_vs_gas_engine_comprehensive_comparison.md</dd></div>
+    </dl>
+    <div class="sources">
+      <ol>
+        <li>Ammonia Energy Association — Liquid Ammonia for Hydrogen Storage: <a href="https://www.ammoniaenergy.org/paper/liquid-ammonia-for-hydrogen-storage/">ammoniaenergy.org</a></li>
+        <li>IHI Corporation — 2 MW-class gas turbine cogeneration, Cogeneration Award 2025: <a href="https://www.ihi.co.jp/en/all_news/2025/resources_energy_environment/1201875_13737.html">ihi.co.jp</a></li>
+        <li>Ammonia Energy Association — IHI Corporation profile (IM270, ~3,000 h to Jan 2026): <a href="https://ammoniaenergy.org/organization/ihi-corporation/">ammoniaenergy.org</a></li>
+        <li>GE Vernova / IHI — 100 % ammonia in full-scale F-class combustion test, Mar 2026: <a href="https://www.gevernova.com/news/press-releases/ihi-ge-vernova-achieve-milestone-100-ammonia">gevernova.com</a></li>
+        <li>Wärtsilä 25 Ammonia product page: <a href="https://www.wartsila.com/marine/wartsila-25-ammonia">wartsila.com</a></li>
+        <li>Wärtsilä 34SG gas engine (48.9 % NG efficiency anchor): <a href="https://www.wartsila.com/energy/solutions/engine-power-plants/wartsila-34sg-gas-engine">wartsila.com</a></li>
+        <li>Wärtsilä — 4-stroke ammonia engine testing, GHG reduction: <a href="https://www.wartsila.com/media/news/27-05-2025-extensive-testing-of-wartsila-s-4-stroke-ammonia-engine-demonstrates-ghg-emission-reductions-by-up-to-90-percent-3590235">wartsila.com</a></li>
+        <li>Mitsubishi Power — H-25 Series (41 MW SC / ~60 MW 1×1 CC): <a href="https://power.mhi.com/products/gasturbines/lineup/h25/">power.mhi.com</a></li>
+        <li>POWER Magazine — MHI developing 100 % ammonia-capable gas turbine (2021): <a href="https://www.powermag.com/mitsubishi-power-developing-100-ammonia-capable-gas-turbine/">powermag.com</a></li>
+        <li>SpringerLink — Ammonia/NG co-firing demonstration, 2 MW-class (IM270, Yokohama, Oct 2020): <a href="https://link.springer.com/chapter/10.1007/978-981-19-4767-4_35">springer.com</a></li>
+        <li>JERA — Jurong Port / MHI Asia Pacific / JERA Asia MoU, 60 MW-class 100 % NH₃ GTCC (Aug 2022): <a href="https://www.jera.co.jp/en/news/information/20220819_961">jera.co.jp</a></li>
+        <li>Mitsubishi Power — Keppel / MHI / DNV MoU, ammonia CCGT QRA (Sep 2022): <a href="https://power.mhi.com/news/20220927.html">power.mhi.com</a></li>
+        <li>EMA Singapore — Consortium appointed, ammonia power generation & bunkering, 55–65 MW (2025): <a href="https://www.ema.gov.sg/news-events/news/media-releases/2025/consortium-appointed-to-conduct-next-phase-of-ammonia-power-generation-bunkering-solution">ema.gov.sg</a></li>
+        <li>MYSGH2 repo — <span class="num">memory.md</span> §3/§4/§6 and <span class="num">power_generation/NH3_gas_turbine_vs_gas_engine_comprehensive_comparison.md</span> (full source list).</li>
+      </ol>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var MJ_PER_KWH = 3.6;
+
+  // ---- ICON GLYPHS (currentColor, no emoji) ----
+  var ICON = {
+    sourced:   '<svg viewBox="0 0 12 12"><path d="M2 6.5l2.5 2.5L10 3" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    assumption:'<svg viewBox="0 0 12 12"><path d="M1.5 6c1-2 2.5-2 3.5 0s2.5 2 3.5 0 2-2 2-2" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>',
+    gap:       '<svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="4.6" stroke="currentColor" stroke-width="1.3" fill="none" stroke-dasharray="1.6 1.8"/><text x="6" y="8.3" font-size="6.5" text-anchor="middle" fill="currentColor" font-family="Georgia,serif">?</text></svg>',
+    derived:   '<svg viewBox="0 0 12 12"><text x="6" y="9" font-size="8.5" text-anchor="middle" fill="currentColor" font-family="Georgia,serif" font-style="italic">ƒ</text></svg>'
+  };
+  var BADGE_LABEL = { sourced: 'sourced', assumption: 'assumption', gap: 'not published', derived: 'derived' };
+
+  function badgeHTML(status) {
+    return '<span class="badge ' + status + '">' + ICON[status] + BADGE_LABEL[status] + '</span>';
+  }
+
+  // ---- PATHWAY DATA (every number sourced / assumption / derived / not-published) ----
+  var PATHWAYS = {
+    turbine: {
+      cat: 'turbine',
+      tag: '02 · Conversion equipment',
+      title: 'IHI IM270',
+      sub: '2 MW-class · 100 % liquid NH₃ direct-spray',
+      status: 'gap',
+      effDefault: null,
+      note: 'IHI has not publicly disclosed a net electrical efficiency for the 100 % ammonia IM270 run. Enter your own estimate or an OEM quote to compute the chain below.',
+      specHTML:
+        '<ul>' +
+        '<li><strong>Endurance:</strong> ~3,000 h on 100 % liquid ammonia at Aioi, Japan (Jul 2024 → Jan 2026), including load-rejection and load-dump tests.</li>' +
+        '<li><strong>NOx:</strong> &lt;7 ppm with an NOx-removal device (raw combustor-out figure for the 100 % solo-fire run not published).</li>' +
+        '<li><strong>GHG:</strong> &gt;99 % reduction including N₂O at 70–100 % NH₃ mixing ratio — two-stage combustion suppresses the N₂O spike seen above 70 % in earlier designs.</li>' +
+        '<li><strong>Package:</strong> IM270 + heat-recovery boiler = 2 MWₑ + 6 t/h steam (cogeneration configuration).</li>' +
+        '<li><strong>Utility-scale roadmap:</strong> IHI + GE Vernova burned 100 % NH₃ in full-scale F-class (6F.03/7F/9F) combustion hardware, Mar 2026 — retrofittable combustor targeted 2030.</li>' +
+        '</ul><div class="cite">IHI Corporation · Ammonia Energy Association · GE Vernova (see Sources 2–4)</div>'
+    },
+    engine: {
+      cat: 'engine',
+      tag: '02 · Conversion equipment',
+      title: 'Wärtsilä 25 Ammonia',
+      sub: '1.9–3.1 MW/unit · low-pressure Otto dual-fuel, ~5 % pilot',
+      status: 'assumption',
+      effDefault: 47.5,
+      note: 'No OEM-published ammonia-specific efficiency exists. Default = mid-point of the 46–49 % range this repo carries as an assumption (OEM parity with the DF-LNG twin — Wärtsilä 34SG on natural gas = 48.9 %).',
+      specHTML:
+        '<ul>' +
+        '<li><strong>Power upgrade:</strong> 315 kW/cyl @900 rpm or 345 kW/cyl @1000 rpm; marine deliveries from 2028.</li>' +
+        '<li><strong>Pilot fuel:</strong> ~5 % by energy (diesel/LFO) at ~95 % NH₃ energy share — an <em>additional external</em> fuel input, not deducted from the NH₃ figures in this chain.</li>' +
+        '<li><strong>After-treatment:</strong> Wärtsilä NOR (SCR) + WARMS ammonia-release mitigation, standard package.</li>' +
+        '<li><strong>GHG:</strong> up to 90 % reduction at ~95 % NH₃ energy share; in-service data (NYK <em>Sakigake</em>, 4-stroke, ~95 % NH₃): 94 % GHG cut, N₂O ≤1 % of CO₂e.</li>' +
+        '<li><strong>Maturity:</strong> marine-first; no stationary ammonia genset product exists today.</li>' +
+        '</ul><div class="cite">Wärtsilä 25 Ammonia · Wärtsilä 34SG (see Sources 5–7)</div>'
+    },
+    mhi_sc: {
+      cat: 'mhi',
+      tag: '02 · Conversion equipment',
+      title: 'Mitsubishi Power H-25 (Simple Cycle)',
+      sub: '41 MW class · 100 % NH₃ direct combustion',
+      status: 'assumption',
+      effDefault: 34.8,
+      note: '⚠ This repo’s long-standing anchor (set 2026-06-30). Re-checked 2026-07-28: no MHI source states this is ammonia-specific — likely the H-25’s natural-gas-class spec carried over by assumption. Treat as unconfirmed pending a direct OEM query.',
+      specHTML: mhiCommonSpec()
+    },
+    mhi_cc: {
+      cat: 'mhi',
+      tag: '02 · Conversion equipment',
+      title: 'Mitsubishi Power H-25 (Combined Cycle, 1×1)',
+      sub: '~60 MW class · GT + HRSG + steam turbine',
+      status: 'derived',
+      effDefault: null, // computed from SC value
+      note: 'Derived, not separately published: SC % × (60 MW CC ÷ 41 MW SC). Inherits the SC figure’s unconfirmed ammonia-specific status.',
+      specHTML: mhiCommonSpec()
+    }
+  };
+
+  function mhiCommonSpec() {
+    return '<ul>' +
+      '<li><strong>Series:</strong> H-25 — 41 MW simple cycle; ~60 MW as a 1×1 combined cycle; ~120 MW 2×1.</li>' +
+      '<li><strong>Commercialisation:</strong> "around 2025" announced 2021 — no MHI update located 2023–2026, confirming or revising. Treat as stale/unconfirmed, not a confirmed delay.</li>' +
+      '<li><strong>Real MHI hardware proof to date:</strong> 20 % NH₃ (LHV) co-firing on a 2 MW-class IM270-based combustor (Yokohama, Oct 2020) — raw NOx 287 ppm @16 %O₂ at that ratio, &lt;7 ppm after SCR. Well short of the H-25’s 100 % NH₃ headline claim.</li>' +
+      '<li><strong>Singapore activity:</strong> two separate 2022 MHI-linked ammonia-GTCC MoUs (Jurong Port+JERA Asia, 60 MW-class; Keppel+DNV, QRA) — relationship to the 2025 EMA/MPA Keppel-led 55–65 MW FEED project is unconfirmed; no turbine OEM named in the 2025 release.</li>' +
+      '</ul><div class="cite">Mitsubishi Power · POWER Magazine · JERA · SpringerLink · EMA Singapore (see Sources 8–13)</div>';
+  }
+
+  // ---- STATE ----
+  var state = { path: 'turbine', mhiCC: false, manualEff: {} };
+
+  var els = {
+    lhvInput: document.getElementById('lhvInput'),
+    lhvKwh: document.getElementById('lhvKwh'),
+    storageMJ: document.getElementById('storageMJ'),
+    storageKWh: document.getElementById('storageKWh'),
+    equipNode: document.getElementById('equipNode'),
+    equipTag: document.getElementById('equipTag'),
+    equipTitle: document.getElementById('equipTitle'),
+    equipSub: document.getElementById('equipSub'),
+    effBadge: document.getElementById('effBadge'),
+    effInput: document.getElementById('effInput'),
+    effNote: document.getElementById('effNote'),
+    equipSpecContent: document.getElementById('equipSpecContent'),
+    outPct: document.getElementById('outPct'),
+    outMJ: document.getElementById('outMJ'),
+    outKWh: document.getElementById('outKWh'),
+    wfRetained: document.getElementById('wfRetained'),
+    wfLost: document.getElementById('wfLost'),
+    resultKWh: document.getElementById('resultKWh'),
+    resultNote: document.getElementById('resultNote'),
+    capInput: document.getElementById('capInput'),
+    streamInput: document.getElementById('streamInput'),
+    outGWh: document.getElementById('outGWh'),
+    outKtpa: document.getElementById('outKtpa'),
+    outTph: document.getElementById('outTph'),
+    outShare: document.getElementById('outShare'),
+    mhiSubtoggle: document.getElementById('mhiSubtoggle')
+  };
+
+  function currentKey() {
+    if (state.path === 'mhi') return state.mhiCC ? 'mhi_cc' : 'mhi_sc';
+    return state.path;
+  }
+
+  function fmt(n, d) {
+    if (n === null || n === undefined || isNaN(n)) return '—';
+    return n.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+  }
+
+  function getLHV() {
+    var v = parseFloat(els.lhvInput.value);
+    return (isNaN(v) || v <= 0) ? 18.6 : v;
+  }
+
+  function getEfficiencyFraction(key, pw) {
+    // manual override takes precedence
+    if (state.manualEff[key] !== undefined && state.manualEff[key] !== null && state.manualEff[key] !== '') {
+      var m = parseFloat(state.manualEff[key]);
+      if (!isNaN(m)) return m / 100;
+    }
+    if (key === 'mhi_cc') {
+      // derive from mhi_sc's live value (manual override or default)
+      var scEff = getEfficiencyFraction('mhi_sc', PATHWAYS.mhi_sc);
+      if (scEff === null) return null;
+      return scEff * (60 / 41);
+    }
+    if (pw.effDefault === null) return null;
+    return pw.effDefault / 100;
+  }
+
+  function renderNode() {
+    var key = currentKey();
+    var pw = PATHWAYS[key];
+
+    els.equipNode.setAttribute('data-cat', pw.cat);
+    els.equipTag.textContent = pw.tag;
+    els.equipTitle.textContent = pw.title;
+    els.equipSub.textContent = pw.sub;
+    els.equipSpecContent.innerHTML = pw.specHTML;
+
+    els.effBadge.outerHTML = badgeHTML(pw.status).replace('class="badge', 'id="effBadge" class="badge');
+
+    // effective displayed input value: manual override, else default (blank for turbine)
+    var manual = state.manualEff[key];
+    if (manual !== undefined && manual !== '') {
+      els.effInput.value = manual;
+    } else if (key === 'mhi_cc') {
+      var derivedFrac = getEfficiencyFraction('mhi_cc', pw);
+      els.effInput.value = derivedFrac === null ? '' : (derivedFrac * 100).toFixed(1);
+    } else if (pw.effDefault !== null) {
+      els.effInput.value = pw.effDefault;
+    } else {
+      els.effInput.value = '';
+    }
+    els.effInput.placeholder = pw.effDefault === null && key !== 'mhi_cc' ? 'not published — enter %' : 'enter %';
+    els.effInput.disabled = (key === 'mhi_cc'); // CC is derived live from SC; edit SC instead
+    els.effInput.title = key === 'mhi_cc' ? 'Derived from the Simple Cycle efficiency — edit that value instead.' : '';
+
+    els.effNote.textContent = pw.note;
+    els.effNote.className = 'callout ' + (pw.status === 'gap' ? 'gap' : 'assumption');
+
+    // re-fetch effBadge element reference since outerHTML replaced it
+    els.effBadge = document.getElementById('effBadge');
+
+    computeAndRender();
+  }
+
+  function computeAndRender() {
+    var key = currentKey();
+    var pw = PATHWAYS[key];
+    var lhv = getLHV();
+    var kwhPerKg = lhv / MJ_PER_KWH;
+
+    els.storageMJ.textContent = fmt(lhv, 2);
+    els.storageKWh.textContent = fmt(kwhPerKg, 2);
+    els.lhvKwh.textContent = fmt(kwhPerKg, 2);
+
+    var effFrac = getEfficiencyFraction(key, pw);
+
+    if (effFrac === null || isNaN(effFrac) || effFrac <= 0) {
+      els.outPct.textContent = '—';
+      els.outMJ.textContent = '—';
+      els.outKWh.textContent = '—';
+      els.wfRetained.style.width = '0%';
+      els.wfRetained.textContent = '';
+      els.wfLost.style.width = '100%';
+      els.wfLost.textContent = 'no efficiency entered yet';
+      els.resultKWh.textContent = '—';
+      els.resultNote.textContent = 'Enter an equipment efficiency to compute the usable-energy figure for this pathway.';
+      renderPlant(null, lhv);
+      return;
+    }
+
+    var pct = effFrac * 100;
+    var outMJ = lhv * effFrac;
+    var outKWh = outMJ / MJ_PER_KWH;
+
+    els.outPct.textContent = fmt(pct, 1);
+    els.outMJ.textContent = fmt(outMJ, 2);
+    els.outKWh.textContent = fmt(outKWh, 2);
+
+    var retainedPct = Math.min(100, Math.max(0, pct));
+    els.wfRetained.style.width = retainedPct + '%';
+    els.wfRetained.textContent = retainedPct >= 12 ? fmt(pct, 1) + '% retained' : '';
+    els.wfLost.style.width = (100 - retainedPct) + '%';
+    els.wfLost.textContent = (100 - retainedPct) >= 20 ? fmt(100 - pct, 1) + '% rejected as heat / exhaust / losses' : '';
+
+    els.resultKWh.textContent = fmt(outKWh, 3);
+    els.resultNote.textContent = pw.title + ' at ' + fmt(pct, 1) + '% net electrical efficiency turns 1 kg of landed ammonia (' +
+      fmt(lhv, 1) + ' MJ) into ' + fmt(outMJ, 2) + ' MJₑ (' + fmt(outKWh, 3) + ' kWhₑ) of usable electricity.';
+
+    renderPlant(effFrac, lhv);
+  }
+
+  function renderPlant(effFrac, lhv) {
+    var cap = parseFloat(els.capInput.value);
+    var days = parseFloat(els.streamInput.value);
+    if (isNaN(cap) || cap <= 0 || isNaN(days) || days <= 0 || effFrac === null || isNaN(effFrac) || effFrac <= 0) {
+      els.outGWh.textContent = '—';
+      els.outKtpa.textContent = '—';
+      els.outTph.textContent = '—';
+      els.outShare.textContent = '';
+      return;
+    }
+    var hours = days * 24;
+    var annualElecMWh = cap * hours;               // MWh
+    var thermalInputMWh = annualElecMWh / effFrac;  // MWh thermal
+    var nh3Tonnes = (thermalInputMWh * 3600) / lhv / 1000; // MWh->MJ (*3600), /LHV(MJ/kg)=kg, /1000=t
+    var gwh = annualElecMWh / 1000;
+    var tph = nh3Tonnes / hours;
+    var sharePct = (nh3Tonnes / 650000) * 100; // vs 650 ktpa P1/P2 reference stream, memory.md §4
+
+    els.outGWh.textContent = fmt(gwh, 1);
+    els.outKtpa.textContent = fmt(nh3Tonnes / 1000, 1);
+    els.outTph.textContent = fmt(tph, 2);
+    els.outShare.textContent = '≈' + fmt(sharePct, 1) + '% of the 650 ktpa P1/P2 reference NH₃ stream (memory.md §4).';
+  }
+
+  // ---- EVENTS ----
+  document.querySelectorAll('.selbtn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.selbtn').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+      btn.setAttribute('aria-pressed', 'true');
+      state.path = btn.getAttribute('data-path');
+      els.mhiSubtoggle.classList.toggle('active', state.path === 'mhi');
+      renderNode();
+    });
+  });
+
+  els.mhiSubtoggle.querySelectorAll('button').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      els.mhiSubtoggle.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+      btn.setAttribute('aria-pressed', 'true');
+      state.mhiCC = (btn.getAttribute('data-cc') === 'cc');
+      renderNode();
+    });
+  });
+
+  els.effInput.addEventListener('input', function () {
+    var key = currentKey();
+    if (key === 'mhi_cc') return; // derived, not directly editable
+    state.manualEff[key] = els.effInput.value;
+    computeAndRender();
+  });
+
+  els.lhvInput.addEventListener('input', computeAndRender);
+  els.capInput.addEventListener('input', computeAndRender);
+  els.streamInput.addEventListener('input', computeAndRender);
+
+  // ---- INIT ----
+  renderNode();
+})();
+</script>

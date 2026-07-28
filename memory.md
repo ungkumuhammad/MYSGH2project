@@ -7,7 +7,7 @@
 
 **Project:** Green ammonia import to Johor (MMHE) → on-site cracking to H₂ →
 cross-border H₂ pipeline to Singapore, defined on a permutation basis.
-**Last updated:** 2026-07-01.
+**Last updated:** 2026-07-28.
 
 ---
 
@@ -32,6 +32,7 @@ cross-border H₂ pipeline to Singapore, defined on a permutation basis.
 | 2026-07-15 | Created `power_generation/` folder + resident domain-expert agent (gas engine vs gas turbine incl. CCGT, on NG/H₂/NH₃) | User request: build the ammonia gas-engine vs ammonia gas-turbine/CCGT power-gen comparison; agent must not fabricate — all numbers sourced/labelled/derived | Agent built |
 | 2026-07-16 | Built first **NH₃-focused 50 MW data-center engine-vs-CCGT comparison matrix** (`power_generation/50MW_datacenter_NH3_engine_vs_CCGT_matrix.md`) | User use-case: 50 MW firm clean block on 100 % NH₃, grid tops up larger total demand until NH₃ affordable for 100 % clean | Matrix-only first pass done; superseded for the general case by the 2026-07-28 comprehensive comparison, but still valid for the 50 MW data-centre framing |
 | 2026-07-28 | Built the **comprehensive NH₃ gas-turbine vs. gas-engine comparison** (`power_generation/NH3_gas_turbine_vs_gas_engine_comprehensive_comparison.md`, Rev 1, 7 axis-blocks / 45 rows) and **changed the provisional recommendation for the stationary P2 / Singapore-offtake case from engine → gas turbine** | Three new sourced developments: (1) IHI+GE Vernova burned 100 % NH₃ in full-scale **F-class** combustion hardware (Mar 2026, 6F.03/7F/9F retrofit, target 2030); (2) IHI **IM270 2 MW** ran ~**3,000 h** on 100 % liquid NH₃ incl. load rejection/dump, NOx **<7 ppm**, **>99 %** GHG cut incl. N₂O; (3) Singapore's own EMA/MPA/Keppel Jurong Island project is **55–65 MW by direct NH₃ combustion in a gas turbine plant**. Ammonia engines remain marine-first (W25 A deliveries 2028; MAN 4-stroke genset R&D to ~2027–28) | Active. The 2026-07-16 engine-favouring read **stands for the load-following / incrementally-grown 50 MW data-centre duty** — the two conclusions are duty-dependent, not contradictory |
+| 2026-07-28 | Built an **interactive HTML infographic/calculator**, `power_generation/NH3_ammonia_energy_pathway_infographic.html`, at user request — storage-to-wire ammonia energy chain (1 kg NH₃ landed = 100 % LHV, in both MJ and kWh) with a live pathway selector (Gas Turbine/IHI IM270, Gas Engine/Wärtsilä 25 Ammonia, MHI Equipment/H-25 with SC↔CC toggle), per-node expandable spec sheets, a loss-waterfall visual, and a plant-scale calculator (capacity MW + stream days/yr → annual GWh, annual NH₃ ktpa, mass flow t/h, % of the 650 ktpa P1/P2 reference stream) | User request: infographic showing each pathway's schematic with per-node detail dropdowns and efficiency, prepopulated from sourced defaults, editable | Published as a Claude Artifact and committed to the repo. Every prepopulated default is tagged sourced/assumption/derived/not-published (color + icon + text) per CLAUDE.md §7 — the IHI IM270 pathway deliberately ships with **no default efficiency** (input left blank, "not published") since no source states one; user must supply their own estimate for that path only |
 
 ## 3. Assumptions Register
 
@@ -442,6 +443,34 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
 
 ## 8. Changelog
 
+- **2026-07-28 (3)** — Built an **interactive HTML infographic**,
+  `power_generation/NH3_ammonia_energy_pathway_infographic.html`, at user
+  request, and published it as a Claude Artifact. Shows the direct-ammonia-
+  firing branch (P2) storage-to-wire: 1 kg landed NH₃ = 100 % LHV, shown in
+  both MJ and kWh (18.6 MJ/kg = 5.17 kWh/kg, CLAUDE.md §5), through a
+  **live equipment-pathway selector** — **Gas Turbine** (IHI IM270, 2 MW
+  class), **Gas Engine** (Wärtsilä 25 Ammonia), or **MHI Equipment** (H-25,
+  with a Simple-Cycle ↔ Combined-Cycle toggle) — reusing the exact figures and
+  provenance flags from the 2026-07-28 comprehensive comparison and its MHI
+  cross-check (§2). Each node has an expandable spec-sheet dropdown (TRL,
+  endurance hours, NOx/N₂O, maturity caveats, sources) and every efficiency
+  input carries a colour-and-icon provenance badge — **sourced** (green),
+  **assumption** (amber), **derived/calculated** (blue), or **not published**
+  (red) — so the tool never silently presents an invented number as fact. Per
+  the No-Fabrication Rule, the **IHI IM270 pathway ships with no default
+  efficiency** (input left blank, flagged "not published") since no source
+  states one, in contrast to the engine (47.5 % assumption) and MHI SC/CC
+  (34.8 % assumption / ~50.9 % derived) pathways which do have repo-anchored
+  defaults. Added a loss-waterfall visual (retained vs rejected-as-heat) and a
+  plant-scale calculator (net capacity MW + stream days/yr → annual GWh,
+  annual NH₃ ktpa, mass-flow t/h, and % of the 650 ktpa P1/P2 reference stream
+  from §4) — both live-recalculating on any input change. All inputs are
+  user-editable; every default is traceable to this repo's existing sourced
+  figures, none invented for the infographic itself. Categorical (pathway)
+  and status (provenance) color palettes were computed and validated with the
+  dataviz skill's OKLCH-based validator (lightness band, chroma floor, CVD
+  separation, normal-vision floor, contrast vs. surface) for both light and
+  dark modes before use, rather than chosen by eye.
 - **2026-07-28 (2)** — Added **§2 "MHI actual/demonstrated data vs. the
   literature/theoretical studies"** to
   `power_generation/NH3_gas_turbine_vs_gas_engine_comprehensive_comparison.md`
