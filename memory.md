@@ -443,6 +443,28 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
 
 ## 8. Changelog
 
+- **2026-07-28 (7)** — **Session summary, merged to `main`.** This session
+  (branch `claude/ammonia-turbine-engine-comparison-8s1x6c`) built, in order:
+  (a) `power_generation/NH3_gas_turbine_vs_gas_engine_comprehensive_comparison.md`
+  — the Rev 1 master matrix, gas turbine vs. reciprocating engine on ammonia,
+  with the §2 MHI actual-vs-literature cross-check added same day; (b) the
+  interactive `power_generation/NH3_ammonia_energy_pathway_infographic.html`
+  ("Well to Wake"), through Rev 1.3: a storage/well-to-wake efficiency
+  calculator with a per-pathway Open/Combined-Cycle input, a live
+  Comparison Table tab, a Theoretical tab reproducing the full master matrix
+  (headline, axis-blocks A–G, MHI cross-check, fuel-consumption and verdict
+  tables, 41-source list), and a land-footprint & sparing-philosophy section
+  with its own calculator; (c)
+  `power_generation/NH3_powerplant_land_footprint_study.md` — sourced/derived
+  land-intensity figures (acres/MW) underpinning that calculator. Two real
+  bugs were found and fixed along the way: oversized chevron `<summary>`
+  icons (missing SVG width/height, page-wide) and a document-wide `.selbtn`
+  click-handler collision between the Explorer tab's pathway selector and
+  the land calculator's technology selector. Branch fast-forward-merged into
+  `main` (7604dc5 → f6efcc3, no conflicts, no divergent commits on `main`)
+  and pushed. All decisions, sourcing and the No-Fabrication-Rule flags for
+  this body of work are captured in the dated entries below — read those,
+  not just this summary, before extending any of it.
 - **2026-07-28 (6)** — New study **`power_generation/NH3_powerplant_land_footprint_study.md`**:
   land footprint per MW for the P2 power-block technologies, filling the
   qualitative gap in the comprehensive comparison's §1 row E5. Key sourced/derived
