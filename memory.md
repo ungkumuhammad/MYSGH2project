@@ -297,6 +297,45 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
   CSC (MEPC 83/7/23); NETL; Elsevier *Energy* / *IJHE*; MDPI; EIA AEO2025;
   GridLab; Thunder Said Energy; Power Engineering. (See References.)
 
+**Global (non-ammonia-specific) gas turbine vs. reciprocating gas engine
+utilization for IPPs, 2026-07-28**
+- **Installed capacity:** global natural-gas-fired power capacity ≈ **1,800 GW**
+  (end-2024, overwhelmingly turbine-based); GE Vernova alone ≈ **>800 GW / >7,000
+  units** in 120+ countries (~half the world gas-turbine fleet). Additions
+  averaged **~50 GW/yr, 2015–2024** (Asia 50%, US 20%, Europe 10%, LatAm 10%,
+  Africa 10%); 2025 orders **846 units / 100.3 GW**, up from 2024's 399 units /
+  58.2 GW. Reciprocating gas engines ≈ **47 GW / >72,000 units** globally (2024,
+  EIA) — a much smaller, faster-growing niche (distributed gen, remote/island
+  grids, renewables-balancing, data-center behind-the-meter).
+- **Derived installed-capacity split (flagged, not a quoted stat):** turbine
+  ≈**97.4 %** vs. engine ≈**2.6 %** of installed gas-fired capacity, computed as
+  47 GW ÷ 1,800 GW — assumes the 47 GW figure is a subset of, not additive to,
+  the 1,800 GW total; market-*revenue* share (which counts small distributed
+  gensets) inverts this (recip market ≈$48.8 Bn vs. GT market ≈$11–23 Bn) and
+  answers a different question.
+- **Capacity preference:** engines preferred **<1–~20 MW/unit up to a few
+  hundred MW aggregate** (modular, ~2 min start, flat part-load efficiency,
+  <5 L/h water, N+1/N+2 redundancy natural); **50–80 MW/train is genuinely
+  contested** (site-specific); GT/CCGT preferred **~100 MW–500+ MW/train and
+  above** (smaller footprint/MW, H-class CCGT up to ~64 % LHV). World's largest
+  reciprocating-engine plant = **IPP3, Amman Jordan, 573 MW, 38× Wärtsilä 50DF**
+  — proof the modular format scales to genuine utility IPP baseload duty.
+- **Round-the-clock/baseload nuance:** CCGT utilization trending **down from
+  ~50 % to ~35 %** capacity factor in mature markets (shifting from pure
+  baseload to mid-merit backing up renewables); independent dispatch data shows
+  **no clean correlation between technology and capacity factor** — both
+  recip and aeroderivative fleets span <5 % to >20 % CF depending on grid role.
+- **Verdict (general NG case, not ammonia-specific):** large grid-scale steady
+  IPP baseload → **CCGT**; modular/resilient/water- or land-constrained/phased
+  → **reciprocating engine**. This is the general-fuel baseline; the
+  ammonia-specific reversal (turbine now favoured even at Singapore-offtake
+  scale) is the separate, more decision-relevant finding in the entry above.
+  — U.S. EIA; Global Electricity Review data (via globalelectricity.org); GE
+  Vernova; Baker Hughes; Wärtsilä; Modern Power Systems; NS Energy; Power
+  Engineering; Kodiak Gas Services; Grid Capacity Intelligence; Thunder Said
+  Energy; ASME. (See References — not yet added as discrete URL entries below;
+  this is a chat-delivered research answer, not a repo document.)
+
 ## 7. References
 
 - Ammonia Energy Association — "Liquid Ammonia for Hydrogen Storage":
