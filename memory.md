@@ -336,6 +336,41 @@ utilization for IPPs, 2026-07-28**
   Energy; ASME. (See References — not yet added as discrete URL entries below;
   this is a chat-delivered research answer, not a repo document.)
 
+**100 MW data-center case study: NG baseline vs. NH₃/H₂ pathway, 2026-07-28**
+- **NG reciprocating engine (real 2025–26 hyperscale orders, Wärtsilä):** Ohio
+  412 MW = 40× 34SG (~10.3 MW/unit, COD early 2028); US 507 MW = 27× 50SG
+  (~18.8 MW/unit, COD 2027); Ohio 282 MW = 15× 18V50SG (~18.8 MW/unit); US
+  429 MW = 24× 50SG (~17.9 MW/unit). At 100 MW: **~10× 34SG or ~5–6× 50SG** —
+  a small slice of orders already being placed 3–5× that size.
+- **NG gas turbine at ~100 MW:** **GE 6F.03** = **88 MW simple cycle** (single
+  unit, near-exact 100 MW fit) / **135 MW 1×1 CC** (>57% eff.); **GE LM6000**
+  aeroderivative ≈50 MW/unit (2 units ≈100 MW, >60M fleet hours, >99% start
+  reliability, >98% availability); **ProEnergy** repurposes retired GE
+  CF6-80C2 jet engines (~50 MW class) into mobile data-center packages
+  specifically to dodge the heavy-frame order backlog.
+- **Market constraint (decision-relevant for 2026 IPP timing):** global GT
+  orders ≈100 GW in 2025 vs. only ~60–70 GW/yr global manufacturing capacity;
+  GE Vernova backlog stretches to ~2029–2030. ~101 GW of data-center on-site
+  NG capacity announced (24 GW early-2025 → 64 GW early-2026).
+- **★ Key finding linking to the ammonia project:** **GE 6F.03** (the exact
+  ~88 MW-class frame that's a clean single-unit fit for a 100 MW *NG* data
+  center today) is **the same frame family (6F.03/7F/9F) IHI+GE Vernova's
+  Mar-2026 milestone targets for a retrofittable 100%-ammonia combustion
+  system by 2030** (see the comprehensive comparison entry above). A 100 MW
+  IPP built now on a 6F.03-class turbine is a plausible ammonia-retrofit
+  candidate — **not yet an OEM commitment**, flagged as a design criterion to
+  raise with GE Vernova/IHI, not an assumed guarantee.
+- **NH₃/H₂ pathway at 100 MW (scaled from the 50 MW study, still pre-commercial
+  on both technologies):** engine = **~32–53× Wärtsilä 25 Ammonia** (1.9–3.1
+  MW/unit); turbine = **no exact 100 MW package** — nearest standard trains are
+  two undersized H-25 SC (~82 MW) or one oversized H-25 2×1 CC (~120 MW).
+  Reinforces the 2026-07-28 turbine-favouring verdict for the stationary case.
+  — Wärtsilä (34SG/50SG data-center press releases, Apr 2026/Nov 2025/Jul
+  2025/Jan 2026); GE Vernova (6F.03 fact sheet, LM6000 fact sheet, Hawaiian
+  Electric LM6000VELOX order); Power Engineering; Utility Dive; RBC Capital
+  Markets; Data Center Frontier; TechCrunch (Chevron/Microsoft Project Kilby);
+  DCD (ProEnergy).
+
 ## 7. References
 
 - Ammonia Energy Association — "Liquid Ammonia for Hydrogen Storage":
