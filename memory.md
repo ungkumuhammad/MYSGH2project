@@ -517,6 +517,43 @@ utilization for IPPs, 2026-07-28**
 
 ## 8. Changelog
 
+- **2026-07-28 (8)** — Built **`power_generation/DECK_combined_cycle_GT_vs_GE_100MW_datacenter.md`**
+  (Rev 0), a design-ready deck source for Claude Design, at user request: 25
+  content slides + appendix, each with key message / body / visual direction.
+  Arc = combined-cycle physics → global utilisation → data-centre practice →
+  the MYSGH2 100 MW decision → qualitative assessment. **Central new finding
+  (§Slide 5/7): combined cycle adds ~+20 efficiency points to a gas turbine but
+  only ~+5 to a gas engine**, because the GT rejects more heat in *one
+  high-grade stream* (500–700 °C) while the engine's waste heat is fragmented
+  between exhaust and low-grade jacket/lube/charge-air heat (82–110 °C) — the
+  CHP literature puts it as **GTs making 2–3× more steam per kW**. Both uplifts
+  are **derived from sourced specs and verified**: 6F.03 (88 MW SC / 135 MW 1×1
+  CC / >57 % CC) ⇒ implied SC eff **37.2 %** ⇒ **+19.8 pts**; Flexicycle
+  48.9 %→>54 % ⇒ **+5.1 pts**, independently cross-checked against Wärtsilä's
+  own "up to 10 % relative improvement" claim (48.9 × 1.10 = 53.8 % ≈ 54 % ✓).
+  **⇒ The efficiency ranking REVERSES with cycle:** simple cycle the engine wins
+  by ~10–14 pts (46–49 % vs 35–37 %); combined cycle the turbine wins by
+  ~3–10 pts (57–64 % vs 54 %). Also newly derived and verified for the 100 MW
+  case: CCGT water **≈615,000 m³/yr** vs Flexicycle ≈322,000 m³/yr (90 % CF);
+  land **11–14 acres (GT)** vs **33–56 acres (engine)**; and — significant for
+  fuel planning — a 100 MW ammonia block consumes **282–332 ktpa = 43–51 % of
+  the entire 650 ktpa P1/P2 reference stream** (vs 23–26 % for the 50 MW block),
+  so **fuel supply, not equipment, may become the binding constraint**.
+  Deck recommendation = **gas turbine, 6F.03-class**, but explicitly *not* on
+  efficiency grounds — on **future-fuel optionality** (same frame family as the
+  IHI/GE Vernova 2030 ammonia-retrofit target), Singapore precedent, and
+  in-combustor N₂O destruction; with the costs (granularity miss: 88 MW or
+  135 MW, neither is 100 MW; single-train redundancy; water; tropical derate;
+  >90 % booked for 2028) and the three flip-conditions kept visible on the
+  slide. Two honest flags carried into the deck rather than smoothed over: the
+  **engine exhaust-temperature discrepancy** between sources (350–400 °C
+  general literature vs 850–1,200 °F CHP sources — direction consistent, exact
+  figure unsettled), and that **data centres today buy simple cycle, not
+  combined cycle** (all four Wärtsilä data-centre orders are SC), making the
+  combined-cycle debate partly orthogonal to current procurement. Whether
+  Project Kilby's GE Vernova turbines are CC is **unconfirmed** — flagged, not
+  assumed. Added a **terminology warning** to the deck: "GE" = Gas Engine in
+  this project, "GE Vernova" is a turbine OEM — never abbreviate the latter.
 - **2026-07-28 (7)** — **Session summary, merged to `main`.** This session
   (branch `claude/ammonia-turbine-engine-comparison-8s1x6c`) built, in order:
   (a) `power_generation/NH3_gas_turbine_vs_gas_engine_comprehensive_comparison.md`
