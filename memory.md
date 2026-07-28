@@ -443,6 +443,28 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
 
 ## 8. Changelog
 
+- **2026-07-28 (5)** — Added a third **"Theoretical" tab** to the interactive
+  infographic (Rev 1.2), reproducing the full qualitative master matrix from
+  `power_generation/NH3_gas_turbine_vs_gas_engine_comprehensive_comparison.md`
+  (Rev 1) without alteration: the §0 headline-developments table, all seven
+  §1 axis-blocks (A–G: technology status, thermodynamics, operability,
+  emissions, fuel/utilities, CAPEX/OPEX, project fit), the §2 MHI
+  actual-vs-literature cross-check, the §3 derived fuel-consumption table, and
+  the §4 verdict table — each in a collapsible accordion, with its own
+  self-contained 41-entry source list (separate from the 14-source footer used
+  by the live calculator tabs, since the two documents cite independently).
+  Built by parsing the source markdown's GFM tables programmatically (not
+  hand-transcribed) to avoid transcription drift from the sourced document;
+  caught and fixed a bold/italic nesting ambiguity in one triple-asterisk
+  markdown span during that conversion. Also fixed a **pre-existing rendering
+  bug** found while building this tab: the chevron `<summary>` icons used
+  across the whole page (both the original Explorer node "spec" dropdowns and
+  the new Theoretical accordions) had no explicit SVG width/height, so
+  browsers rendered them at their ~300×150px intrinsic default instead of the
+  intended ~9px icon — added a global `.chev { width:9px; height:9px }` rule.
+  Verified in headless Chromium (no console/page errors; all
+  `getElementById` targets resolve; visually confirmed all three tabs and
+  spot-checked several accordion tables).
 - **2026-07-28 (4)** — Revised the interactive infographic
   (`power_generation/NH3_ammonia_energy_pathway_infographic.html`, Rev 1.1) per
   user request: (1) generalized the MHI-only Simple/Combined-Cycle toggle into
