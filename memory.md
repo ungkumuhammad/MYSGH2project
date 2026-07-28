@@ -30,7 +30,8 @@ cross-border H₂ pipeline to Singapore, defined on a permutation basis.
 | 2026-06-30 | Pipeline & sizing handled as **permutation matrix**, not single design | User requirement | Active |
 | 2026-06-30 | Refreshed KBR/Duiker/Casale content in `tcoedatabase` from Dec-2025 packages; kept file structure, fuel-mode & capacity basis per column; flagged gaps in red | User request ("update… without changing the nature of the file"); No-Fabrication Rule | Done |
 | 2026-07-15 | Created `power_generation/` folder + resident domain-expert agent (gas engine vs gas turbine incl. CCGT, on NG/H₂/NH₃) | User request: build the ammonia gas-engine vs ammonia gas-turbine/CCGT power-gen comparison; agent must not fabricate — all numbers sourced/labelled/derived | Agent built |
-| 2026-07-16 | Built first **NH₃-focused 50 MW data-center engine-vs-CCGT comparison matrix** (`power_generation/50MW_datacenter_NH3_engine_vs_CCGT_matrix.md`) | User use-case: 50 MW firm clean block on 100 % NH₃, grid tops up larger total demand until NH₃ affordable for 100 % clean | Matrix-only first pass done; deeper study (per-cell NH₃ premiums, emissions ppm) is next |
+| 2026-07-16 | Built first **NH₃-focused 50 MW data-center engine-vs-CCGT comparison matrix** (`power_generation/50MW_datacenter_NH3_engine_vs_CCGT_matrix.md`) | User use-case: 50 MW firm clean block on 100 % NH₃, grid tops up larger total demand until NH₃ affordable for 100 % clean | Matrix-only first pass done; superseded for the general case by the 2026-07-28 comprehensive comparison, but still valid for the 50 MW data-centre framing |
+| 2026-07-28 | Built the **comprehensive NH₃ gas-turbine vs. gas-engine comparison** (`power_generation/NH3_gas_turbine_vs_gas_engine_comprehensive_comparison.md`, Rev 1, 7 axis-blocks / 45 rows) and **changed the provisional recommendation for the stationary P2 / Singapore-offtake case from engine → gas turbine** | Three new sourced developments: (1) IHI+GE Vernova burned 100 % NH₃ in full-scale **F-class** combustion hardware (Mar 2026, 6F.03/7F/9F retrofit, target 2030); (2) IHI **IM270 2 MW** ran ~**3,000 h** on 100 % liquid NH₃ incl. load rejection/dump, NOx **<7 ppm**, **>99 %** GHG cut incl. N₂O; (3) Singapore's own EMA/MPA/Keppel Jurong Island project is **55–65 MW by direct NH₃ combustion in a gas turbine plant**. Ammonia engines remain marine-first (W25 A deliveries 2028; MAN 4-stroke genset R&D to ~2027–28) | Active. The 2026-07-16 engine-favouring read **stands for the load-following / incrementally-grown 50 MW data-centre duty** — the two conclusions are duty-dependent, not contradictory |
 
 ## 3. Assumptions Register
 
@@ -174,6 +175,94 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
   — Wärtsilä; Mitsubishi Power; MAN ES; EIA AEO2025; GridLab; Thunder Said
   Energy; Power Engineering. (See References.)
 
+**NH₃ gas turbine vs. gas engine — comprehensive comparison, 2026-07-28**
+
+*Maturity (turbine side moved materially ahead for stationary duty)*
+- **IHI + GE Vernova, Mar 2026:** 100 % ammonia combusted in **full-scale F-class
+  components** at full-load pressure/temperature/flow. Roadmap = retrofittable
+  100 %-NH₃ combustion system for **6F.03 / 7F / 9F**, target **2030**.
+- **IHI IM270 (2 MW class):** world's first GT running exclusively on **liquid
+  ammonia**; endurance testing at Aioi from Jul 2024, **~3,000 h as of Jan 2026**,
+  incl. **load-rejection and load-dump** tests. **NOx <7 ppm** after DeNOx;
+  **>99 % GHG reduction incl. N₂O** at 70–100 % NH₃ ratio (two-stage combustion
+  eliminated the N₂O spike that used to appear above 70 % NH₃). Cogeneration
+  Award 2025. Package = IM270 + heat-recovery boiler, 2 MWe + 6 t/h steam.
+- **MHI H-25 100 % NH₃ (40 MW class):** ~2025 commercialisation target
+  **slipped**; no 2026 status update located. H-25 series: **41 MW SC**,
+  **~60 MW 1×1 CC**, ~120 MW 2×1.
+- **Baker Hughes + Hanwha (Feb 2025):** ~**16 MW NovaLT16**, 100 % NH₃ ↔ 100 %
+  gas and any blend; full engine test on NH₃ by **end-2027**, deployment 2028.
+  Claims **IMO Tier III NOx without SCR** — vendor claim, unverified at
+  stationary duty.
+- **Engines stay marine-first:** Wärtsilä 25 Ammonia (1.9–3.1 MW; **315 kW/cyl
+  @900 rpm, 345 kW/cyl @1000 rpm**; deliveries **2028**); Everllence/MAN B&W
+  **ME-LGIA** two-stroke shipyard delivery **2026**, **5 % SPOC** pilot, **>95 %**
+  NH₃ energy fraction; MAN **AmmoniaMot 2** four-stroke genset R&D Aug 2024 +3.5 yr.
+  MAN roadmap: 2-stroke **12–68 MW**, 4-stroke DF **26 MW**. **No stationary
+  ammonia genset product exists today.**
+
+*Singapore market precedent (directly relevant to P2)*
+- **EMA/MPA + Keppel-led consortium (Sumitomo, Advario), Jurong Island:**
+  **55–65 MWe** from imported low-/zero-carbon ammonia by **direct combustion in
+  a gas turbine plant**, plus ≥100 ktpa NH₃ bunkering. In **FEED**, no FID yet.
+  → **The only NH₃ power project in Singapore is a gas turbine plant.**
+
+*Performance*
+- NH₃ CC efficiency anchor unchanged at **~51 %** — now also **derived**:
+  34.8 % SC × (60 MW CC ÷ 41 MW SC) = **50.9 %** for the H-25 1×1.
+- Engine SC on NH₃ **≈46–49 %** (parity with DF twin; W34SG NG = 48.9 %);
+  engine-CC "Flexicycle" **>54 % but on NG only** — never shown on NH₃.
+- **Cracked-NH₃ combined cycle:** **47.7 %** (direct liquid NH₃) → **49.1 %**
+  (vaporised) → **54 %** (fully cracked H₂–N₂), *conditional on heat integration
+  with GT waste heat*; a **standalone, non-integrated cracker lowers** net
+  efficiency. Cracked-NH₃ flame at 60 % cracking ratio cut NO ~25 % vs 40/60
+  NH₃/H₂.
+- NH₃ penalty vs NG: **~1.7 pts** below NGCC in an optimised NH₃ CHGT cycle;
+  **~0.5 pt** electric-efficiency loss on full NG→NH₃ substitution (micro-GT study).
+- **NH₃ flame speed ≈1/5 of methane–air** — the root cause of staged/rich-lean
+  combustor design and of H₂/cracked-NH₃ enrichment strategies.
+- **Tropical derate:** GT ≈ **0.4 % power loss + 0.1 % heat-rate rise per °F**
+  above 59 °F (≈5–10 % power per 10 °C); turbocharged recip engines far less
+  sensitive. Johor/SG ambient ~30–33 °C ⇒ this is a real GT penalty here.
+
+*Emissions (the ammonia-specific risk)*
+- **N₂O GWP ≈ 273× CO₂ (100-yr)** — governs the GHG case for ammonia firing.
+- **Turbine:** N₂O destroyed **in the combustor** by two-stage rich-lean
+  combustion (>99 % GHG cut incl. N₂O). Dual-function SCR: **<2.5 ppm NOx, ~zero
+  NH₃ slip**.
+- **Engine:** N₂O **~20 ppm untreated** across loads (IHI test engines) →
+  **2–10 ppm with catalyst**; NH₃ slip assumed **10–30 ppm** for new 4-stroke DF
+  (IHI/Wärtsilä measurement basis), target <10 ppm. In service (NYK *Sakigake*,
+  ~95 % NH₃ + catalyst): **94 % GHG cut**, N₂O ≤ **1 %** of CO₂e. Wärtsilä 25 A:
+  **up to 90 %** GHG cut at ~95 % NH₃ share.
+- **Engine needs three catalyst beds** (SCR + AMOX/ASC + dedicated N₂O) vs the
+  turbine's combustor staging + DeNOx ⇒ more catalyst OPEX and life exposure.
+- **Ammonia is regulated on a toxicity basis, not just flammability** — ppm-level
+  gas detection, release-mitigation (Wärtsilä WARMS), cofferdam/separation from
+  occupied spaces, closing devices on air intakes. Applies to **both** options.
+
+*Derived fuel consumption at 50 MWe (shown calc; NH₃ LHV 18.6 MJ/kg; 90 % CF =
+7,884 h/yr assumed)*
+- Engine SC 46/47.5/49 % → **166 / 161 / 156 ktpa** NH₃.
+- NH₃ CCGT 50/51 % → **153 / 150 ktpa**. Cracked-NH₃ CC 54 % → **141 ktpa**.
+- ⇒ turbine's ~3.5-pt edge ≈ **8–11 ktpa (~6 %)** of fuel; cracked-NH₃ ≈ **20 ktpa
+  (~12 %)**. A 50 MW block = **~23–26 %** of the 650 ktpa P1/P2 stream.
+- Liquid NH₃ **≈680 kg/m³** (=121 kg H₂/m³ ÷ 0.178) ⇒ **≈12.6 GJ/m³**;
+  **≈2.7× the fuel mass flow of NG** per unit thermal input (50 ÷ 18.6).
+
+*Costs — NH₃ premium still unpublished on BOTH technologies (do not quote)*
+- NG anchors only: CCGT **$921/kW** (EIA/S&L 2023$), fixed O&M **$10–12/kW-yr**;
+  NG RICE **≈$1,250–1,500/kW**. GT major overhaul **25,000–35,000 h ($4–8 M)**,
+  combustion inspection ~24,000 h ($1.2–2.5 M) — US market, NG basis, trade source.
+- The H₂ **+8.5 % GT-subsystem** premium **must not be transferred to NH₃** —
+  ammonia needs a different combustor *and* a DeNOx/N₂O train.
+
+- Full write-up: `power_generation/NH3_gas_turbine_vs_gas_engine_comprehensive_comparison.md`.
+  — IHI; GE Vernova; Mitsubishi Power; Baker Hughes/Hanwha; Wärtsilä; Everllence/
+  MAN ES; EMA/MPA/EDB Singapore; Ammonia Energy Association; Pacific Environment/
+  CSC (MEPC 83/7/23); NETL; Elsevier *Energy* / *IJHE*; MDPI; EIA AEO2025;
+  GridLab; Thunder Said Energy; Power Engineering. (See References.)
+
 ## 7. References
 
 - Ammonia Energy Association — "Liquid Ammonia for Hydrogen Storage":
@@ -232,9 +321,116 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
   https://thundersaidenergy.com/downloads/reciprocating-gas-engines-levelized-costs/
 - Power Engineering — dual-function SCR catalyst (<2.5 ppm NOx, ~zero NH₃ slip,
   gas turbines): https://www.power-eng.com/gas/turbines/scr-catalysts-dual-function-catalyst-promises-high-nosubx-sub-removal-with-zero-ammonia-slip-for-gas-turbine-applications/
+- GE Vernova / IHI — 100 % ammonia combustion achieved in F-class gas turbine
+  test (Mar 2026): https://www.gevernova.com/news/press-releases/ihi-ge-vernova-achieve-milestone-100-ammonia
+- GE Vernova & IHI — next phase of roadmap, 100 % ammonia-capable combustion
+  system for 6F.03/7F/9F by 2030:
+  https://www.ge.com/news/press-releases/ge-vernova-and-ihi-announce-next-phase-of-the-technology-roadmap-aiming-to-develop-a
+- POWER Magazine — GE Vernova/IHI novel ammonia-capable gas turbine combustor
+  (two-stage): https://www.powermag.com/ge-vernova-ihi-developing-novel-ammonia-capable-gas-turbine-combustor/
+- IHI — 2 MW-class gas turbine cogeneration system fuelled exclusively by liquid
+  ammonia (Cogeneration Award 2025; 2 MWe + 6 t/h steam; NOx <7 ppm; >99 % GHG
+  cut incl. N₂O at 70–100 % NH₃):
+  https://www.ihi.co.jp/en/all_news/2025/resources_energy_environment/1201875_13737.html
+- IHI — Development of Liquid Ammonia Direct Spray Combustion Gas Turbine:
+  https://www.ihi.co.jp/en/technology/techinfo/contents_no/1199391_13586.html
+- Ammonia Energy Association — IHI Corporation profile (IM270 Aioi demo, ~3,000 h
+  as of Jan 2026, 7F-class with GE Vernova targeting 2030):
+  https://ammoniaenergy.org/organization/ihi-corporation/
+- EMA Singapore — Consortium appointed for next phase of study on low-/zero-carbon
+  ammonia power generation and bunkering (55–65 MW, direct combustion in a gas
+  turbine plant, Jurong Island):
+  https://www.ema.gov.sg/news-events/news/media-releases/2025/consortium-appointed-to-conduct-next-phase-of-ammonia-power-generation-bunkering-solution
+- Singapore EDB — Keppel-led consortium appointed, Jurong Island ammonia power
+  and bunkering: https://www.edb.gov.sg/en/business-insights/insights/keppel-led-consortium-appointed-for-next-phase-of-ammonia-power-and-bunkering-project-on-jurong-island.html
+- Mitsubishi Power — H-25 Series (41 MW SC; ~60 MW 1×1 CC; ~120 MW 2×1):
+  https://power.mhi.com/products/gasturbines/lineup/h25/
+- Baker Hughes & Hanwha — ~16 MW NovaLT16 100 % ammonia-capable turbine JDA
+  (Feb 2025; full NH₃ engine test by end-2027; Tier III claimed without SCR):
+  https://investors.bakerhughes.com/news-releases/news-release-details/baker-hughes-and-hanwha-announce-partnership-develop-small-size
+- Ammonia Energy Association — Hanwha/Baker Hughes fuel-flexible small turbines:
+  https://ammoniaenergy.org/articles/hanwha-baker-hughes-to-develop-fuel-flexible-small-size-turbines-for-maritime-propulsion/
+- Wärtsilä 25 Ammonia product page (AmmoniaPac fuel supply, WARMS release
+  mitigation, NOR NOx reducer): https://www.wartsila.com/marine/wartsila-25-ammonia
+- Everllence (ex-MAN Energy Solutions) B&W ME-LGIA two-stroke ammonia engine —
+  shipyard delivery 2026, 5 % SPOC pilot, >95 % NH₃ energy fraction:
+  https://www.everllence.com/marine/products/two-stroke-engines/ammonia-engine
+- Turbomachinery Magazine — MAN Energy launches AmmoniaMot 2 four-stroke programme:
+  https://www.turbomachinerymag.com/view/man-energy-launches-four-stroke-engine-program-ammoniamot-2
+- Ammonia Energy Association — Emission performance of ammonia-fueled four-stroke
+  marine engines (N₂O ~20 ppm untreated → 2–10 ppm with catalyst; NH₃ slip
+  10–30 ppm; Sakigake 94 % GHG cut):
+  https://ammoniaenergy.org/articles/emission-performance-of-ammonia-fueled-four-stroke-marine-engines/
+- Pacific Environment / Clean Shipping Coalition — MEPC 83/7/23, review of
+  tank-to-wake N₂O from ammonia-fuelled engines:
+  https://cleanshipping.org/wp-content/uploads/2025/02/MEPC-83-7-23-Review-of-current-literature-on-tank-to-wake-nitrous-oxide-emissions-fromammonia-fueled-en.-Pacific-Environment-CSC.pdf
+- NETL — Ammonia Combustion for Gas Turbine Engine Applications:
+  https://www.netl.doe.gov/projects/files/AmmoniaCombustionforGasTurbineEngineApplications_070522.pdf
+- Int'l J. Hydrogen Energy (2025) — Thermodynamic/techno-economic analysis of NH₃
+  in a combined cycle: direct liquid 47.7 % / vaporised 49.1 % / cracked 54 %:
+  https://www.sciencedirect.com/science/article/pii/S0360319925043393
+- Energy (Elsevier, 2023) — Waste heat recovery optimization in ammonia-based gas
+  turbine applications (NH₃ CHGT within 1.7 pts of NGCC):
+  https://www.sciencedirect.com/science/article/pii/S0360544223014731
+- MDPI Energies — Performance Analysis of an Ammonia-Fueled Micro Gas Turbine
+  (~0.5 pt loss on full NG→NH₃ substitution): https://www.mdpi.com/1996-1073/15/11/3874
+- MDPI Processes (2026) — From Flammability to Toxicity: comparative regulatory
+  analysis of safety frameworks for LNG and ammonia as fuels:
+  https://www.mdpi.com/2227-9717/14/9/1387
+- Wärtsilä — Derating due to ambient temperature (engines vs aeroderivative GT):
+  https://www.wartsila.com/energy/learn-more/technology-comparison-engines-vs-aeros/derating-due-to-ambient-temperature
+- Power Engineering — ambient temperature effect on gas turbine output
+  (~0.4 %/°F power loss, +0.1 %/°F heat rate):
+  https://www.power-eng.com/operations-maintenance/why-keeping-cool-keeps-output-high/
+- USPE Global — Gas Turbine EPC Costs 2026 (overhaul intervals/costs; trade
+  source, US market, NG basis): https://uspeglobal.com/articles/gas-turbine-epc-costs-2026/
 
 ## 8. Changelog
 
+- **2026-07-28** — Built the **comprehensive ammonia-firing comparison: gas
+  turbine vs. reciprocating gas engine**, at
+  `power_generation/NH3_gas_turbine_vs_gas_engine_comprehensive_comparison.md`
+  (Rev 1; 7 axis-blocks — maturity/fuel-readiness, thermodynamics, operability,
+  emissions, fuel-system/utilities/footprint, CAPEX/OPEX/maintenance, project
+  fit — ~45 rows, plus a derived fuel-consumption table and a 12-row verdict
+  table). This is the deeper study flagged as "next" on 2026-07-16.
+  **Headline: the recommendation for the stationary P2 / Singapore-offtake case
+  flips from engine to gas turbine**, on three new sourced developments — (1)
+  **IHI + GE Vernova, Mar 2026**, burned **100 % ammonia in full-scale F-class
+  combustion hardware** at full-load pressure/temperature/flow, with a
+  **retrofittable** 6F.03/7F/9F combustion system targeted for **2030**; (2) the
+  **IHI IM270 2 MW** machine has run **~3,000 h on 100 % liquid ammonia**
+  (Jul 2024→Jan 2026) including **load-rejection and load-dump** tests, at
+  **NOx <7 ppm** and **>99 % GHG reduction including N₂O** — making it the most
+  operationally proven 100 %-NH₃ power machine on either technology; and (3)
+  **Singapore's own ammonia power project** (EMA/MPA, Keppel-led with Sumitomo
+  and Advario, Jurong Island) is specified as **55–65 MWe by direct ammonia
+  combustion in a gas turbine plant** and is in FEED — the same size class and
+  geography as our offtake, and there is **no ammonia-engine power project in
+  Singapore**. Ammonia **engines remain marine-first** (Wärtsilä 25 A deliveries
+  2028; Everllence ME-LGIA shipyard delivery 2026; MAN four-stroke genset R&D to
+  ~2027–28; **no stationary ammonia genset product exists**). The turbine also
+  destroys **N₂O (GWP ≈273×)** *in the combustor* via two-stage rich-lean
+  combustion, whereas the engine depends on **three catalyst beds** (SCR + AMOX/
+  ASC + dedicated N₂O). **The 2026-07-16 engine-favouring read is not retracted
+  — it stands for the load-following / incrementally-grown 50 MW data-centre
+  duty**; the two conclusions are duty-dependent, and the engine still wins
+  part-load (>46 % vs GT falling off), N+1 modularity, ~2-min/black start, water
+  (<5 L/h vs ~780 L/MWh CCGT) and tropical derate (GT loses ~0.4 %/°F). New
+  quantified findings: NH₃ CC ~51 % **derived** as 34.8 % × 60/41 = 50.9 %;
+  **cracked-NH₃ CC reaches 54 %** vs 47.7 % direct-liquid — *only with GT
+  waste-heat integration; a standalone cracker lowers net efficiency* — which
+  makes the MMHE cracker an asset on the **Singapore** side too and is a direct
+  crossover for the P1-vs-P2 ranking; and a shown calc that the turbine's
+  ~3.5-pt edge is worth **8–11 ktpa NH₃ (~6 %)** at 50 MW, with cracked-NH₃
+  worth ~20 ktpa (~12 %). **NH₃ CAPEX premium remains unpublished on both
+  technologies and was not invented**; the H₂ +8.5 % GT-subsystem premium is
+  explicitly flagged as **not transferable** to ammonia. Added a decision (§2),
+  a large Sourced Data Registry block (§6) and 25 references (§7). Note:
+  WebFetch/curl were blocked (HTTP 403 via the agent proxy) throughout this
+  session, so every figure is taken from **WebSearch result summaries with the
+  source URL retained** — worth a spot-check against the primary documents
+  before investment-grade use.
 - **2026-07-16** — Built the first **NH₃-focused, 50 MW data-center power-block
   comparison matrix**: **reciprocating ammonia gas engine vs. ammonia gas
   turbine in CCGT config**, at
