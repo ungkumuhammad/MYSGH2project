@@ -7,7 +7,7 @@
 
 **Project:** Green ammonia import to Johor (MMHE) → on-site cracking to H₂ →
 cross-border H₂ pipeline to Singapore, defined on a permutation basis.
-**Last updated:** 2026-07-28.
+**Last updated:** 2026-07-29.
 
 ---
 
@@ -297,6 +297,77 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
   CSC (MEPC 83/7/23); NETL; Elsevier *Energy* / *IJHE*; MDPI; EIA AEO2025;
   GridLab; Thunder Said Energy; Power Engineering. (See References.)
 
+**Per-vendor-model ammonia machine registry: TRL + efficiency, 2026-07-29**
+- Full table: `power_generation/NH3_vendor_TRL_efficiency_table.md` (Rev 0,
+  18 named vendor models, 9 turbine + 9 engine, each with an **assessed** TRL,
+  one-line TRL reasoning, SC and CC ammonia efficiency, and a separately-labelled
+  non-ammonia platform anchor).
+- **★ Headline finding: ZERO of the 18 named models has a published,
+  ammonia-specific, net-electrical efficiency in either cycle.** The only
+  numbers available are natural-gas / conventional-fuel platform anchors. Any
+  ammonia efficiency plotted anywhere in this repo is therefore an assumption or
+  a derivation, never an OEM ammonia figure. This supersedes any looser reading
+  of the §6 2026-07-28 entry.
+- **★ OPEN QUESTION CLOSED — "does any OEM offer a stationary ammonia genset?"
+  (comprehensive comparison §5): YES.** **IHI Power Systems 6 MW (6,000 kW)
+  land-based ammonia genset**, V18 scale-up of the 1.6 MW marine **28ADF**,
+  began operating at the **Ota Plant, Gunma, July 2026**; NH₃ + heavy-fuel-oil
+  dual fuel (can run 100 % HFO); targets **>90 % ammonia ratio** and **>90 % GHG
+  reduction**; the demonstration covers the complete system (engine, fuel supply,
+  after-treatment, leak detection, safety controls); testing completes **FY2026**,
+  **commercial sales FY2027**; stated target applications **data centres,
+  industrial parks, diesel-genset replacement**. **Assessed TRL 6–7.** Efficiency
+  **not published**. This is directly relevant to the P2 / 50–100 MW data-centre
+  framing and should be raised with IHI. — Power Systems Research; Ammonia Energy
+  Association.
+- **New named models added to the repo this session** (all with assessed TRLs):
+  **WinGD X-DF-A / X52DF-A** (first commercial ammonia engine *installed* on an
+  EXMAR 46,000 m³ carrier, 2025; ~30 on order; ~5 % pilot diesel at full load;
+  **TRL 8–9**, the furthest-progressed ammonia machine of any type);
+  **J-ENG UEC50LSJA / 7UEC50LSJA-HPSCR** (~1,000 h single-cylinder May 2023–Sep
+  2024, ~700 h full-scale, delivered to JMU Ariake Oct 2025, NYK gas carrier in
+  service Nov 2026; **TRL 8**); **HD Hyundai HiMSEN H22CDF-LA** (≤2.2 MW,
+  world-first high-pressure ammonia direct injection, type-approval test
+  Sep–Oct 2024 + 7 class societies, vendor targets *land-based* power gen;
+  **TRL 8**) and **H32CDF-LA** (≤5.4 MW, class approval 2025, approval type
+  ambiguous; **TRL 6–7**); **IHI Power Systems 28ADF** (1.6 MW marine, up to
+  **95 %** NH₃ share, >80 % GHG cut vs diesel mode, basis of NYK tug *Sakigake*;
+  **TRL 8–9**); **Toyota Energy Solutions/AIST/Tohoku 50 kW micro GT** (100 %
+  NH₃ gas, >40 kW achieved; **TRL 4–5**) and **300 kW ammonia MGT** (**TRL 3–4**);
+  **MAN NH3 Spark – FutureFlex** (single-cylinder at DTU from Q3 2025, then
+  full-scale at Skovgaard Energy; spark-ignited, **pilot-free target**; **TRL 3–4**).
+- **New platform anchors (NOT ammonia figures):** **IHI IM270 = 26.6 %**
+  power-generation efficiency — a *development target* from the original 1990s
+  2,000 kW programme on conventional fuel, **LHV/HHV basis not stated in the
+  source**; single-shaft simple open cycle, NOx 20 ppm without denitrification,
+  30,000 h service life. **Baker Hughes NovaLT16 = 36.4 %** SC at 16.9 MW
+  generator drive / 37.4–37.5 % at 17.5 MW mechanical drive (conventional fuel);
+  its "up to 84 %" figure is **CHP total-thermal, NOT combined-cycle
+  net-electrical** — do not confuse the two.
+- **Structural asymmetry to carry forward:** ammonia **engines** cluster at
+  **TRL 8–9 but are almost all marine**; ammonia **turbines** for stationary duty
+  sit at **TRL 5–7**. The ammonia engine industry is materially more mature than
+  the ammonia turbine industry — but in the wrong application, with the single
+  exception of the IHI 6 MW land genset above. **No reciprocating engine has any
+  combined-cycle product on ammonia at all** (Wärtsilä Flexicycle >54 % is
+  natural gas only), so a CC comparison is an absence map, not a scatter.
+- **Searched and NOT found (record so it isn't re-searched):** **Kawasaki Heavy
+  Industries** — no ammonia gas turbine programme (their alt-fuel work found is
+  hydrogen: 1.8 MW 100 %-H₂ dry-combustion GT cogen; 30 % H₂ co-firing gas
+  engine). **Solar Turbines / Caterpillar** — no ammonia programme (hydrogen
+  only: >2 M hours up to 70 % H₂). **Siemens Energy** — ammonia is *research
+  only*, no named model (SGT-600/700/800 are the H₂-ready family); **TRL 2–3**.
+  **Doosan Enerbility (+POSCO, RIST)** — deliberately chose the **cracked-NH₃ →
+  H₂** route rather than direct ammonia combustion; combustor targeted 2026;
+  **TRL 3–4**, not comparable to a direct-NH₃ machine. **Ansaldo, Yanmar,
+  Caterpillar/MaK** — nothing sourced.
+- **⚠️ Sourcing caveat on this entry:** direct page fetches were blocked
+  (HTTP 403 at the egress proxy) throughout the 2026-07-29 session, so the new
+  rows were built from **web-search result summaries of the named, linkable
+  sources**, mutually corroborated where possible. **Each new source should be
+  opened and read once directly before investment-grade use.** Recorded rather
+  than smoothed over, per CLAUDE.md §7.
+
 **Global (non-ammonia-specific) gas turbine vs. reciprocating gas engine
 utilization for IPPs, 2026-07-28**
 - **Installed capacity:** global natural-gas-fired power capacity ≈ **1,800 GW**
@@ -517,6 +588,72 @@ utilization for IPPs, 2026-07-28**
 
 ## 8. Changelog
 
+- **2026-07-29 (2)** — Built **`power_generation/NH3_vendor_TRL_efficiency_dashboard.html`**,
+  a 5-tab HTML deliverable consuming the vendor/model registry below (Tab 1 =
+  full 18-model table; Tabs 2–3 = TRL-vs-efficiency scatter for ammonia SC/CC;
+  Tabs 4–5 = the same for each model's natural-gas/conventional-fuel baseline,
+  added at user request once the ammonia data gap became clear). Turbines are
+  green (`#2F9E62` light / `#2FAE73` dark), engines red (`#B23A48` light /
+  `#C25A66` dark) — this pair **fails** the dataviz-skill CVD-separation check
+  at default lightness and only **passes/WARNs** at these adjusted shades
+  (validated via `scripts/validate_palette.js`), so marker **shape** (circle vs.
+  square) plus direct labels carry identity as required secondary encoding, not
+  color alone. **Design decisions made with the user, not unilaterally:** (1)
+  Tabs 2–3 plot **only** genuinely sourced/derived ammonia figures — no
+  natural-gas anchor is substituted to "fill" the ammonia charts, so 17 of 18
+  models appear as TRL-only entries in a side panel rather than as invented
+  points; (2) the H-25's contested 34.8 %/50.9 % pair **is** plotted, but with a
+  dashed amber "flagged assumption" ring, never as a plain sourced point; (3)
+  Tab 3 (ammonia CC) was built as an intentionally near-empty chart — the
+  sparseness is presented as the finding, not hidden; (4) all TRL values are
+  used as the agent's assessed figures, explicitly labelled as analyst judgment,
+  not vendor-published. Verified with a headless-Chromium render (Playwright,
+  `/opt/pw-browsers/chromium`) across all 5 tabs in light and dark mode — zero
+  console/page errors; fixed two bugs found in that pass: (a) the Tab-1 "Notes"
+  column originally duplicated the SC/CC cell notes verbatim — repointed it to
+  show the TRL reasoning instead, which had otherwise only been available on
+  hover; (b) markers/labels for models sharing the same TRL (all Tab 4/5 points
+  sit at assessed TRL 9) visually collided — added iterative pairwise
+  marker-repulsion plus label-side flipping near the plot's right edge. Also
+  fixed a duplicated-name rendering bug in the "no data" side-panel chip list
+  (e.g. "Wärtsilä Wärtsilä 25 Ammonia") where the model name already contained
+  the OEM name.
+- **2026-07-29** — Built **`power_generation/NH3_vendor_TRL_efficiency_table.md`**
+  (Rev 0), a **per-vendor-model** registry (not per-technology-generic) of every
+  ammonia-capable or ammonia-relevant gas turbine and reciprocating engine with
+  sourced evidence: **18 named models** (9 turbine, 9 engine), each carrying an
+  **assessed TRL** on the standard 1–9 scale with a one-line justification from
+  the sourced facts, a **simple-cycle ammonia efficiency**, a **combined-cycle /
+  bottoming ammonia efficiency**, and a separately-labelled **non-ammonia
+  platform anchor** that must never be plotted as an ammonia value. Because no
+  OEM self-reports a TRL, **every TRL in the table is marked "assessed"** — my
+  judgment, explicitly distinguished from vendor claims; a vendor's marketing
+  claim was never taken as TRL 9. **Headline result: zero of the 18 models has a
+  published ammonia-specific net-electrical efficiency in either cycle** — the
+  efficiency columns are almost entirely "not published", which is the correct
+  sourced answer and means a TRL-vs-efficiency scatter has no genuinely
+  plottable ammonia points unless the H-25's *contested* 34.8 %/50.9 % pair is
+  rendered as a flagged assumption marker. **Closed a standing open question**
+  from the comprehensive comparison §5 — a stationary ammonia genset now exists:
+  **IHI Power Systems' 6 MW land-based ammonia engine**, in demonstration at Ota
+  Plant since **July 2026**, commercial sales targeted **FY2027**, explicitly
+  aimed at data centres — assessed **TRL 6–7**, efficiency not published.
+  Added eight further named models new to the repo (WinGD X-DF-A, J-ENG
+  UEC50LSJA, HiMSEN H22CDF-LA and H32CDF-LA, IHI 28ADF, Toyota Energy Solutions
+  50 kW and 300 kW ammonia micro GTs, MAN NH3 Spark – FutureFlex) and recorded
+  four **negative** search results (Kawasaki, Solar Turbines/Caterpillar,
+  Ansaldo/Yanmar/MaK; plus Siemens Energy as research-only and Doosan as a
+  cracked-NH₃ rather than direct-NH₃ route) so they are not re-searched. Two new
+  platform anchors captured and explicitly fenced off from ammonia: **IM270
+  26.6 %** (a 1990s development target on conventional fuel, LHV/HHV basis not
+  stated) and **NovaLT16 36.4 % SC** (with a warning that its "up to 84 %" figure
+  is CHP total-thermal, not combined-cycle net-electrical). **Sourcing caveat
+  recorded, not smoothed over:** direct page fetches were blocked (HTTP 403 at
+  the egress proxy) for the whole session, so the new rows rest on web-search
+  summaries of named, linkable sources and each should be read directly once
+  before investment-grade use. Deliverable is intended as the input to an HTML
+  vendor table plus two TRL-vs-efficiency scatter charts (green = turbine,
+  red = engine).
 - **2026-07-28 (8)** — Built **`power_generation/DECK_combined_cycle_GT_vs_GE_100MW_datacenter.md`**
   (Rev 0), a design-ready deck source for Claude Design, at user request: 25
   content slides + appendix, each with key message / body / visual direction.

@@ -1,0 +1,758 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Ammonia Power Machines — TRL &amp; Efficiency</title>
+<style>
+  :root{
+    --bg:#F3F5F3;
+    --surface:#FFFFFF;
+    --surface-2:#EBEFEC;
+    --border:#D8DEDA;
+    --ink:#16211C;
+    --ink-2:#4B5A52;
+    --ink-3:#7A897F;
+    --accent:#1D5C73;
+    --accent-soft:#DDEBEF;
+    --accent-ink:#0F3947;
+    --turbine:#2F9E62;
+    --turbine-soft:#E4F3EA;
+    --engine:#B23A48;
+    --engine-soft:#F7E6E7;
+    --contested:#B8842A;
+    --contested-soft:#F7EFDD;
+    --shadow: 0 1px 2px rgba(20,30,25,.06), 0 6px 18px rgba(20,30,25,.06);
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Noto Serif", serif;
+    --sans: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, "Roboto Mono", monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#141A17;
+      --surface:#1B2320;
+      --surface-2:#212B27;
+      --border:#2E3A34;
+      --ink:#E7ECE8;
+      --ink-2:#AEBBB2;
+      --ink-3:#7E8C84;
+      --accent:#5FB6D1;
+      --accent-soft:#1C333A;
+      --accent-ink:#BEE6F2;
+      --turbine:#2FAE73;
+      --turbine-soft:#1B3A2A;
+      --engine:#C25A66;
+      --engine-soft:#3A2226;
+      --contested:#D9A44B;
+      --contested-soft:#3A2F1A;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 26px rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#141A17; --surface:#1B2320; --surface-2:#212B27; --border:#2E3A34;
+    --ink:#E7ECE8; --ink-2:#AEBBB2; --ink-3:#7E8C84;
+    --accent:#5FB6D1; --accent-soft:#1C333A; --accent-ink:#BEE6F2;
+    --turbine:#2FAE73; --turbine-soft:#1B3A2A;
+    --engine:#C25A66; --engine-soft:#3A2226;
+    --contested:#D9A44B; --contested-soft:#3A2F1A;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 26px rgba(0,0,0,.4);
+  }
+  :root[data-theme="light"]{
+    --bg:#F3F5F3; --surface:#FFFFFF; --surface-2:#EBEFEC; --border:#D8DEDA;
+    --ink:#16211C; --ink-2:#4B5A52; --ink-3:#7A897F;
+    --accent:#1D5C73; --accent-soft:#DDEBEF; --accent-ink:#0F3947;
+    --turbine:#2F9E62; --turbine-soft:#E4F3EA;
+    --engine:#B23A48; --engine-soft:#F7E6E7;
+    --contested:#B8842A; --contested-soft:#F7EFDD;
+    --shadow: 0 1px 2px rgba(20,30,25,.06), 0 6px 18px rgba(20,30,25,.06);
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{ max-width:1180px; margin:0 auto; padding:28px 22px 80px; }
+
+  header.masthead{
+    display:flex; flex-direction:column; gap:6px;
+    padding-bottom:20px; margin-bottom:20px;
+    border-bottom:1px solid var(--border);
+  }
+  .eyebrow{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.09em; text-transform:uppercase;
+    color:var(--accent-ink); background:var(--accent-soft); display:inline-block;
+    padding:3px 8px; border-radius:4px; width:fit-content;
+  }
+  h1{
+    font-family:var(--serif); font-weight:600; font-size:30px; margin:8px 0 2px;
+    text-wrap:balance; letter-spacing:.002em;
+  }
+  .subtitle{ color:var(--ink-2); font-size:14.5px; max-width:74ch; }
+  .metabar{
+    display:flex; flex-wrap:wrap; gap:8px 18px; margin-top:10px;
+    font-family:var(--mono); font-size:12px; color:var(--ink-3);
+  }
+  .metabar b{ color:var(--ink-2); font-weight:600; }
+
+  .fabnote{
+    margin-top:14px; padding:12px 14px; border-radius:8px;
+    background:var(--surface-2); border:1px solid var(--border);
+    font-size:13px; color:var(--ink-2);
+  }
+  .fabnote b{ color:var(--ink); }
+
+  nav.tabs{
+    display:flex; gap:4px; flex-wrap:wrap;
+    border-bottom:1px solid var(--border); margin-bottom:22px;
+  }
+  nav.tabs button{
+    font-family:var(--sans); font-size:13.5px; font-weight:600;
+    color:var(--ink-2); background:none; border:none; cursor:pointer;
+    padding:10px 16px; border-bottom:2px solid transparent; margin-bottom:-1px;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  nav.tabs button:hover{ color:var(--ink); }
+  nav.tabs button.active{ color:var(--accent-ink); border-bottom-color:var(--accent); }
+  nav.tabs button:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; border-radius:3px; }
+
+  section.panel{ display:none; }
+  section.panel.active{ display:block; }
+
+  .card{
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    box-shadow:var(--shadow); padding:20px 22px;
+  }
+  .panel-head{ margin-bottom:14px; }
+  .panel-head h2{ font-family:var(--serif); font-size:20px; margin:0 0 4px; font-weight:600; }
+  .panel-head p{ margin:0; color:var(--ink-2); font-size:13.5px; max-width:80ch; }
+
+  /* ---------- Table tab ---------- */
+  .table-scroll{ overflow-x:auto; border:1px solid var(--border); border-radius:10px; }
+  table.vendor{ border-collapse:collapse; width:100%; min-width:1080px; font-size:13px; }
+  table.vendor thead th{
+    position:sticky; top:0; background:var(--surface-2); text-align:left;
+    font-family:var(--sans); font-size:11px; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--ink-3); font-weight:600; padding:10px 12px; border-bottom:1px solid var(--border);
+    white-space:nowrap;
+  }
+  table.vendor td{ padding:10px 12px; border-bottom:1px solid var(--border); vertical-align:top; }
+  table.vendor tbody tr:hover{ background:var(--surface-2); }
+  table.vendor tbody tr:last-child td{ border-bottom:none; }
+  .typechip{
+    display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:700;
+    letter-spacing:.03em; text-transform:uppercase; padding:3px 8px; border-radius:20px;
+    white-space:nowrap;
+  }
+  .typechip.turbine{ background:var(--turbine-soft); color:var(--turbine); }
+  .typechip.engine{ background:var(--engine-soft); color:var(--engine); }
+  .typechip .mark{ width:8px; height:8px; flex:0 0 auto; }
+  .typechip.turbine .mark{ border-radius:50%; background:var(--turbine); }
+  .typechip.engine .mark{ background:var(--engine); }
+  .modelname{ font-weight:600; color:var(--ink); }
+  .oemname{ color:var(--ink-3); font-size:12px; }
+  .trlbadge{
+    font-family:var(--mono); font-weight:700; font-size:12.5px; color:var(--ink);
+    background:var(--surface-2); border:1px solid var(--border); border-radius:6px;
+    padding:1px 6px; white-space:nowrap;
+  }
+  .effcell{ font-family:var(--mono); font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .effcell.na{ color:var(--ink-3); font-family:var(--sans); font-style:italic; }
+  .flagpill{
+    display:inline-block; margin-top:3px; font-size:10.5px; font-weight:700; letter-spacing:.03em;
+    text-transform:uppercase; color:var(--contested); background:var(--contested-soft);
+    border-radius:5px; padding:1px 6px;
+  }
+  .note{ color:var(--ink-3); font-size:12px; max-width:34ch; }
+  .star{ color:var(--contested); }
+  .table-foot{ margin-top:14px; font-size:12px; color:var(--ink-3); }
+
+  /* ---------- Chart tabs ---------- */
+  .chart-grid{ display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:22px; align-items:start; }
+  @media (max-width:860px){ .chart-grid{ grid-template-columns:1fr; } }
+  .chart-box{ position:relative; }
+  svg.chart{ width:100%; height:auto; overflow:visible; }
+  .gridline{ stroke:var(--border); stroke-width:1; }
+  .axisline{ stroke:var(--ink-3); stroke-width:1; }
+  .axislabel{ fill:var(--ink-3); font-family:var(--mono); font-size:10.5px; }
+  .axistitle{ fill:var(--ink-2); font-family:var(--sans); font-size:11.5px; font-weight:600; }
+  .pt-turbine{ fill:var(--turbine); stroke:var(--surface); stroke-width:1.5; }
+  .pt-engine{ fill:var(--engine); stroke:var(--surface); stroke-width:1.5; }
+  .pt-ring{ fill:none; stroke:var(--contested); stroke-width:2; stroke-dasharray:3 2; }
+  .pt-label{ fill:var(--ink-2); font-family:var(--sans); font-size:11px; font-weight:600; }
+  .pt-sub{ fill:var(--ink-3); font-family:var(--mono); font-size:10px; }
+  .leader{ stroke:var(--ink-3); stroke-width:1; stroke-dasharray:2 2; opacity:.6; }
+
+  .legend{ display:flex; flex-wrap:wrap; gap:14px; margin-top:10px; font-size:12px; color:var(--ink-2); }
+  .legend .item{ display:flex; align-items:center; gap:6px; }
+  .legend .swatch{ width:11px; height:11px; flex:0 0 auto; }
+  .legend .swatch.turbine{ border-radius:50%; background:var(--turbine); }
+  .legend .swatch.engine{ background:var(--engine); }
+  .legend .swatch.ring{ border-radius:50%; border:2px dashed var(--contested); background:transparent; }
+
+  .nodata{ display:flex; flex-direction:column; gap:14px; }
+  .nodata h3{ font-family:var(--sans); font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-3); margin:0 0 8px; font-weight:700; }
+  .nodata .grp{ background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:12px 14px; }
+  .chiplist{ display:flex; flex-direction:column; gap:6px; }
+  .chip{ display:flex; align-items:baseline; gap:7px; font-size:12.5px; }
+  .chip .mk{ width:8px; height:8px; flex:0 0 auto; opacity:.55; }
+  .chip .mk.turbine{ border-radius:50%; border:1.5px solid var(--turbine); }
+  .chip .mk.engine{ border:1.5px solid var(--engine); }
+  .chip .name{ color:var(--ink); }
+  .chip .trl{ font-family:var(--mono); color:var(--ink-3); white-space:nowrap; }
+
+  .tooltip{
+    position:fixed; pointer-events:none; z-index:50; max-width:280px;
+    background:var(--ink); color:var(--bg); font-size:12px; line-height:1.45;
+    border-radius:8px; padding:9px 11px; box-shadow:0 8px 20px rgba(0,0,0,.25);
+    opacity:0; transform:translateY(4px); transition:opacity .1s ease, transform .1s ease;
+  }
+  .tooltip.show{ opacity:1; transform:translateY(0); }
+  .tooltip b{ display:block; margin-bottom:2px; }
+  .tooltip .tt-flag{ color:#E8B95B; font-weight:700; }
+
+  .callout{
+    margin-top:16px; padding:11px 13px; border-radius:8px; font-size:12.5px;
+    background:var(--surface-2); border:1px solid var(--border); color:var(--ink-2);
+  }
+  .callout b{ color:var(--ink); }
+
+  footer.pagefoot{
+    margin-top:34px; padding-top:16px; border-top:1px solid var(--border);
+    font-size:11.5px; color:var(--ink-3);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <span class="eyebrow">MYSGH2 · Power Generation</span>
+    <h1>Ammonia-Fired Gas Turbines &amp; Gas Engines — TRL vs. Efficiency</h1>
+    <p class="subtitle">Every named vendor model with sourced evidence of ammonia capability, assessed for Technology
+      Readiness Level and net electrical efficiency, simple cycle and combined cycle. Turbines in
+      <span style="color:var(--turbine); font-weight:700;">green</span>, reciprocating engines in
+      <span style="color:var(--engine); font-weight:700;">red</span>.</p>
+    <div class="metabar">
+      <span><b>18</b> vendor models</span>
+      <span><b>Basis:</b> net electrical, LHV</span>
+      <span><b>Compiled:</b> 2026-07-29</span>
+      <span><b>Source doc:</b> power_generation/NH3_vendor_TRL_efficiency_table.md</span>
+    </div>
+    <div class="fabnote">
+      <b>No-Fabrication Rule (CLAUDE.md §7).</b> Of 18 models, <b>zero</b> have a published, ammonia-specific net
+      electrical efficiency in either cycle. Rather than invent points to fill the charts, Tabs&nbsp;2–3 plot only
+      what is genuinely sourced or derived (one contested figure), and list every other model by TRL only. Tabs&nbsp;4–5
+      show each model's <b>natural-gas / conventional-fuel</b> baseline instead, where published, purely as
+      context — never as an ammonia performance claim. TRL is not vendor-published for any model; every TRL below is
+      the analyst's own assessment from sourced facts, labelled as such.
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button class="active" data-tab="t1" role="tab" aria-selected="true">1 · Vendor &amp; Model Table</button>
+    <button data-tab="t2" role="tab" aria-selected="false">2 · Simple Cycle — Ammonia</button>
+    <button data-tab="t3" role="tab" aria-selected="false">3 · Combined Cycle — Ammonia</button>
+    <button data-tab="t4" role="tab" aria-selected="false">4 · Simple Cycle — Natural Gas</button>
+    <button data-tab="t5" role="tab" aria-selected="false">5 · Combined Cycle — Natural Gas</button>
+  </nav>
+
+  <!-- TAB 1 -->
+  <section class="panel active" id="panel-t1">
+    <div class="card">
+      <div class="panel-head">
+        <h2>Vendor &amp; model table</h2>
+        <p>All 18 sourced ammonia-capable machines. TRL is analyst-assessed (1–9 scale); efficiency columns are
+          ammonia-specific and read <span class="star">★</span> where the figure is a flagged assumption rather than
+          a confirmed ammonia value. Hover a TRL badge for the one-line reasoning.</p>
+      </div>
+      <div class="table-scroll">
+        <table class="vendor">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>OEM / model</th>
+              <th>Power class</th>
+              <th>NH₃ fuel status</th>
+              <th>Maturity</th>
+              <th>TRL</th>
+              <th>SC eff. on NH₃</th>
+              <th>CC eff. on NH₃</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+      <p class="table-foot"><span class="star">★</span> = flagged assumption / contested figure, not a confirmed
+        ammonia-specific OEM value — see Tab 2/3 caveats.
+        Also searched, no ammonia power-generation programme found: Kawasaki Heavy Industries (their alt-fuel work is
+        a 100%-H₂ dry-combustion GT), Solar Turbines/Caterpillar (hydrogen only), Ansaldo, Yanmar, MaK.</p>
+    </div>
+  </section>
+
+  <!-- TAB 2 -->
+  <section class="panel" id="panel-t2">
+    <div class="card">
+      <div class="panel-head">
+        <h2>Simple cycle — ammonia (100&nbsp;% NH₃)</h2>
+        <p>X = TRL (1–9, assessed) · Y = net electrical efficiency, LHV, on ammonia fuel. Only one model has any
+          efficiency figure at all, and it is a flagged assumption — plotted with a dashed amber ring. The other 17
+          models are listed at right by TRL; none has a published ammonia-specific simple-cycle efficiency.</p>
+      </div>
+      <div class="chart-grid">
+        <div class="chart-box"><svg class="chart" id="chart-t2" viewBox="0 0 900 480"></svg>
+          <div class="legend" id="legend-t2"></div>
+        </div>
+        <div class="nodata" id="nodata-t2"></div>
+      </div>
+      <div class="callout" id="callout-t2"></div>
+    </div>
+  </section>
+
+  <!-- TAB 3 -->
+  <section class="panel" id="panel-t3">
+    <div class="card">
+      <div class="panel-head">
+        <h2>Combined cycle — ammonia (100&nbsp;% NH₃)</h2>
+        <p>X = TRL (1–9, assessed) · Y = net electrical efficiency, LHV, combined cycle / bottoming, on ammonia
+          fuel. This chart is sparse by construction: no reciprocating engine has any combined-cycle product on
+          ammonia at all, and on the turbine side only one model has even a derivable combined-cycle figure — shown
+          as a flagged assumption.</p>
+      </div>
+      <div class="chart-grid">
+        <div class="chart-box"><svg class="chart" id="chart-t3" viewBox="0 0 900 480"></svg>
+          <div class="legend" id="legend-t3"></div>
+        </div>
+        <div class="nodata" id="nodata-t3"></div>
+      </div>
+      <div class="callout" id="callout-t3"></div>
+    </div>
+  </section>
+
+  <!-- TAB 4 -->
+  <section class="panel" id="panel-t4">
+    <div class="card">
+      <div class="panel-head">
+        <h2>Simple cycle — natural gas / conventional fuel <span style="font-weight:400; color:var(--ink-3);">(context, not ammonia)</span></h2>
+        <p>X = TRL · Y = net electrical efficiency, LHV, on the model's <b>native</b> fuel (natural gas or the
+          conventional-fuel spec its ammonia variant derives from). All included models are mature, commercially
+          sold products on this fuel — assessed <b>TRL 9</b> — plotted here purely so the ammonia-readiness gap in
+          Tabs&nbsp;2–3 has something real to be measured against. Models with no sourced native-fuel efficiency are
+          listed at right, not plotted.</p>
+      </div>
+      <div class="chart-grid">
+        <div class="chart-box"><svg class="chart" id="chart-t4" viewBox="0 0 900 480"></svg>
+          <div class="legend" id="legend-t4"></div>
+        </div>
+        <div class="nodata" id="nodata-t4"></div>
+      </div>
+      <div class="callout" id="callout-t4"></div>
+    </div>
+  </section>
+
+  <!-- TAB 5 -->
+  <section class="panel" id="panel-t5">
+    <div class="card">
+      <div class="panel-head">
+        <h2>Combined cycle — natural gas / conventional fuel <span style="font-weight:400; color:var(--ink-3);">(context, not ammonia)</span></h2>
+        <p>X = TRL · Y = net electrical efficiency, LHV, combined cycle / engine-CC, on the model's native fuel.
+          Assessed <b>TRL 9</b> for all included (mature, commercial products). Two "&gt;" figures are OEM-stated
+          minimums, not exact values.</p>
+      </div>
+      <div class="chart-grid">
+        <div class="chart-box"><svg class="chart" id="chart-t5" viewBox="0 0 900 480"></svg>
+          <div class="legend" id="legend-t5"></div>
+        </div>
+        <div class="nodata" id="nodata-t5"></div>
+      </div>
+      <div class="callout" id="callout-t5"></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    Compiled from <code>power_generation/NH3_vendor_TRL_efficiency_table.md</code> and
+    <code>NH3_gas_turbine_vs_gas_engine_comprehensive_comparison.md</code> (MYSGH2 repo). Sourcing caveat: several
+    rows this session were retrieved via web-search summaries (direct page fetches were blocked at the egress
+    proxy) — mutually corroborated where possible, but each should be read directly before investment-grade use.
+    Every TRL is an analyst assessment, not a vendor-published rating.
+  </footer>
+
+</div>
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+/* ============ MASTER DATASET ============ */
+const DATA = [
+  { id:"T1", type:"turbine", oem:"IHI", model:"IM270 (liquid-NH₃ solo-fire)", mw:"2 (2,000 kW class)",
+    status:"100% liquid NH₃", maturity:"demo/pilot, long-run", trlLo:7, trlHi:8,
+    trlWhy:"Complete 2 MW cogeneration system, ~3,000 h endurance on 100% liquid NH₃ incl. load-rejection/load-dump at IHI's own works; no customer unit sold yet.",
+    nh3:{ sc:{v:null, note:"not published — no ammonia-specific electrical efficiency stated by IHI"},
+          cc:{v:null, note:"n/a — no CC product; package is cogeneration (2 MWe + 6 t/h steam), not a steam-bottoming cycle"} },
+    ng:{ sc:{v:26.6, note:"1990s IM270 development target, conventional fuel; LHV/HHV basis unstated", trl:9},
+         cc:{v:null, note:"n/a — no CC/steam-bottoming variant"} } },
+
+  { id:"T2", type:"turbine", oem:"IHI + GE Vernova (JDP)", model:"F-class ammonia combustion system (6F.03/7F/9F retrofit)", mw:"6F.03 = 88 MW SC (NG); 7F/9F larger",
+    status:"100% NH₃ in combustion hardware", maturity:"R&D → 2030 target", trlLo:5, trlHi:6,
+    trlWhy:"Combustion components only, full-scale, at F-class full-load conditions (Mar 2026); no gas turbine has run on ammonia.",
+    nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"not published"} },
+    ng:{ sc:{v:37.2, note:"derived: 6F.03 NG spec, 57% CC × 88/135 MW ratio", trl:9},
+         cc:{v:57, gt:true, note:"sourced, stated as '>57%' (6F.03 1×1 CC, natural gas)", trl:9} } },
+
+  { id:"T3", type:"turbine", oem:"Mitsubishi Power", model:"H-25 (100%-NH₃ variant)", mw:"41 SC / ~60 CC (1×1) / ~120 (2×1)",
+    status:"100% NH₃ — announced product target", maturity:"stalled/unconfirmed", trlLo:3, trlHi:4,
+    trlWhy:"Announced 2021, commercialisation targeted '~2025'; no ammonia hardware milestone or status update 2023–2026 located.",
+    nh3:{ sc:{v:34.8, contested:true, note:"⚠ contested — presumed NG spec carried by assumption since 2026-06-30, not confirmed ammonia-specific"},
+          cc:{v:50.9, contested:true, note:"⚠ contested — derived 34.8% × (60/41 MW), inherits the SC uncertainty above"} },
+    ng:{ sc:{v:34.8, note:"H-25 series published spec (same figure, correctly NG-basis here)", trl:9},
+         cc:{v:50.9, note:"derived from published MW ratings, NG basis", trl:9} } },
+
+  { id:"T4", type:"turbine", oem:"Mitsubishi Power (on IHI IM270 airframe)", model:"2 MW-class NH₃/NG co-firing demonstrator (Yokohama, Oct 2020)", mw:"2",
+    status:"20% NH₃ (LHV) co-firing", maturity:"demo/pilot (partial fuel)", trlLo:6, trlHi:6,
+    trlWhy:"Full-scale 2 MW machine in a real works demonstration; partial (20%) fuel share, one-off test campaign, not endurance.",
+    nh3:{ sc:{v:null, note:"not published for the co-fired condition"}, cc:{v:null, note:"n/a — no CC in the demonstrator"} },
+    ng:{ sc:{v:null, note:"no distinct anchor sourced (shares IM270 airframe with T1)"}, cc:{v:null, note:"n/a"} } },
+
+  { id:"T5", type:"turbine", oem:"Baker Hughes + Hanwha (JDA)", model:"NovaLT16 (ammonia-capable variant)", mw:"16.9 gen. drive / 17.5 mech.",
+    status:"claimed 100% NH₃ ↔ 100% gas, any blend (vendor claim)", maturity:"R&D (test targeted end-2027)", trlLo:3, trlHi:3,
+    trlWhy:"Joint-development agreement only; full ammonia engine test targeted end-2027, deployment 2028; no ammonia combustion hardware result published.",
+    nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"n/a — no CC product (84% figure is CHP total-thermal, not net-electrical CC)"} },
+    ng:{ sc:{v:36.4, note:"NovaLT16 conventional-fuel spec, 16.9 MW generator drive", trl:9},
+         cc:{v:null, note:"n/a — no CC product; 84% is CHP thermal efficiency, not comparable"} } },
+
+  { id:"T6", type:"turbine", oem:"Toyota Energy Solutions + AIST + Tohoku Univ.", model:"50 kW-class micro gas turbine, ammonia", mw:"0.05",
+    status:"100% ammonia gas", maturity:"lab demo", trlLo:4, trlHi:5,
+    trlWhy:"Complete micro-GT system ran on ammonia gas only, >40 kW, in an institute laboratory; sub-commercial scale.",
+    nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"n/a — no CC at this scale"} },
+    ng:{ sc:{v:null, note:"not sourced"}, cc:{v:null, note:"n/a"} } },
+
+  { id:"T7", type:"turbine", oem:"Toyota Energy Solutions", model:"300 kW-class ammonia micro gas turbine (industrial)", mw:"0.3",
+    status:"100% ammonia in prototype combustors", maturity:"R&D", trlLo:3, trlHi:4,
+    trlWhy:"System designed with a purpose-built high-temp SCR; 100% NH₃ combustion achieved while evaluating prototype combustors — component-level, no full-system power output published.",
+    nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"n/a"} },
+    ng:{ sc:{v:null, note:"not sourced"}, cc:{v:null, note:"n/a"} } },
+
+  { id:"T8", type:"turbine", oem:"Siemens Energy", model:"no named ammonia model (SGT-600/700/800 = H₂-ready family)", mw:"n/a",
+    status:"research only — direct &amp; cracked ammonia under investigation", maturity:"R&D, no product", trlLo:2, trlHi:3,
+    trlWhy:"No named ammonia product, no ammonia hardware milestone; ammonia listed only among fuels 'explored'. Included to show the absence, not a competing product.",
+    nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"not published"} },
+    ng:{ sc:{v:null, note:"SGT-600/700/800 target 100% H₂-ready — hydrogen, not ammonia; no relevant anchor"}, cc:{v:null, note:"n/a"} } },
+
+  { id:"T9", type:"turbine", oem:"Doosan Enerbility (+ POSCO, RIST)", model:"Cracked-ammonia route — combustor for a 100% H₂ gas turbine", mw:"(400 MW-class H₂ GT is the separate national programme)",
+    status:"cracked NH₃ → H₂, i.e. not direct ammonia combustion", maturity:"R&D", trlLo:3, trlHi:4,
+    trlWhy:"MoU-stage R&D; parties explicitly chose to burn cracked gas rather than ammonia itself; combustor development targeted for completion by 2026.",
+    nh3:{ sc:{v:null, na:true, note:"n/a — not a direct-ammonia machine"}, cc:{v:null, note:"not published"} },
+    ng:{ sc:{v:null, note:"not sourced"}, cc:{v:null, note:"n/a"} } },
+
+  { id:"E1", type:"engine", oem:"Wärtsilä", model:"Wärtsilä 25 Ammonia (4-stroke, marine)", mw:"1.9–3.1 per unit",
+    status:"~95% NH₃ energy share (~5% pilot)", maturity:"marine commercial, deliveries 2028", trlLo:8, trlHi:8,
+    trlWhy:"Full-scale engine, extensively tested (up to 90% GHG cut demonstrated), launched as a sellable product with a 2026 power upgrade, deliveries scheduled 2028; no vessel in commercial service yet.",
+    nh3:{ sc:{v:null, note:"not published — OEM states only 'equal to dual-fuel LNG engines' (qualitative parity claim, not a number)"},
+          cc:{v:null, note:"n/a — no CC product on NH₃ (Flexicycle >54% is natural gas only)"} },
+    ng:{ sc:{v:48.9, note:"Wärtsilä 34SG — a different but comparable Wärtsilä engine, used only as a context anchor, not the 25A itself", trl:9},
+         cc:{v:54, gt:true, note:"Flexicycle (engine-CC), stated as '>54%' ISO; natural gas only, anchor not the 25A itself", trl:9} } },
+
+  { id:"E2", type:"engine", oem:"Everllence (ex-MAN Energy Solutions)", model:"MAN B&amp;W ME-LGIA (2-stroke, marine)", mw:"2-stroke portfolio 12–68",
+    status:"&gt;95% NH₃ energy fraction, 5% SPOC pilot", maturity:"marine commercial, shipyard delivery 2026", trlLo:8, trlHi:8,
+    trlWhy:"Full-scale engine testing from Nov 2024, 100% load reached Jan 2025, homologation tests Jun 2026 under 8 classification societies; not yet in commercial ship service.",
+    nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"n/a — no CC product (marine propulsion engine)"} },
+    ng:{ sc:{v:null, note:"not sourced this session"}, cc:{v:null, note:"n/a"} } },
+
+  { id:"E3", type:"engine", oem:"WinGD", model:"X-DF-A (first unit X52DF-A)", mw:"not sourced; ~30 engines on order",
+    status:"~95% NH₃ — HP ammonia injection + ~5% pilot diesel at full load", maturity:"marine commercial, installed 2025", trlLo:8, trlHi:9,
+    trlWhy:"Full-load ammonia test passed; first commercial engine installed aboard an EXMAR 46,000 m³ carrier (2025) — the furthest-progressed ammonia machine of any type. 9 only once the vessel is in commercial service.",
+    nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"n/a — no CC product"} },
+    ng:{ sc:{v:null, note:"not sourced this session"}, cc:{v:null, note:"n/a"} } },
+
+  { id:"E4", type:"engine", oem:"Japan Engine Corporation (J-ENG)", model:"UEC50LSJA (7UEC50LSJA-HPSCR, 2-stroke)", mw:"not sourced (500 mm bore, 7 cyl.)",
+    status:"NH₃ co-firing (ratio not sourced); HP-SCR after-treatment integral", maturity:"marine commercial, delivered Oct 2025", trlLo:8, trlHi:8,
+    trlWhy:"~1,000 h single-cylinder testing → full-scale first-commercial engine, ammonia runs from Apr 2025 (~700 h) → delivered to JMU Ariake Oct 2025; vessel enters service Nov 2026.",
+    nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"n/a — no CC product"} },
+    ng:{ sc:{v:null, note:"not sourced this session"}, cc:{v:null, note:"n/a"} } },
+
+  { id:"E5", type:"engine", oem:"HD Hyundai Heavy Industries (HHI-EMD)", model:"HiMSEN H22CDF-LA (4-stroke)", mw:"up to 2.2",
+    status:"ammonia dual-fuel, HP direct injection (world-first)", maturity:"type-approved 2024", trlLo:8, trlHi:8,
+    trlWhy:"Type-approval test completed 30 Sep–2 Oct 2024 (Ulsan) with certification from 7 classification societies. Vendor targets land-based power gen, but no land unit sourced.",
+    nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"n/a — no CC product on NH₃"} },
+    ng:{ sc:{v:null, note:"not sourced this session"}, cc:{v:null, note:"n/a"} } },
+
+  { id:"E6", type:"engine", oem:"HD Hyundai Heavy Industries (HHI-EMD)", model:"HiMSEN H32CDF-LA (4-stroke)", mw:"up to 5.4",
+    status:"ammonia dual-fuel, HP direct injection", maturity:"class-approved 2025", trlLo:6, trlHi:7,
+    trlWhy:"Announced Oct 2025 with 'classification approval'; no full-scale test-hours published and approval type (AiP vs. type approval) is ambiguous in sources — flagged as a borderline TRL call.",
+    nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"n/a — no CC product on NH₃"} },
+    ng:{ sc:{v:null, note:"not sourced this session"}, cc:{v:null, note:"n/a"} } },
+
+  { id:"E7", type:"engine", oem:"IHI Power Systems (Niigata)", model:"28ADF (4-stroke, marine, 280 mm bore)", mw:"1.6",
+    status:"up to 95% NH₃ fuel-share ratio", maturity:"in service (demo vessel)", trlLo:8, trlHi:9,
+    trlWhy:"Operational tests from Apr 2023 at the Ota plant; basis of the NYK tugboat Sakigake, an ammonia-fuelled vessel in actual operation — 94% GHG cut measured in service.",
+    nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"n/a — no CC product"} },
+    ng:{ sc:{v:null, note:"not sourced this session"}, cc:{v:null, note:"n/a"} } },
+
+  { id:"E8", type:"engine", oem:"IHI Power Systems", model:"6 MW land-based ammonia genset (V18, scaled from 28ADF)", mw:"6.0", star:true,
+    status:"NH₃ + heavy-fuel-oil dual-fuel; target &gt;90% NH₃ ratio, &gt;90% GHG cut", maturity:"demo/pilot — the only stationary ammonia genset located", trlLo:6, trlHi:7,
+    trlWhy:"Began operating at the Ota Plant, Gunma, July 2026; demonstration covers the complete system (engine, fuel supply, after-treatment, safety). Testing completes FY2026, commercial sales targeted FY2027 — aimed at data centres.",
+    nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"n/a — no CC product; simple-cycle genset"} },
+    ng:{ sc:{v:null, note:"not sourced this session"}, cc:{v:null, note:"n/a"} } },
+
+  { id:"E9", type:"engine", oem:"MAN Energy Solutions (Holeby) + DTU + Skovgaard", model:"AmmoniaMot 2 / NH3 Spark – FutureFlex (4-stroke genset)", mw:"single-cylinder at present",
+    status:"spark-ignited, targeting pilot-free (no pilot fuel)", maturity:"R&D", trlLo:3, trlHi:4,
+    trlWhy:"Predecessor 'AmmoniaMot' closed May 2024; AmmoniaMot 2 started Aug 2024 (~3.5 yr). Single-cylinder testing at DTU from Q3 2025; full-scale testing under powerplant conditions only later, at Skovgaard Energy's site.",
+    nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"n/a — no CC product"} },
+    ng:{ sc:{v:null, note:"not sourced this session"}, cc:{v:null, note:"n/a"} } },
+];
+
+/* ============ TAB SWITCHING ============ */
+const tabs = document.querySelectorAll("nav.tabs button");
+tabs.forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    tabs.forEach(b=>{ b.classList.remove("active"); b.setAttribute("aria-selected","false"); });
+    document.querySelectorAll("section.panel").forEach(p=>p.classList.remove("active"));
+    btn.classList.add("active"); btn.setAttribute("aria-selected","true");
+    document.getElementById("panel-"+btn.dataset.tab).classList.add("active");
+  });
+});
+
+/* ============ TOOLTIP ============ */
+const tooltipEl = document.getElementById("tooltip");
+function showTooltip(evt, html){
+  tooltipEl.innerHTML = html;
+  tooltipEl.classList.add("show");
+  positionTooltip(evt);
+}
+function positionTooltip(evt){
+  const pad = 14;
+  let x = evt.clientX + pad, y = evt.clientY + pad;
+  const rect = tooltipEl.getBoundingClientRect();
+  if(x + rect.width > window.innerWidth - 8) x = evt.clientX - rect.width - pad;
+  if(y + rect.height > window.innerHeight - 8) y = evt.clientY - rect.height - pad;
+  tooltipEl.style.left = x + "px"; tooltipEl.style.top = y + "px";
+}
+function hideTooltip(){ tooltipEl.classList.remove("show"); }
+
+/* ============ TABLE (TAB 1) ============ */
+function fmtEff(cell){
+  if(cell.v == null){
+    return `<span class="effcell na">${cell.na ? "n/a" : "not published"}</span>`;
+  }
+  const star = cell.contested ? ' <span class="star">★</span>' : '';
+  const gt = cell.gt ? "&gt;" : "";
+  return `<span class="effcell">${gt}${cell.v}%${star}</span>`;
+}
+function renderTable(){
+  const body = document.getElementById("table-body");
+  body.innerHTML = DATA.map(d=>{
+    const typeLabel = d.type === "turbine" ? "Turbine" : "Engine";
+    const trlText = d.trlLo === d.trlHi ? d.trlLo : `${d.trlLo}–${d.trlHi}`;
+    return `<tr>
+      <td><span class="typechip ${d.type}"><span class="mark"></span>${typeLabel}</span></td>
+      <td><div class="modelname">${d.model}${d.star ? ' <span class="star" title="First stationary ammonia genset located">★</span>' : ''}</div><div class="oemname">${d.oem} · ${d.mw}</div></td>
+      <td class="note" style="max-width:16ch;">${d.mw}</td>
+      <td class="note" style="max-width:26ch;">${d.status}</td>
+      <td class="note" style="max-width:20ch;">${d.maturity}</td>
+      <td><span class="trlbadge" title="${d.trlWhy.replace(/"/g,'&quot;')}">${trlText}</span></td>
+      <td>${fmtEff(d.nh3.sc)}<div class="note">${(d.nh3.sc.v==null || d.nh3.sc.contested) ? d.nh3.sc.note : ''}</div></td>
+      <td>${fmtEff(d.nh3.cc)}<div class="note">${(d.nh3.cc.v==null || d.nh3.cc.contested) ? d.nh3.cc.note : ''}</div></td>
+      <td class="note" style="max-width:30ch;">${d.trlWhy}</td>
+    </tr>`;
+  }).join("");
+}
+renderTable();
+
+/* ============ SCATTER CHART ENGINE ============ */
+const NS = "http://www.w3.org/2000/svg";
+function el(tag, attrs){
+  const e = document.createElementNS(NS, tag);
+  for(const k in attrs) e.setAttribute(k, attrs[k]);
+  return e;
+}
+const PLOT = { x0:78, x1:830, y0:34, y1:400, trlMin:0.5, trlMax:9.5 };
+function xForTrl(trl){ return PLOT.x0 + (trl - PLOT.trlMin)/(PLOT.trlMax - PLOT.trlMin) * (PLOT.x1 - PLOT.x0); }
+function yForEff(eff, yMax){ return PLOT.y0 + (1 - eff/yMax) * (PLOT.y1 - PLOT.y0); }
+
+function drawAxes(svg, yMax, yStep){
+  for(let t=1; t<=9; t++){
+    const x = xForTrl(t);
+    svg.appendChild(el("line", {x1:x,y1:PLOT.y0,x2:x,y2:PLOT.y1, class:"gridline"}));
+    const lab = el("text", {x:x, y:PLOT.y1+18, class:"axislabel", "text-anchor":"middle"});
+    lab.textContent = t; svg.appendChild(lab);
+  }
+  for(let y=0; y<=yMax; y+=yStep){
+    const yy = yForEff(y, yMax);
+    svg.appendChild(el("line", {x1:PLOT.x0,y1:yy,x2:PLOT.x1,y2:yy, class:"gridline"}));
+    const lab = el("text", {x:PLOT.x0-10, y:yy+3, class:"axislabel", "text-anchor":"end"});
+    lab.textContent = y + "%"; svg.appendChild(lab);
+  }
+  svg.appendChild(el("line", {x1:PLOT.x0,y1:PLOT.y1,x2:PLOT.x1,y2:PLOT.y1, class:"axisline"}));
+  svg.appendChild(el("line", {x1:PLOT.x0,y1:PLOT.y0,x2:PLOT.x0,y2:PLOT.y1, class:"axisline"}));
+  const xt = el("text", {x:(PLOT.x0+PLOT.x1)/2, y:PLOT.y1+40, class:"axistitle", "text-anchor":"middle"});
+  xt.textContent = "Technology Readiness Level (TRL, assessed)"; svg.appendChild(xt);
+  const yt = el("text", {x:20, y:(PLOT.y0+PLOT.y1)/2, class:"axistitle", "text-anchor":"middle",
+                          transform:`rotate(-90 20 ${(PLOT.y0+PLOT.y1)/2})`});
+  yt.textContent = "Net electrical efficiency, LHV"; svg.appendChild(yt);
+}
+
+function drawPoint(svg, x, y, item, cellNote, cellVal, contested, cycleLabel, fuelLabel){
+  const isTurbine = item.type === "turbine";
+  const g = el("g", {});
+  if(contested){
+    g.appendChild(el("circle", {cx:x, cy:y, r:11, class:"pt-ring"}));
+  }
+  if(isTurbine){
+    g.appendChild(el("circle", {cx:x, cy:y, r:7, class:"pt-turbine"}));
+  } else {
+    g.appendChild(el("rect", {x:x-6.5, y:y-6.5, width:13, height:13, class:"pt-engine"}));
+  }
+  g.style.cursor = "pointer";
+  g.addEventListener("mousemove", (evt)=>{
+    const gt = cellVal.gt ? "&gt;" : "";
+    let html = `<b>${item.oem} — ${item.model}</b>${item.type==="turbine"?"Turbine":"Engine"} · TRL ${item.trlLo===item.trlHi?item.trlLo:item.trlLo+"–"+item.trlHi}<br>${cycleLabel}, ${fuelLabel}: ${gt}${cellVal.v}%`;
+    if(contested) html += `<div class="tt-flag">⚠ flagged assumption — not confirmed ammonia-specific</div>`;
+    html += `<div style="margin-top:4px; color:#c9d2cd;">${cellNote}</div>`;
+    showTooltip(evt, html);
+  });
+  g.addEventListener("mouseleave", hideTooltip);
+  svg.appendChild(g);
+  return g;
+}
+
+function drawLabel(svg, x, y, text, dy, leftSide){
+  const tx = leftSide ? x - 12 : x + 12;
+  const t = el("text", {x:tx, y:y+dy+4, class:"pt-label", "text-anchor": leftSide ? "end" : "start"});
+  t.textContent = text;
+  svg.appendChild(t);
+}
+
+function buildChart(svgId, legendId, nodataId, calloutId, cycle, fuel, yMax, yStep, calloutHtml){
+  const svg = document.getElementById(svgId);
+  svg.innerHTML = "";
+  drawAxes(svg, yMax, yStep);
+
+  const plotted = [];
+  const noData = [];
+  DATA.forEach(item=>{
+    const cell = item[fuel][cycle];
+    const trlForFuel = fuel === "ng" ? (cell.trl || null) : (item.trlLo + item.trlHi)/2;
+    if(cell.v != null && trlForFuel != null){
+      plotted.push({item, cell, trl: trlForFuel});
+    } else {
+      noData.push(item);
+    }
+  });
+
+  // compute raw positions, then de-collide markers that land on top of each other
+  // (most common cause: several models share the same assessed TRL)
+  plotted.forEach(p=>{ p.x = xForTrl(p.trl); p.y = yForEff(p.cell.v, yMax); });
+  const MIN_DIST = 24;
+  for(let iter=0; iter<6; iter++){
+    for(let i=0; i<plotted.length; i++){
+      for(let j=i+1; j<plotted.length; j++){
+        const a = plotted[i], b = plotted[j];
+        const dx = b.x - a.x, dy = b.y - a.y;
+        const dist = Math.hypot(dx, dy) || 0.001;
+        if(dist < MIN_DIST){
+          const push = (MIN_DIST - dist) / 2;
+          const ux = dx / dist, uy = dy / dist;
+          // bias separation toward the x axis (markers sharing a TRL) but keep some y give
+          a.x -= ux * push * 0.8; a.y -= uy * push * 0.5;
+          b.x += ux * push * 0.8; b.y += uy * push * 0.5;
+        }
+      }
+    }
+  }
+  // clamp back inside the plot bounds after nudging
+  plotted.forEach(p=>{
+    p.x = Math.max(PLOT.x0 + 8, Math.min(PLOT.x1 - 8, p.x));
+    p.y = Math.max(PLOT.y0 + 8, Math.min(PLOT.y1 - 8, p.y));
+  });
+
+  // stack direct labels top-to-bottom so they never overlap each other
+  plotted.sort((a,b)=>a.y-b.y);
+  let lastLabelY = -999;
+  plotted.forEach(p=>{
+    let dy = 0;
+    if(p.y - lastLabelY < 15){ dy = 15 - (p.y - lastLabelY); }
+    lastLabelY = p.y + dy;
+    p.labelDy = dy;
+    p.leftSide = p.x > PLOT.x0 + (PLOT.x1 - PLOT.x0) * 0.72;
+  });
+
+  const fuelLabel = fuel === "ng" ? "Natural gas / conventional fuel" : "Ammonia (100% NH₃)";
+  const cycleLabel = cycle === "sc" ? "Simple cycle" : "Combined cycle";
+
+  plotted.forEach(p=>{
+    drawPoint(svg, p.x, p.y, p.item, p.cell.note, p.cell, !!p.cell.contested, cycleLabel, fuelLabel);
+    const oemShort = p.item.oem.split(" ")[0] === "IHI" ? "IHI" : p.item.oem.split("(")[0].trim();
+    drawLabel(svg, p.x, p.y, `${oemShort} ${p.item.id}`, p.labelDy, p.leftSide);
+  });
+
+  // legend
+  const legend = document.getElementById(legendId);
+  let legendHtml = `<div class="item"><span class="swatch turbine"></span>Gas turbine</div>
+                     <div class="item"><span class="swatch engine"></span>Reciprocating engine</div>`;
+  if(plotted.some(p=>p.cell.contested)){
+    legendHtml += `<div class="item"><span class="swatch ring"></span>Flagged assumption, not confirmed ammonia-specific</div>`;
+  }
+  legend.innerHTML = legendHtml;
+
+  // no-data panel
+  const nodataEl = document.getElementById(nodataId);
+  if(noData.length === 0){
+    nodataEl.innerHTML = "";
+  } else {
+    const turbines = noData.filter(d=>d.type==="turbine").sort((a,b)=>b.trlHi-a.trlHi);
+    const engines = noData.filter(d=>d.type==="engine").sort((a,b)=>b.trlHi-a.trlHi);
+    function chipList(arr, cls){
+      return arr.map(d=>{
+        const trlText = d.trlLo===d.trlHi ? d.trlLo : `${d.trlLo}–${d.trlHi}`;
+        const oemShort = d.oem.split("(")[0].trim();
+        const modelShort = d.model.split(" (")[0];
+        const label = modelShort.toLowerCase().startsWith(oemShort.toLowerCase())
+          ? modelShort : `${oemShort} ${modelShort}`;
+        return `<div class="chip"><span class="mk ${cls}"></span><span class="name">${label}</span><span class="trl">TRL ${trlText}</span></div>`;
+      }).join("");
+    }
+    nodataEl.innerHTML = `
+      <h3>No ${fuel==="ng"?"native-fuel":"ammonia-specific"} efficiency published — TRL only</h3>
+      ${turbines.length ? `<div class="grp"><b style="font-size:12px;">Turbines</b><div class="chiplist" style="margin-top:6px;">${chipList(turbines,"turbine")}</div></div>` : ""}
+      ${engines.length ? `<div class="grp"><b style="font-size:12px;">Engines</b><div class="chiplist" style="margin-top:6px;">${chipList(engines,"engine")}</div></div>` : ""}
+    `;
+  }
+
+  document.getElementById(calloutId).innerHTML = calloutHtml
+    .replace("{{plotted}}", plotted.length)
+    .replace("{{total}}", DATA.length);
+}
+
+buildChart("chart-t2","legend-t2","nodata-t2","callout-t2","sc","nh3",60,10,
+  `<b>{{plotted}} of {{total}} models plotted.</b> Only Mitsubishi Power's H-25 has any simple-cycle ammonia
+   efficiency figure — and it is a flagged assumption (presumed natural-gas spec, not a confirmed ammonia number).
+   The remaining models genuinely have no published ammonia-specific efficiency; fabricating a value to populate
+   this chart would violate the project's No-Fabrication Rule, so they are listed by TRL only, at right.`);
+
+buildChart("chart-t3","legend-t3","nodata-t3","callout-t3","cc","nh3",60,10,
+  `<b>{{plotted}} of {{total}} models plotted.</b> No reciprocating engine has any combined-cycle product on
+   ammonia at all — Wärtsilä's Flexicycle engine-CC (&gt;54%) exists only on natural gas. On the turbine side, only
+   the H-25's derived ~50.9% figure exists, and it is a flagged assumption inheriting the simple-cycle uncertainty.
+   This near-empty chart is itself the finding: ammonia combined-cycle power generation is essentially undemonstrated
+   across the industry.`);
+
+buildChart("chart-t4","legend-t4","nodata-t4","callout-t4","sc","ng",65,10,
+  `<b>{{plotted}} of {{total}} models plotted.</b> All plotted points sit at TRL&nbsp;9 (mature, commercially sold
+   on their native fuel) — the horizontal clustering is the honest picture: these machines are proven on natural
+   gas / conventional fuel, which is precisely the maturity gap Tabs&nbsp;2–3 show they have not yet closed on
+   ammonia. Most marine-first ammonia engines (Wärtsilä 25A aside, via its 34SG anchor) have no sourced native-fuel
+   efficiency in this dataset and are not plotted.`);
+
+buildChart("chart-t5","legend-t5","nodata-t5","callout-t5","cc","ng",65,10,
+  `<b>{{plotted}} of {{total}} models plotted.</b> Combined-cycle data exists on natural gas for only two turbine
+   frames and one engine-CC product (Wärtsilä Flexicycle, a different model than the 25A, used as context only).
+   The "&gt;" values are OEM-stated minimums. IM270 and NovaLT16 are excluded here because neither has a true
+   combined-cycle / net-electrical CC product — IM270 is cogeneration only, and NovaLT16's 84% is CHP thermal
+   efficiency, not comparable.`);
+</script>
+</body>
+</html>
