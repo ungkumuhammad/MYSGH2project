@@ -588,6 +588,22 @@ utilization for IPPs, 2026-07-28**
 
 ## 8. Changelog
 
+- **2026-07-29 (3)** — User asked whether the TRL badges in the dashboard have
+  sources. Answer, made explicit in the dashboard itself (new Tab 6, "Sources &
+  Method"): **no vendor, class society, or research institute publishes a TRL
+  number for any of the 18 models — every TRL is the analyst's own derivation**
+  from cited facts (test hours, certification dates, commercial status), never
+  a lookup. Added, per model: reference-number superscripts on the TRL badge
+  (clickable, jump to a full 51-source numbered bibliography now embedded in
+  the HTML) and a **provenance badge** distinguishing **Verified** (7 models —
+  T1–T5, E1, E2 — whose underlying facts were already independently confirmed
+  in the prior day's fully-sourced comprehensive-comparison document) from
+  **Web-search only** (11 models — T6–T9, E3–E9 — sourced this session from
+  search-result summaries because direct page fetches were blocked all
+  session, not yet independently confirmed). Also added a TRL-scale reference
+  table and a per-model "derivation from cited facts" table so the reasoning
+  behind every badge is inspectable without hovering. No data values changed —
+  this is a transparency addition, not a re-assessment.
 - **2026-07-29 (2)** — Built **`power_generation/NH3_vendor_TRL_efficiency_dashboard.html`**,
   a 5-tab HTML deliverable consuming the vendor/model registry below (Tab 1 =
   full 18-model table; Tabs 2–3 = TRL-vs-efficiency scatter for ammonia SC/CC;

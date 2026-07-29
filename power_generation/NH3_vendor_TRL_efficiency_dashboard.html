@@ -167,6 +167,17 @@
     text-transform:uppercase; color:var(--contested); background:var(--contested-soft);
     border-radius:5px; padding:1px 6px;
   }
+  .trlcell{ display:flex; flex-direction:column; gap:4px; align-items:flex-start; }
+  .trlrefs{ font-family:var(--mono); font-size:10px; color:var(--ink-3); }
+  .trlrefs a{ color:var(--accent-ink); text-decoration:none; }
+  .trlrefs a:hover{ text-decoration:underline; }
+  .srcbadge{
+    display:inline-flex; align-items:center; gap:4px; font-size:9.5px; font-weight:700;
+    letter-spacing:.03em; text-transform:uppercase; border-radius:5px; padding:1px 6px;
+    white-space:nowrap;
+  }
+  .srcbadge.verified{ color:var(--accent-ink); background:var(--accent-soft); }
+  .srcbadge.websearch{ color:var(--ink-2); background:var(--surface-2); border:1px solid var(--border); }
   .note{ color:var(--ink-3); font-size:12px; max-width:34ch; }
   .star{ color:var(--contested); }
   .table-foot{ margin-top:14px; font-size:12px; color:var(--ink-3); }
@@ -259,6 +270,7 @@
     <button data-tab="t3" role="tab" aria-selected="false">3 · Combined Cycle — Ammonia</button>
     <button data-tab="t4" role="tab" aria-selected="false">4 · Simple Cycle — Natural Gas</button>
     <button data-tab="t5" role="tab" aria-selected="false">5 · Combined Cycle — Natural Gas</button>
+    <button data-tab="t6" role="tab" aria-selected="false">6 · Sources &amp; Method</button>
   </nav>
 
   <!-- TAB 1 -->
@@ -266,9 +278,19 @@
     <div class="card">
       <div class="panel-head">
         <h2>Vendor &amp; model table</h2>
-        <p>All 18 sourced ammonia-capable machines. TRL is analyst-assessed (1–9 scale); efficiency columns are
-          ammonia-specific and read <span class="star">★</span> where the figure is a flagged assumption rather than
-          a confirmed ammonia value. Hover a TRL badge for the one-line reasoning.</p>
+        <p>All 18 sourced ammonia-capable machines. Efficiency columns are ammonia-specific and read
+          <span class="star">★</span> where the figure is a flagged assumption rather than a confirmed ammonia
+          value.</p>
+        <div class="fabnote" style="margin-top:12px;">
+          <b>No vendor publishes a TRL number for any of these 18 models.</b> TRL is not a figure you look up here —
+          it is the analyst's own assessment, applying the standard 1–9 rubric to the sourced facts in each row
+          (test hours, certification dates, commercial status, etc.). Hover a TRL badge for the one-line reasoning,
+          or open <b>Tab 6 · Sources &amp; Method</b> for the full derivation logic and numbered bibliography. Each
+          TRL badge also carries a small reference-numbers tag and one of two provenance badges:
+          <span class="srcbadge verified" style="margin:0 2px;">Verified</span> — the underlying facts were already
+          independently confirmed in an earlier, fully-sourced repo document — or
+          <span class="srcbadge websearch" style="margin:0 2px;">Web-search only</span> — gathered this session from
+          search-result summaries because direct page fetches were blocked; not yet independently confirmed.</div>
       </div>
       <div class="table-scroll">
         <table class="vendor">
@@ -374,6 +396,58 @@
     </div>
   </section>
 
+  <!-- TAB 6 -->
+  <section class="panel" id="panel-t6">
+    <div class="card">
+      <div class="panel-head">
+        <h2>Sources &amp; method</h2>
+        <p>How every TRL badge in Tab&nbsp;1 was derived, and the full numbered bibliography behind it.</p>
+      </div>
+
+      <div class="fabnote" style="margin-bottom:18px;">
+        <b>TRL is never a published figure in this table — it is always derived.</b> No OEM, class society, or
+        research institute in any of the 51 sources below states a Technology Readiness Level for its own
+        machine. What <i>is</i> published, per model, is a set of concrete facts — endurance hours, test dates,
+        certification/classification status, whether a customer unit has been sold or installed, whether a vessel
+        or plant is in commercial service. The TRL badge in Tab&nbsp;1 is the analyst's mapping of those cited facts
+        onto the standard 9-point scale below. Two models with the same badge (e.g. TRL&nbsp;8) do not mean the
+        same evidence — hover the badge, or find the model's row here, to see exactly which facts drove the call.
+      </div>
+
+      <div class="panel-head"><h2 style="font-size:16px;">TRL scale used</h2></div>
+      <div class="table-scroll" style="margin-bottom:22px;">
+        <table class="vendor" style="min-width:0;">
+          <thead><tr><th>TRL</th><th>Definition applied</th></tr></thead>
+          <tbody>
+            <tr><td class="trlbadge" style="display:inline-block;">1–3</td><td class="note" style="max-width:none;">Basic research / concept — no named hardware, or ideas only</td></tr>
+            <tr><td class="trlbadge" style="display:inline-block;">4</td><td class="note" style="max-width:none;">Component validated in a lab environment</td></tr>
+            <tr><td class="trlbadge" style="display:inline-block;">5</td><td class="note" style="max-width:none;">Component validated in a relevant (representative) environment</td></tr>
+            <tr><td class="trlbadge" style="display:inline-block;">6</td><td class="note" style="max-width:none;">System/subsystem prototype demonstrated in a relevant environment</td></tr>
+            <tr><td class="trlbadge" style="display:inline-block;">7</td><td class="note" style="max-width:none;">System prototype demonstrated in an operational environment</td></tr>
+            <tr><td class="trlbadge" style="display:inline-block;">8</td><td class="note" style="max-width:none;">System complete and qualified (certified/type-approved, or extensively tested as a sellable product) — not yet proven in routine service</td></tr>
+            <tr><td class="trlbadge" style="display:inline-block;">9</td><td class="note" style="max-width:none;">Actual system proven through successful operation, in routine commercial service</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel-head"><h2 style="font-size:16px;">Per-model derivation &amp; provenance</h2>
+        <p>The same 18 rows as Tab 1, showing exactly which cited facts produced each TRL call and whether that
+          sourcing chain was independently verified.</p>
+      </div>
+      <div class="table-scroll" style="margin-bottom:22px;">
+        <table class="vendor">
+          <thead><tr><th>Model</th><th>TRL</th><th>Refs</th><th>Provenance</th><th>Derivation (from the cited facts)</th></tr></thead>
+          <tbody id="method-body"></tbody>
+        </table>
+      </div>
+
+      <div class="panel-head"><h2 style="font-size:16px;">Numbered bibliography</h2>
+        <p>51 sources. Reference numbers here match the "Refs" column above and the citation superscripts in Tab 1.</p>
+      </div>
+      <ol id="source-list" style="font-size:12.5px; color:var(--ink-2); padding-left:22px; display:flex; flex-direction:column; gap:6px;"></ol>
+    </div>
+  </section>
+
   <footer class="pagefoot">
     Compiled from <code>power_generation/NH3_vendor_TRL_efficiency_table.md</code> and
     <code>NH3_gas_turbine_vs_gas_engine_comprehensive_comparison.md</code> (MYSGH2 repo). Sourcing caveat: several
@@ -389,7 +463,7 @@
 /* ============ MASTER DATASET ============ */
 const DATA = [
   { id:"T1", type:"turbine", oem:"IHI", model:"IM270 (liquid-NH₃ solo-fire)", mw:"2 (2,000 kW class)",
-    status:"100% liquid NH₃", maturity:"demo/pilot, long-run", trlLo:7, trlHi:8,
+    status:"100% liquid NH₃", maturity:"demo/pilot, long-run", trlLo:7, trlHi:8, trlRefs:[1,2,3], trlVerified:true,
     trlWhy:"Complete 2 MW cogeneration system, ~3,000 h endurance on 100% liquid NH₃ incl. load-rejection/load-dump at IHI's own works; no customer unit sold yet.",
     nh3:{ sc:{v:null, note:"not published — no ammonia-specific electrical efficiency stated by IHI"},
           cc:{v:null, note:"n/a — no CC product; package is cogeneration (2 MWe + 6 t/h steam), not a steam-bottoming cycle"} },
@@ -397,14 +471,14 @@ const DATA = [
          cc:{v:null, note:"n/a — no CC/steam-bottoming variant"} } },
 
   { id:"T2", type:"turbine", oem:"IHI + GE Vernova (JDP)", model:"F-class ammonia combustion system (6F.03/7F/9F retrofit)", mw:"6F.03 = 88 MW SC (NG); 7F/9F larger",
-    status:"100% NH₃ in combustion hardware", maturity:"R&D → 2030 target", trlLo:5, trlHi:6,
+    status:"100% NH₃ in combustion hardware", maturity:"R&D → 2030 target", trlLo:5, trlHi:6, trlRefs:[4,5,6], trlVerified:true,
     trlWhy:"Combustion components only, full-scale, at F-class full-load conditions (Mar 2026); no gas turbine has run on ammonia.",
     nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"not published"} },
     ng:{ sc:{v:37.2, note:"derived: 6F.03 NG spec, 57% CC × 88/135 MW ratio", trl:9},
          cc:{v:57, gt:true, note:"sourced, stated as '>57%' (6F.03 1×1 CC, natural gas)", trl:9} } },
 
   { id:"T3", type:"turbine", oem:"Mitsubishi Power", model:"H-25 (100%-NH₃ variant)", mw:"41 SC / ~60 CC (1×1) / ~120 (2×1)",
-    status:"100% NH₃ — announced product target", maturity:"stalled/unconfirmed", trlLo:3, trlHi:4,
+    status:"100% NH₃ — announced product target", maturity:"stalled/unconfirmed", trlLo:3, trlHi:4, trlRefs:[7,8,9], trlVerified:true,
     trlWhy:"Announced 2021, commercialisation targeted '~2025'; no ammonia hardware milestone or status update 2023–2026 located.",
     nh3:{ sc:{v:34.8, contested:true, note:"⚠ contested — presumed NG spec carried by assumption since 2026-06-30, not confirmed ammonia-specific"},
           cc:{v:50.9, contested:true, note:"⚠ contested — derived 34.8% × (60/41 MW), inherits the SC uncertainty above"} },
@@ -412,44 +486,44 @@ const DATA = [
          cc:{v:50.9, note:"derived from published MW ratings, NG basis", trl:9} } },
 
   { id:"T4", type:"turbine", oem:"Mitsubishi Power (on IHI IM270 airframe)", model:"2 MW-class NH₃/NG co-firing demonstrator (Yokohama, Oct 2020)", mw:"2",
-    status:"20% NH₃ (LHV) co-firing", maturity:"demo/pilot (partial fuel)", trlLo:6, trlHi:6,
+    status:"20% NH₃ (LHV) co-firing", maturity:"demo/pilot (partial fuel)", trlLo:6, trlHi:6, trlRefs:[10,11], trlVerified:true,
     trlWhy:"Full-scale 2 MW machine in a real works demonstration; partial (20%) fuel share, one-off test campaign, not endurance.",
     nh3:{ sc:{v:null, note:"not published for the co-fired condition"}, cc:{v:null, note:"n/a — no CC in the demonstrator"} },
     ng:{ sc:{v:null, note:"no distinct anchor sourced (shares IM270 airframe with T1)"}, cc:{v:null, note:"n/a"} } },
 
   { id:"T5", type:"turbine", oem:"Baker Hughes + Hanwha (JDA)", model:"NovaLT16 (ammonia-capable variant)", mw:"16.9 gen. drive / 17.5 mech.",
-    status:"claimed 100% NH₃ ↔ 100% gas, any blend (vendor claim)", maturity:"R&D (test targeted end-2027)", trlLo:3, trlHi:3,
+    status:"claimed 100% NH₃ ↔ 100% gas, any blend (vendor claim)", maturity:"R&D (test targeted end-2027)", trlLo:3, trlHi:3, trlRefs:[12,13,14], trlVerified:true,
     trlWhy:"Joint-development agreement only; full ammonia engine test targeted end-2027, deployment 2028; no ammonia combustion hardware result published.",
     nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"n/a — no CC product (84% figure is CHP total-thermal, not net-electrical CC)"} },
     ng:{ sc:{v:36.4, note:"NovaLT16 conventional-fuel spec, 16.9 MW generator drive", trl:9},
          cc:{v:null, note:"n/a — no CC product; 84% is CHP thermal efficiency, not comparable"} } },
 
   { id:"T6", type:"turbine", oem:"Toyota Energy Solutions + AIST + Tohoku Univ.", model:"50 kW-class micro gas turbine, ammonia", mw:"0.05",
-    status:"100% ammonia gas", maturity:"lab demo", trlLo:4, trlHi:5,
+    status:"100% ammonia gas", maturity:"lab demo", trlLo:4, trlHi:5, trlRefs:[15,16,17], trlVerified:false,
     trlWhy:"Complete micro-GT system ran on ammonia gas only, >40 kW, in an institute laboratory; sub-commercial scale.",
     nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"n/a — no CC at this scale"} },
     ng:{ sc:{v:null, note:"not sourced"}, cc:{v:null, note:"n/a"} } },
 
   { id:"T7", type:"turbine", oem:"Toyota Energy Solutions", model:"300 kW-class ammonia micro gas turbine (industrial)", mw:"0.3",
-    status:"100% ammonia in prototype combustors", maturity:"R&D", trlLo:3, trlHi:4,
+    status:"100% ammonia in prototype combustors", maturity:"R&D", trlLo:3, trlHi:4, trlRefs:[15,18], trlVerified:false,
     trlWhy:"System designed with a purpose-built high-temp SCR; 100% NH₃ combustion achieved while evaluating prototype combustors — component-level, no full-system power output published.",
     nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"n/a"} },
     ng:{ sc:{v:null, note:"not sourced"}, cc:{v:null, note:"n/a"} } },
 
   { id:"T8", type:"turbine", oem:"Siemens Energy", model:"no named ammonia model (SGT-600/700/800 = H₂-ready family)", mw:"n/a",
-    status:"research only — direct &amp; cracked ammonia under investigation", maturity:"R&D, no product", trlLo:2, trlHi:3,
+    status:"research only — direct &amp; cracked ammonia under investigation", maturity:"R&D, no product", trlLo:2, trlHi:3, trlRefs:[19,20], trlVerified:false,
     trlWhy:"No named ammonia product, no ammonia hardware milestone; ammonia listed only among fuels 'explored'. Included to show the absence, not a competing product.",
     nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"not published"} },
     ng:{ sc:{v:null, note:"SGT-600/700/800 target 100% H₂-ready — hydrogen, not ammonia; no relevant anchor"}, cc:{v:null, note:"n/a"} } },
 
   { id:"T9", type:"turbine", oem:"Doosan Enerbility (+ POSCO, RIST)", model:"Cracked-ammonia route — combustor for a 100% H₂ gas turbine", mw:"(400 MW-class H₂ GT is the separate national programme)",
-    status:"cracked NH₃ → H₂, i.e. not direct ammonia combustion", maturity:"R&D", trlLo:3, trlHi:4,
+    status:"cracked NH₃ → H₂, i.e. not direct ammonia combustion", maturity:"R&D", trlLo:3, trlHi:4, trlRefs:[21,22], trlVerified:false,
     trlWhy:"MoU-stage R&D; parties explicitly chose to burn cracked gas rather than ammonia itself; combustor development targeted for completion by 2026.",
     nh3:{ sc:{v:null, na:true, note:"n/a — not a direct-ammonia machine"}, cc:{v:null, note:"not published"} },
     ng:{ sc:{v:null, note:"not sourced"}, cc:{v:null, note:"n/a"} } },
 
   { id:"E1", type:"engine", oem:"Wärtsilä", model:"Wärtsilä 25 Ammonia (4-stroke, marine)", mw:"1.9–3.1 per unit",
-    status:"~95% NH₃ energy share (~5% pilot)", maturity:"marine commercial, deliveries 2028", trlLo:8, trlHi:8,
+    status:"~95% NH₃ energy share (~5% pilot)", maturity:"marine commercial, deliveries 2028", trlLo:8, trlHi:8, trlRefs:[23,24,25,26,27], trlVerified:true,
     trlWhy:"Full-scale engine, extensively tested (up to 90% GHG cut demonstrated), launched as a sellable product with a 2026 power upgrade, deliveries scheduled 2028; no vessel in commercial service yet.",
     nh3:{ sc:{v:null, note:"not published — OEM states only 'equal to dual-fuel LNG engines' (qualitative parity claim, not a number)"},
           cc:{v:null, note:"n/a — no CC product on NH₃ (Flexicycle >54% is natural gas only)"} },
@@ -457,52 +531,107 @@ const DATA = [
          cc:{v:54, gt:true, note:"Flexicycle (engine-CC), stated as '>54%' ISO; natural gas only, anchor not the 25A itself", trl:9} } },
 
   { id:"E2", type:"engine", oem:"Everllence (ex-MAN Energy Solutions)", model:"MAN B&amp;W ME-LGIA (2-stroke, marine)", mw:"2-stroke portfolio 12–68",
-    status:"&gt;95% NH₃ energy fraction, 5% SPOC pilot", maturity:"marine commercial, shipyard delivery 2026", trlLo:8, trlHi:8,
+    status:"&gt;95% NH₃ energy fraction, 5% SPOC pilot", maturity:"marine commercial, shipyard delivery 2026", trlLo:8, trlHi:8, trlRefs:[28,29,30,31], trlVerified:true,
     trlWhy:"Full-scale engine testing from Nov 2024, 100% load reached Jan 2025, homologation tests Jun 2026 under 8 classification societies; not yet in commercial ship service.",
     nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"n/a — no CC product (marine propulsion engine)"} },
     ng:{ sc:{v:null, note:"not sourced this session"}, cc:{v:null, note:"n/a"} } },
 
   { id:"E3", type:"engine", oem:"WinGD", model:"X-DF-A (first unit X52DF-A)", mw:"not sourced; ~30 engines on order",
-    status:"~95% NH₃ — HP ammonia injection + ~5% pilot diesel at full load", maturity:"marine commercial, installed 2025", trlLo:8, trlHi:9,
+    status:"~95% NH₃ — HP ammonia injection + ~5% pilot diesel at full load", maturity:"marine commercial, installed 2025", trlLo:8, trlHi:9, trlRefs:[32,33,34,35], trlVerified:false,
     trlWhy:"Full-load ammonia test passed; first commercial engine installed aboard an EXMAR 46,000 m³ carrier (2025) — the furthest-progressed ammonia machine of any type. 9 only once the vessel is in commercial service.",
     nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"n/a — no CC product"} },
     ng:{ sc:{v:null, note:"not sourced this session"}, cc:{v:null, note:"n/a"} } },
 
   { id:"E4", type:"engine", oem:"Japan Engine Corporation (J-ENG)", model:"UEC50LSJA (7UEC50LSJA-HPSCR, 2-stroke)", mw:"not sourced (500 mm bore, 7 cyl.)",
-    status:"NH₃ co-firing (ratio not sourced); HP-SCR after-treatment integral", maturity:"marine commercial, delivered Oct 2025", trlLo:8, trlHi:8,
+    status:"NH₃ co-firing (ratio not sourced); HP-SCR after-treatment integral", maturity:"marine commercial, delivered Oct 2025", trlLo:8, trlHi:8, trlRefs:[36,37,38], trlVerified:false,
     trlWhy:"~1,000 h single-cylinder testing → full-scale first-commercial engine, ammonia runs from Apr 2025 (~700 h) → delivered to JMU Ariake Oct 2025; vessel enters service Nov 2026.",
     nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"n/a — no CC product"} },
     ng:{ sc:{v:null, note:"not sourced this session"}, cc:{v:null, note:"n/a"} } },
 
   { id:"E5", type:"engine", oem:"HD Hyundai Heavy Industries (HHI-EMD)", model:"HiMSEN H22CDF-LA (4-stroke)", mw:"up to 2.2",
-    status:"ammonia dual-fuel, HP direct injection (world-first)", maturity:"type-approved 2024", trlLo:8, trlHi:8,
+    status:"ammonia dual-fuel, HP direct injection (world-first)", maturity:"type-approved 2024", trlLo:8, trlHi:8, trlRefs:[39,40,41], trlVerified:false,
     trlWhy:"Type-approval test completed 30 Sep–2 Oct 2024 (Ulsan) with certification from 7 classification societies. Vendor targets land-based power gen, but no land unit sourced.",
     nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"n/a — no CC product on NH₃"} },
     ng:{ sc:{v:null, note:"not sourced this session"}, cc:{v:null, note:"n/a"} } },
 
   { id:"E6", type:"engine", oem:"HD Hyundai Heavy Industries (HHI-EMD)", model:"HiMSEN H32CDF-LA (4-stroke)", mw:"up to 5.4",
-    status:"ammonia dual-fuel, HP direct injection", maturity:"class-approved 2025", trlLo:6, trlHi:7,
+    status:"ammonia dual-fuel, HP direct injection", maturity:"class-approved 2025", trlLo:6, trlHi:7, trlRefs:[40,42], trlVerified:false,
     trlWhy:"Announced Oct 2025 with 'classification approval'; no full-scale test-hours published and approval type (AiP vs. type approval) is ambiguous in sources — flagged as a borderline TRL call.",
     nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"n/a — no CC product on NH₃"} },
     ng:{ sc:{v:null, note:"not sourced this session"}, cc:{v:null, note:"n/a"} } },
 
   { id:"E7", type:"engine", oem:"IHI Power Systems (Niigata)", model:"28ADF (4-stroke, marine, 280 mm bore)", mw:"1.6",
-    status:"up to 95% NH₃ fuel-share ratio", maturity:"in service (demo vessel)", trlLo:8, trlHi:9,
+    status:"up to 95% NH₃ fuel-share ratio", maturity:"in service (demo vessel)", trlLo:8, trlHi:9, trlRefs:[43,44,45], trlVerified:false,
     trlWhy:"Operational tests from Apr 2023 at the Ota plant; basis of the NYK tugboat Sakigake, an ammonia-fuelled vessel in actual operation — 94% GHG cut measured in service.",
     nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"n/a — no CC product"} },
     ng:{ sc:{v:null, note:"not sourced this session"}, cc:{v:null, note:"n/a"} } },
 
   { id:"E8", type:"engine", oem:"IHI Power Systems", model:"6 MW land-based ammonia genset (V18, scaled from 28ADF)", mw:"6.0", star:true,
-    status:"NH₃ + heavy-fuel-oil dual-fuel; target &gt;90% NH₃ ratio, &gt;90% GHG cut", maturity:"demo/pilot — the only stationary ammonia genset located", trlLo:6, trlHi:7,
+    status:"NH₃ + heavy-fuel-oil dual-fuel; target &gt;90% NH₃ ratio, &gt;90% GHG cut", maturity:"demo/pilot — the only stationary ammonia genset located", trlLo:6, trlHi:7, trlRefs:[46,47], trlVerified:false,
     trlWhy:"Began operating at the Ota Plant, Gunma, July 2026; demonstration covers the complete system (engine, fuel supply, after-treatment, safety). Testing completes FY2026, commercial sales targeted FY2027 — aimed at data centres.",
     nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"n/a — no CC product; simple-cycle genset"} },
     ng:{ sc:{v:null, note:"not sourced this session"}, cc:{v:null, note:"n/a"} } },
 
   { id:"E9", type:"engine", oem:"MAN Energy Solutions (Holeby) + DTU + Skovgaard", model:"AmmoniaMot 2 / NH3 Spark – FutureFlex (4-stroke genset)", mw:"single-cylinder at present",
-    status:"spark-ignited, targeting pilot-free (no pilot fuel)", maturity:"R&D", trlLo:3, trlHi:4,
+    status:"spark-ignited, targeting pilot-free (no pilot fuel)", maturity:"R&D", trlLo:3, trlHi:4, trlRefs:[48,49,50], trlVerified:false,
     trlWhy:"Predecessor 'AmmoniaMot' closed May 2024; AmmoniaMot 2 started Aug 2024 (~3.5 yr). Single-cylinder testing at DTU from Q3 2025; full-scale testing under powerplant conditions only later, at Skovgaard Energy's site.",
     nh3:{ sc:{v:null, note:"not published"}, cc:{v:null, note:"n/a — no CC product"} },
     ng:{ sc:{v:null, note:"not sourced this session"}, cc:{v:null, note:"n/a"} } },
+];
+
+/* ============ BIBLIOGRAPHY (matches power_generation/NH3_vendor_TRL_efficiency_table.md §5) ============ */
+const SOURCES = [
+  {n:1, text:"IHI — 2 MW-Class Gas Turbine Cogeneration System Fuelled Exclusively by Liquid Ammonia (Cogeneration Award 2025)", url:"https://www.ihi.co.jp/en/all_news/2025/resources_energy_environment/1201875_13737.html"},
+  {n:2, text:"IHI — Development of Liquid Ammonia Direct Spray Combustion Gas Turbine; Ammonia Energy Association — IHI Corporation profile (IM270 at Aioi, ~3,000 h as of Jan 2026)", url:"https://ammoniaenergy.org/organization/ihi-corporation/"},
+  {n:3, text:"OSTI/ETDEWEB — Development of 2000 kW class IM270 gas turbine (26.6% development target); ASME GT1996; IHI Power Systems IM270 product page", url:"https://www.osti.gov/etdeweb/biblio/401497"},
+  {n:4, text:"GE Vernova — IHI and GE Vernova achieve milestone with 100% ammonia combustion in large-scale F-class test (Mar 2026)", url:"https://www.gevernova.com/news/press-releases/ihi-ge-vernova-achieve-milestone-100-ammonia"},
+  {n:5, text:"GE Vernova & IHI — next phase of the technology roadmap, retrofittable 100%-ammonia combustion system for 6F.03/7F/9F", url:"https://www.ge.com/news/press-releases/ge-vernova-and-ihi-announce-next-phase-of-the-technology-roadmap-aiming-to-develop-a"},
+  {n:6, text:"6F.03 platform figures (88 MW SC / 135 MW 1×1 CC / >57% CC, NG) and the derived 37.2% SC — memory.md changelog 2026-07-28 (8)", url:""},
+  {n:7, text:"Mitsubishi Power — H-25 Series (41 MW SC; ~60 MW 1×1 CC; ~120 MW 2×1)", url:"https://power.mhi.com/products/gasturbines/lineup/h25/"},
+  {n:8, text:"Mitsubishi Power — world's first ammonia-fired 40 MW-class gas turbine, commercialisation “in or around 2025” (Mar 2021)", url:"https://power.mhi.com/news/20210301.html"},
+  {n:9, text:"34.8%/50.9% contested-anchor analysis — NH3_gas_turbine_vs_gas_engine_comprehensive_comparison.md §2 row M3; memory.md §3", url:""},
+  {n:10, text:"SpringerLink — Demonstration Tests of Ammonia/Natural Gas Co-firing Power Generation with a 2-MW-Class Gas Turbine (Yokohama, Oct 2020)", url:"https://link.springer.com/chapter/10.1007/978-981-19-4767-4_35"},
+  {n:11, text:"Ammonia Energy Association — Performance of Ammonia–Natural Gas Co-Fired Gas Turbine for Power Generation", url:"https://ammoniaenergy.org/presentations/performance-of-ammonia-natural-gas-co-fired-gas-turbine-for-power-generation/"},
+  {n:12, text:"Baker Hughes & Hanwha — partnership to develop a ~16 MW 100% ammonia-capable turbine (Feb 2025)", url:"https://investors.bakerhughes.com/news-releases/news-release-details/baker-hughes-and-hanwha-announce-partnership-develop-small-size"},
+  {n:13, text:"Baker Hughes — NovaLT16 overview datasheet (16.9 MW gen. drive, 36.4%; up to 84% CHP thermal)", url:"https://www.bakerhughes.com/sites/bakerhughes/files/2022-06/novalt16_overview.pdf"},
+  {n:14, text:"Ammonia Energy Association — Hanwha/Baker Hughes fuel-flexible small turbines", url:"https://ammoniaenergy.org/articles/hanwha-baker-hughes-to-develop-fuel-flexible-small-size-turbines-for-maritime-propulsion/"},
+  {n:15, text:"Ammonia Energy Association — Toyota Energy Solutions organisation profile (50 kW & 300 kW MGT programmes)", url:"https://ammoniaenergy.org/organization/toyota-energy-solutions/"},
+  {n:16, text:"Rich-Lean Combustor for a 50 kW-class Micro Gas Turbine Firing Ammonia (ResearchGate); ASME GT2021 start-up process", url:"https://www.researchgate.net/publication/336454104_Rich-Lean_Combustor_for_a_50kW_class_Micro_Gas_Turbine_Firing_Ammonia"},
+  {n:17, text:"AIChE / Ammonia Energy Association — Pure Ammonia Combustion Micro Gas Turbine System", url:"https://www.ammoniaenergy.org/paper/pure-ammonia-combustion-micro-gas-turbine-system/"},
+  {n:18, text:"SpringerLink — Development of 300 kW Ammonia Combustion Micro Gas Turbine", url:"https://link.springer.com/chapter/10.1007/978-981-19-4767-4_34"},
+  {n:19, text:"Siemens Energy — Sustainable gas turbine fuels (cracked ammonia listed among fuels under exploration)", url:"https://www.siemens-energy.com/us/en/home/products-services/solutions-usecase/sustainable-fuels.html"},
+  {n:20, text:"Power Progress — Siemens Energy explores gas turbines' future in net-zero energy mix", url:"https://www.powerprogress.com/news/siemens-energy-explores-gas-turbines-future-in-net-zero-energy-mix/8024799.article"},
+  {n:21, text:"Doosan Enerbility — Doosan Heavy pursues ammonia-fuelled hydrogen gas turbine (MoU with POSCO/RIST; cracked-gas route)", url:"https://www.doosanenerbility.com/en/about/news_board_view?id=21000333"},
+  {n:22, text:"Ammonia Energy Association — Doosan Enerbility organisation profile", url:"https://ammoniaenergy.org/organization/doosan-heavy-industries/"},
+  {n:23, text:"Wärtsilä 25 Ammonia product page (AmmoniaPac, WARMS, NOR)", url:"https://www.wartsila.com/marine/wartsila-25-ammonia"},
+  {n:24, text:"Wärtsilä — Power increase for Wärtsilä 25 Ammonia engine (315/345 kW per cyl; deliveries 2028)", url:"https://www.wartsila.com/media/news/16-04-2026-power-increase-for-wartsila-25-ammonia-engine-supports-more-efficient-ammonia%E2%80%91fuelled-vessel-designs-3739966"},
+  {n:25, text:"Wärtsilä — Extensive testing of the 4-stroke ammonia engine demonstrates GHG reductions up to 90%", url:"https://www.wartsila.com/media/news/27-05-2025-extensive-testing-of-wartsila-s-4-stroke-ammonia-engine-demonstrates-ghg-emission-reductions-by-up-to-90-percent-3590235"},
+  {n:26, text:"Wärtsilä 34SG gas engine — 48.9% electrical efficiency (natural gas)", url:"https://www.wartsila.com/energy/solutions/engine-power-plants/wartsila-34sg-gas-engine"},
+  {n:27, text:"Wärtsilä Flexicycle (engine combined cycle) — >54% ISO, natural gas", url:"https://www.wartsila.com/energy/engine-power-plant-solutions/engine-power-plant-products/applications/flexicycle-power-plants"},
+  {n:28, text:"Everllence — B&W ME-LGIA ammonia engine product page (shipyard delivery 2026)", url:"https://www.everllence.com/marine/products/two-stroke-engines/ammonia-engine"},
+  {n:29, text:"MAN Energy Solutions — Full-Scale Ammonia Engine Runs at 100% Load (30 Jan 2025)", url:"https://www.man-es.com/company/press-releases/press-details/2025/01/30/full-scale-ammonia-engine-runs-at--100--load"},
+  {n:30, text:"Everllence — Ammonia Engine Passes “Huge Milestone” en Route to Commercial Debut (Jun 2026 homologation)", url:"https://www.everllence.com/company/press-releases/details/2026/04/20/ammonia-engine-passes--huge-milestone--en-route-to-commercial-debut"},
+  {n:31, text:"Everllence — Introduces Two-Stroke Ammonia Engine to Global Maritime Industry (Nov 2025)", url:"https://www.everllence.com/company/press-releases/details/2025/11/13/everllence-introduces-two-stroke-ammonia-engine-to-global-maritime-industry"},
+  {n:32, text:"WinGD — First ammonia-fuelled engine installed on EXMAR vessels (X52DF-A)", url:"https://wingd.com/news-media/news/wingd-s-first-ammonia-fuelled-engine-installed-on-exmar-vessels"},
+  {n:33, text:"WinGD — Exceptional results in full-load X-DF-A ammonia engine test", url:"https://wingd.com/news-media/news/wingd-delivers-exceptional-results-in-full-load-x-df-a-ammonia-engine-test"},
+  {n:34, text:"gCaptain — WinGD makes history with first commercial ammonia-fuelled marine engine", url:"https://gcaptain.com/wingd-makes-history-with-first-commercial-ammonia-fueled-marine-engine/"},
+  {n:35, text:"Marine Log — WinGD X-DF-A in ammonia-fuelled engine installation world first", url:"https://www.marinelog.com/shipbuilding/engines-fuel/wingd-x-df-a-in-ammonia-fueled-engine-installation-world-first/"},
+  {n:36, text:"Japan Engine Corporation — First Japanese-developed commercial large low-speed 2-stroke engine starts ammonia co-firing (Apr 2025)", url:"https://www.j-eng.co.jp/en/news/20250421.html"},
+  {n:37, text:"Ammonia Energy Association — J-ENG: testing complete, 2-stroke ammonia engine ready to roll out", url:"https://ammoniaenergy.org/articles/j-eng-testing-complete-2-stroke-ammonia-engine-ready-to-roll-out/"},
+  {n:38, text:"Maritime Executive — Japan Engine starts co-firing ammonia engine ahead of October delivery", url:"https://maritime-executive.com/article/japan-engine-starts-co-firing-ammonia-engine-ahead-of-october-delivery"},
+  {n:39, text:"HD Hyundai Heavy Industries — Develops ammonia dual-fuel engine, approval from 7 classification societies (H22CDF-LA)", url:"https://www.hyundai-engine.com/en/media/newsdetail/435"},
+  {n:40, text:"Ammonia Energy Association — Hyundai Heavy Industries organisation profile", url:"https://ammoniaenergy.org/organization/hyundai-heavy-industries/"},
+  {n:41, text:"gCaptain — HD Hyundai Heavy Industries claims zero-carbon ammonia dual-fuel engine breakthrough", url:"https://gcaptain.com/hyundai-heavy-industries-claims-zero-carbon-ammonia-dual-fuel-engine-breakthrough/"},
+  {n:42, text:"HydrogenWire/Fuel Cells Works — HD HHI-EMD develops 4-stroke HiMSEN ammonia dual-fuel engine H32CDF-LA (Oct 2025)", url:"https://hydrogenwire.com/2025/10/20/hd-hyundai-heavy-industries-engine-machinery-develops-4-stroke-himsen-ammonia-dual-fuel-engine/"},
+  {n:43, text:"IHI Power Systems — ammonia dual-fuel engine product page; Apr 2023 operational tests at the Ota plant (28ADF)", url:"https://www.ihi.co.jp/ips/english/products_marine/niigata/ammonia_dual_fuel.html"},
+  {n:44, text:"CIMAC 2025 paper 214 — Development of an ammonia-fuelled engine (28ADF) for future marine", url:"https://papers2025.cimaccongress.com/pdf/CIMAC_paper_214.pdf"},
+  {n:45, text:"Ammonia Energy Association — Emission performance of ammonia-fuelled 4-stroke marine engines (NYK Sakigake)", url:"https://ammoniaenergy.org/articles/emission-performance-of-ammonia-fueled-four-stroke-marine-engines/"},
+  {n:46, text:"Power Systems Research — IHI tests 6 MW ammonia-fuelled land-based engine (Ota Plant, Gunma, Jul 2026)", url:"https://www.powersys.com/2026/07/ihi-tests-6-mw-ammonia-fueled-land-based-engine/"},
+  {n:47, text:"Ammonia Energy Association — Land-based, ammonia-fuelled power generator approaches commercialisation in Japan", url:"https://ammoniaenergy.org/articles/land-based-ammonia-fueled-power-generator-approaches-commercialization-in-japan"},
+  {n:48, text:"MAN Energy Solutions — MAN Energy Solutions to lead new ammonia genset project (NH3 Spark – FutureFlex)", url:"https://www.man-es.com/company/press-releases/press-details/2025/05/22/man-energy-solutions-to-lead--new-ammonia-genset-project"},
+  {n:49, text:"Turbomachinery Magazine — MAN Energy launches four-stroke engine programme AmmoniaMot 2", url:"https://www.turbomachinerymag.com/view/man-energy-launches-four-stroke-engine-program-ammoniamot-2"},
+  {n:50, text:"Riviera Maritime Media — Four-stroke ammonia genset to ditch pilot fuel", url:"https://www.rivieramm.com/news-content-hub/news-content-hub/four-stroke-ammonia-genset-to-ditch-pilot-fuel-84967"},
+  {n:51, text:"Negative-result sources: Kawasaki Heavy Industries (1.8 MW 100% H₂ GT cogen); Solar Turbines/Caterpillar (hydrogen only)", url:"https://global.kawasaki.com/en/corp/newsroom/news/detail/?f=20230905_2781"},
 ];
 
 /* ============ TAB SWITCHING ============ */
@@ -542,18 +671,28 @@ function fmtEff(cell){
   const gt = cell.gt ? "&gt;" : "";
   return `<span class="effcell">${gt}${cell.v}%${star}</span>`;
 }
+function refLinks(refs){
+  return refs.map(n=>`<a href="#" class="ref-link" data-ref="${n}">${n}</a>`).join(",");
+}
 function renderTable(){
   const body = document.getElementById("table-body");
   body.innerHTML = DATA.map(d=>{
     const typeLabel = d.type === "turbine" ? "Turbine" : "Engine";
     const trlText = d.trlLo === d.trlHi ? d.trlLo : `${d.trlLo}–${d.trlHi}`;
+    const provBadge = d.trlVerified
+      ? `<span class="srcbadge verified">Verified</span>`
+      : `<span class="srcbadge websearch">Web-search only</span>`;
     return `<tr>
       <td><span class="typechip ${d.type}"><span class="mark"></span>${typeLabel}</span></td>
       <td><div class="modelname">${d.model}${d.star ? ' <span class="star" title="First stationary ammonia genset located">★</span>' : ''}</div><div class="oemname">${d.oem} · ${d.mw}</div></td>
       <td class="note" style="max-width:16ch;">${d.mw}</td>
       <td class="note" style="max-width:26ch;">${d.status}</td>
       <td class="note" style="max-width:20ch;">${d.maturity}</td>
-      <td><span class="trlbadge" title="${d.trlWhy.replace(/"/g,'&quot;')}">${trlText}</span></td>
+      <td><div class="trlcell">
+        <span class="trlbadge" title="${d.trlWhy.replace(/"/g,'&quot;')}">${trlText}</span>
+        <span class="trlrefs">[${refLinks(d.trlRefs)}]</span>
+        ${provBadge}
+      </div></td>
       <td>${fmtEff(d.nh3.sc)}<div class="note">${(d.nh3.sc.v==null || d.nh3.sc.contested) ? d.nh3.sc.note : ''}</div></td>
       <td>${fmtEff(d.nh3.cc)}<div class="note">${(d.nh3.cc.v==null || d.nh3.cc.contested) ? d.nh3.cc.note : ''}</div></td>
       <td class="note" style="max-width:30ch;">${d.trlWhy}</td>
@@ -561,6 +700,49 @@ function renderTable(){
   }).join("");
 }
 renderTable();
+
+/* ============ TAB 6: method table + bibliography ============ */
+function renderMethod(){
+  const body = document.getElementById("method-body");
+  body.innerHTML = DATA.map(d=>{
+    const trlText = d.trlLo === d.trlHi ? d.trlLo : `${d.trlLo}–${d.trlHi}`;
+    const provBadge = d.trlVerified
+      ? `<span class="srcbadge verified">Verified</span>`
+      : `<span class="srcbadge websearch">Web-search only</span>`;
+    return `<tr>
+      <td><div class="modelname">${d.oem.split("(")[0].trim()} — ${d.model}</div></td>
+      <td><span class="trlbadge">${trlText}</span></td>
+      <td class="trlrefs">[${refLinks(d.trlRefs)}]</td>
+      <td>${provBadge}</td>
+      <td class="note" style="max-width:44ch;">${d.trlWhy}</td>
+    </tr>`;
+  }).join("");
+
+  const list = document.getElementById("source-list");
+  list.innerHTML = SOURCES.map(s=>{
+    const link = s.url ? ` — <a href="${s.url}" target="_blank" rel="noopener">${s.url}</a>` : ` — <i>internal repo cross-reference, no external URL</i>`;
+    return `<li id="src-${s.n}">${s.text}${link}</li>`;
+  }).join("");
+}
+renderMethod();
+
+document.addEventListener("click", (evt)=>{
+  const link = evt.target.closest(".ref-link");
+  if(!link) return;
+  evt.preventDefault();
+  const n = link.dataset.ref;
+  tabs.forEach(b=>{ b.classList.remove("active"); b.setAttribute("aria-selected","false"); });
+  document.querySelectorAll("section.panel").forEach(p=>p.classList.remove("active"));
+  const t6btn = document.querySelector('nav.tabs button[data-tab="t6"]');
+  t6btn.classList.add("active"); t6btn.setAttribute("aria-selected","true");
+  document.getElementById("panel-t6").classList.add("active");
+  const target = document.getElementById("src-"+n);
+  if(target){
+    target.scrollIntoView({behavior:"smooth", block:"center"});
+    target.style.background = "var(--contested-soft)";
+    setTimeout(()=>{ target.style.background = ""; }, 1600);
+  }
+});
 
 /* ============ SCATTER CHART ENGINE ============ */
 const NS = "http://www.w3.org/2000/svg";
