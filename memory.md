@@ -588,6 +588,20 @@ utilization for IPPs, 2026-07-28**
 
 ## 8. Changelog
 
+- **2026-07-29 (4)** — Made the dashboard's turbine/engine side lists (the
+  "no data" panels on Tabs 2–5) **editable**: each model now has an inline
+  efficiency input next to its TRL. Typing a value plots it live on that tab's
+  chart with a distinct dashed **accent-teal ring + a ✎ label suffix**,
+  visually separate from both sourced points and the amber "flagged
+  assumption" ring already used for H-25 — the legend and callout text update
+  automatically ("+N of your own edited values"), and a per-tab "Clear all
+  edits" link resets them. Edits are stored client-side only (`localStorage`,
+  keyed per model/fuel/cycle), confirmed to survive a page reload; nothing is
+  written back to this repo or to any sourced data file — this is a
+  what-if/scratchpad layer on top of the sourced dashboard, not a new data
+  entry mechanism. Verified via headless-Chromium (Playwright) in both light
+  and dark mode: typing values, the point appearing/moving, the clear button,
+  "Clear all edits", and persistence across reload — zero console errors.
 - **2026-07-29 (3)** — User asked whether the TRL badges in the dashboard have
   sources. Answer, made explicit in the dashboard itself (new Tab 6, "Sources &
   Method"): **no vendor, class society, or research institute publishes a TRL

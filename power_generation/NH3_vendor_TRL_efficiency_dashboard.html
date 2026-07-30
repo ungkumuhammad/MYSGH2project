@@ -194,6 +194,7 @@
   .pt-turbine{ fill:var(--turbine); stroke:var(--surface); stroke-width:1.5; }
   .pt-engine{ fill:var(--engine); stroke:var(--surface); stroke-width:1.5; }
   .pt-ring{ fill:none; stroke:var(--contested); stroke-width:2; stroke-dasharray:3 2; }
+  .pt-ring-user{ fill:none; stroke:var(--accent); stroke-width:2; stroke-dasharray:2 2; }
   .pt-label{ fill:var(--ink-2); font-family:var(--sans); font-size:11px; font-weight:600; }
   .pt-sub{ fill:var(--ink-3); font-family:var(--mono); font-size:10px; }
   .leader{ stroke:var(--ink-3); stroke-width:1; stroke-dasharray:2 2; opacity:.6; }
@@ -204,17 +205,36 @@
   .legend .swatch.turbine{ border-radius:50%; background:var(--turbine); }
   .legend .swatch.engine{ background:var(--engine); }
   .legend .swatch.ring{ border-radius:50%; border:2px dashed var(--contested); background:transparent; }
+  .legend .swatch.ring-user{ border-radius:50%; border:2px dashed var(--accent); background:transparent; }
 
   .nodata{ display:flex; flex-direction:column; gap:14px; }
-  .nodata h3{ font-family:var(--sans); font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-3); margin:0 0 8px; font-weight:700; }
+  .nodata h3{ font-family:var(--sans); font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-3); margin:0; font-weight:700; }
+  .nodata-headrow{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:8px; flex-wrap:wrap; }
+  .clearlink{ font-family:var(--sans); font-size:11px; font-weight:600; color:var(--accent-ink); background:none; border:none; cursor:pointer; padding:0; text-decoration:underline; }
+  .clearlink:disabled{ color:var(--ink-3); text-decoration:none; cursor:default; }
+  .edithint{ font-size:11.5px; color:var(--ink-3); margin:-4px 0 2px; }
   .nodata .grp{ background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:12px 14px; }
-  .chiplist{ display:flex; flex-direction:column; gap:6px; }
-  .chip{ display:flex; align-items:baseline; gap:7px; font-size:12.5px; }
+  .chiplist{ display:flex; flex-direction:column; gap:8px; }
+  .chip{ display:flex; align-items:center; gap:7px; font-size:12.5px; flex-wrap:wrap; }
+  .chip.is-edited{ background:var(--accent-soft); margin:0 -6px; padding:4px 6px; border-radius:6px; }
   .chip .mk{ width:8px; height:8px; flex:0 0 auto; opacity:.55; }
   .chip .mk.turbine{ border-radius:50%; border:1.5px solid var(--turbine); }
   .chip .mk.engine{ border:1.5px solid var(--engine); }
-  .chip .name{ color:var(--ink); }
+  .chip .name{ color:var(--ink); flex:1 1 auto; min-width:120px; }
   .chip .trl{ font-family:var(--mono); color:var(--ink-3); white-space:nowrap; }
+  .chip .effedit{ display:flex; align-items:center; gap:3px; }
+  .chip .effedit input{
+    width:60px; font-family:var(--mono); font-size:12px; text-align:right;
+    background:var(--surface); color:var(--ink); border:1px solid var(--border); border-radius:5px;
+    padding:3px 5px; font-variant-numeric:tabular-nums;
+  }
+  .chip .effedit input:focus{ outline:2px solid var(--accent); outline-offset:1px; border-color:var(--accent); }
+  .chip .effedit input.has-value{ border-color:var(--accent); color:var(--accent-ink); font-weight:700; }
+  .chip .effedit .unit{ font-size:11px; color:var(--ink-3); }
+  .chip .effedit .clearbtn{
+    font-size:13px; line-height:1; color:var(--ink-3); background:none; border:none; cursor:pointer; padding:2px 3px;
+  }
+  .chip .effedit .clearbtn:hover{ color:var(--engine); }
 
   .tooltip{
     position:fixed; pointer-events:none; z-index:50; max-width:280px;
@@ -634,6 +654,31 @@ const SOURCES = [
   {n:51, text:"Negative-result sources: Kawasaki Heavy Industries (1.8 MW 100% H₂ GT cogen); Solar Turbines/Caterpillar (hydrogen only)", url:"https://global.kawasaki.com/en/corp/newsroom/news/detail/?f=20230905_2781"},
 ];
 
+/* ============ USER OVERRIDES (your own working assumptions — never sourced) ============ */
+const OVERRIDE_KEY = "mysgh2-nh3-dashboard-overrides-v1";
+let overrides = {};
+try{ overrides = JSON.parse(localStorage.getItem(OVERRIDE_KEY) || "{}"); }catch(e){ overrides = {}; }
+function ovKey(id, fuel, cycle){ return id+":"+fuel+":"+cycle; }
+function getOverride(id, fuel, cycle){
+  const v = overrides[ovKey(id,fuel,cycle)];
+  return (typeof v === "number" && isFinite(v)) ? v : null;
+}
+function setOverride(id, fuel, cycle, value){
+  const key = ovKey(id,fuel,cycle);
+  if(value == null || !isFinite(value)) delete overrides[key];
+  else overrides[key] = value;
+  try{ localStorage.setItem(OVERRIDE_KEY, JSON.stringify(overrides)); }catch(e){}
+}
+function hasAnyOverrideFor(fuel, cycle){
+  return Object.keys(overrides).some(k=>k.endsWith(":"+fuel+":"+cycle));
+}
+function clearOverridesFor(fuel, cycle){
+  Object.keys(overrides).filter(k=>k.endsWith(":"+fuel+":"+cycle)).forEach(k=>delete overrides[k]);
+  try{ localStorage.setItem(OVERRIDE_KEY, JSON.stringify(overrides)); }catch(e){}
+}
+// registry of {fuel,cycle,...} per tab so an edit can trigger just that chart's rebuild
+const chartRegistry = {};
+
 /* ============ TAB SWITCHING ============ */
 const tabs = document.querySelectorAll("nav.tabs button");
 tabs.forEach(btn=>{
@@ -777,22 +822,26 @@ function drawAxes(svg, yMax, yStep){
   yt.textContent = "Net electrical efficiency, LHV"; svg.appendChild(yt);
 }
 
-function drawPoint(svg, x, y, item, cellNote, cellVal, contested, cycleLabel, fuelLabel){
+function drawPoint(svg, x, y, item, cellNote, cellVal, contested, cycleLabel, fuelLabel, isOverride){
   const isTurbine = item.type === "turbine";
   const g = el("g", {});
   if(contested){
     g.appendChild(el("circle", {cx:x, cy:y, r:11, class:"pt-ring"}));
+  } else if(isOverride){
+    g.appendChild(el("circle", {cx:x, cy:y, r:11, class:"pt-ring-user"}));
   }
   if(isTurbine){
     g.appendChild(el("circle", {cx:x, cy:y, r:7, class:"pt-turbine"}));
   } else {
     g.appendChild(el("rect", {x:x-6.5, y:y-6.5, width:13, height:13, class:"pt-engine"}));
   }
+  if(isOverride){ g.setAttribute("opacity", "0.85"); }
   g.style.cursor = "pointer";
   g.addEventListener("mousemove", (evt)=>{
     const gt = cellVal.gt ? "&gt;" : "";
     let html = `<b>${item.oem} — ${item.model}</b>${item.type==="turbine"?"Turbine":"Engine"} · TRL ${item.trlLo===item.trlHi?item.trlLo:item.trlLo+"–"+item.trlHi}<br>${cycleLabel}, ${fuelLabel}: ${gt}${cellVal.v}%`;
     if(contested) html += `<div class="tt-flag">⚠ flagged assumption — not confirmed ammonia-specific</div>`;
+    if(isOverride) html += `<div class="tt-flag">✎ your own working assumption — not sourced, not saved to the repo</div>`;
     html += `<div style="margin-top:4px; color:#c9d2cd;">${cellNote}</div>`;
     showTooltip(evt, html);
   });
@@ -808,7 +857,8 @@ function drawLabel(svg, x, y, text, dy, leftSide){
   svg.appendChild(t);
 }
 
-function buildChart(svgId, legendId, nodataId, calloutId, cycle, fuel, yMax, yStep, calloutHtml){
+function buildChart(tabKey, svgId, legendId, nodataId, calloutId, cycle, fuel, yMax, yStep, calloutHtml){
+  chartRegistry[tabKey] = {svgId, legendId, nodataId, calloutId, cycle, fuel, yMax, yStep, calloutHtml};
   const svg = document.getElementById(svgId);
   svg.innerHTML = "";
   drawAxes(svg, yMax, yStep);
@@ -817,9 +867,16 @@ function buildChart(svgId, legendId, nodataId, calloutId, cycle, fuel, yMax, ySt
   const noData = [];
   DATA.forEach(item=>{
     const cell = item[fuel][cycle];
-    const trlForFuel = fuel === "ng" ? (cell.trl || null) : (item.trlLo + item.trlHi)/2;
+    const trlMid = (item.trlLo + item.trlHi)/2;
+    const trlForFuel = fuel === "ng" ? (cell.trl || null) : trlMid;
+    const overrideVal = getOverride(item.id, fuel, cycle);
     if(cell.v != null && trlForFuel != null){
-      plotted.push({item, cell, trl: trlForFuel});
+      plotted.push({item, cell, trl: trlForFuel, isOverride:false});
+    } else if(overrideVal != null){
+      // your own working assumption — plotted at the model's own assessed TRL, ringed distinctly, never mixed with sourced cells
+      plotted.push({item, trl: trlMid, isOverride:true,
+        cell:{ v: overrideVal, note:"Your own working assumption, entered in the side panel — not sourced, not part of the repo's data." }});
+      noData.push(item); // still editable in the side list, shown as "edited" there
     } else {
       noData.push(item);
     }
@@ -866,9 +923,10 @@ function buildChart(svgId, legendId, nodataId, calloutId, cycle, fuel, yMax, ySt
   const cycleLabel = cycle === "sc" ? "Simple cycle" : "Combined cycle";
 
   plotted.forEach(p=>{
-    drawPoint(svg, p.x, p.y, p.item, p.cell.note, p.cell, !!p.cell.contested, cycleLabel, fuelLabel);
+    drawPoint(svg, p.x, p.y, p.item, p.cell.note, p.cell, !!p.cell.contested, cycleLabel, fuelLabel, p.isOverride);
     const oemShort = p.item.oem.split(" ")[0] === "IHI" ? "IHI" : p.item.oem.split("(")[0].trim();
-    drawLabel(svg, p.x, p.y, `${oemShort} ${p.item.id}`, p.labelDy, p.leftSide);
+    const labelText = `${oemShort} ${p.item.id}` + (p.isOverride ? " ✎" : "");
+    drawLabel(svg, p.x, p.y, labelText, p.labelDy, p.leftSide);
   });
 
   // legend
@@ -878,9 +936,12 @@ function buildChart(svgId, legendId, nodataId, calloutId, cycle, fuel, yMax, ySt
   if(plotted.some(p=>p.cell.contested)){
     legendHtml += `<div class="item"><span class="swatch ring"></span>Flagged assumption, not confirmed ammonia-specific</div>`;
   }
+  if(plotted.some(p=>p.isOverride)){
+    legendHtml += `<div class="item"><span class="swatch ring-user"></span>Your edited value (✎), entered below — not sourced</div>`;
+  }
   legend.innerHTML = legendHtml;
 
-  // no-data panel
+  // no-data / editable panel
   const nodataEl = document.getElementById(nodataId);
   if(noData.length === 0){
     nodataEl.innerHTML = "";
@@ -894,42 +955,109 @@ function buildChart(svgId, legendId, nodataId, calloutId, cycle, fuel, yMax, ySt
         const modelShort = d.model.split(" (")[0];
         const label = modelShort.toLowerCase().startsWith(oemShort.toLowerCase())
           ? modelShort : `${oemShort} ${modelShort}`;
-        return `<div class="chip"><span class="mk ${cls}"></span><span class="name">${label}</span><span class="trl">TRL ${trlText}</span></div>`;
+        const current = getOverride(d.id, fuel, cycle);
+        const hasVal = current != null;
+        return `<div class="chip${hasVal ? ' is-edited' : ''}">
+          <span class="mk ${cls}"></span>
+          <span class="name">${label}</span>
+          <span class="trl">TRL ${trlText}</span>
+          <span class="effedit">
+            <input type="number" inputmode="decimal" step="0.1" min="0" max="100"
+                   class="${hasVal ? 'has-value' : ''}" placeholder="—"
+                   value="${hasVal ? current : ''}"
+                   data-id="${d.id}" data-fuel="${fuel}" data-cycle="${cycle}" data-tab="${tabKey}"
+                   aria-label="Your working-assumption efficiency for ${label}" />
+            <span class="unit">%</span>
+            <button type="button" class="clearbtn" title="Clear this value" data-id="${d.id}" data-fuel="${fuel}" data-cycle="${cycle}" data-tab="${tabKey}" ${hasVal ? '' : 'style="visibility:hidden"'}>×</button>
+          </span>
+        </div>`;
       }).join("");
     }
+    const anyEdited = hasAnyOverrideFor(fuel, cycle);
     nodataEl.innerHTML = `
-      <h3>No ${fuel==="ng"?"native-fuel":"ammonia-specific"} efficiency published — TRL only</h3>
+      <div class="nodata-headrow">
+        <h3>No ${fuel==="ng"?"native-fuel":"ammonia-specific"} efficiency published — enter your own</h3>
+        <button type="button" class="clearlink" data-clearall="${tabKey}" ${anyEdited ? '' : 'disabled'}>Clear all edits</button>
+      </div>
+      <p class="edithint">Type a number to plot it on the chart with a dashed ✎ ring — your own working assumption,
+        never sourced data. Saved only in this browser (not written back to the repo).</p>
       ${turbines.length ? `<div class="grp"><b style="font-size:12px;">Turbines</b><div class="chiplist" style="margin-top:6px;">${chipList(turbines,"turbine")}</div></div>` : ""}
       ${engines.length ? `<div class="grp"><b style="font-size:12px;">Engines</b><div class="chiplist" style="margin-top:6px;">${chipList(engines,"engine")}</div></div>` : ""}
     `;
   }
 
-  document.getElementById(calloutId).innerHTML = calloutHtml
-    .replace("{{plotted}}", plotted.length)
+  const overrideCount = plotted.filter(p=>p.isOverride).length;
+  const sourcedCount = plotted.length - overrideCount;
+  let html = calloutHtml
+    .replace("{{plotted}}", sourcedCount)
     .replace("{{total}}", DATA.length);
+  if(overrideCount > 0){
+    html += ` <b>+${overrideCount} of your own edited value${overrideCount>1?'s':''}</b> currently shown (dashed ✎ rings) —
+      entered in the side panel, cleared any time with "Clear all edits".`;
+  }
+  document.getElementById(calloutId).innerHTML = html;
 }
 
-buildChart("chart-t2","legend-t2","nodata-t2","callout-t2","sc","nh3",60,10,
+function rebuildTab(tabKey){
+  const c = chartRegistry[tabKey];
+  if(!c) return;
+  buildChart(tabKey, c.svgId, c.legendId, c.nodataId, c.calloutId, c.cycle, c.fuel, c.yMax, c.yStep, c.calloutHtml);
+}
+
+function commitEditInput(inputEl){
+  const {id, fuel, cycle, tab} = inputEl.dataset;
+  const raw = inputEl.value.trim();
+  const num = raw === "" ? null : parseFloat(raw);
+  const clamped = (num != null && isFinite(num)) ? Math.max(0, Math.min(100, num)) : null;
+  setOverride(id, fuel, cycle, clamped);
+  rebuildTab(tab);
+}
+
+document.addEventListener("change", (evt)=>{
+  if(evt.target.matches(".effedit input")) commitEditInput(evt.target);
+});
+document.addEventListener("keydown", (evt)=>{
+  if(evt.key === "Enter" && evt.target.matches(".effedit input")){ evt.target.blur(); }
+});
+document.addEventListener("click", (evt)=>{
+  const clearBtn = evt.target.closest(".effedit .clearbtn");
+  if(clearBtn){
+    const {id, fuel, cycle, tab} = clearBtn.dataset;
+    setOverride(id, fuel, cycle, null);
+    rebuildTab(tab);
+    return;
+  }
+  const clearAll = evt.target.closest("[data-clearall]");
+  if(clearAll){
+    const tabKey = clearAll.dataset.clearall;
+    const c = chartRegistry[tabKey];
+    if(c) clearOverridesFor(c.fuel, c.cycle);
+    rebuildTab(tabKey);
+    return;
+  }
+});
+
+buildChart("t2","chart-t2","legend-t2","nodata-t2","callout-t2","sc","nh3",60,10,
   `<b>{{plotted}} of {{total}} models plotted.</b> Only Mitsubishi Power's H-25 has any simple-cycle ammonia
    efficiency figure — and it is a flagged assumption (presumed natural-gas spec, not a confirmed ammonia number).
    The remaining models genuinely have no published ammonia-specific efficiency; fabricating a value to populate
    this chart would violate the project's No-Fabrication Rule, so they are listed by TRL only, at right.`);
 
-buildChart("chart-t3","legend-t3","nodata-t3","callout-t3","cc","nh3",60,10,
+buildChart("t3","chart-t3","legend-t3","nodata-t3","callout-t3","cc","nh3",60,10,
   `<b>{{plotted}} of {{total}} models plotted.</b> No reciprocating engine has any combined-cycle product on
    ammonia at all — Wärtsilä's Flexicycle engine-CC (&gt;54%) exists only on natural gas. On the turbine side, only
    the H-25's derived ~50.9% figure exists, and it is a flagged assumption inheriting the simple-cycle uncertainty.
    This near-empty chart is itself the finding: ammonia combined-cycle power generation is essentially undemonstrated
    across the industry.`);
 
-buildChart("chart-t4","legend-t4","nodata-t4","callout-t4","sc","ng",65,10,
+buildChart("t4","chart-t4","legend-t4","nodata-t4","callout-t4","sc","ng",65,10,
   `<b>{{plotted}} of {{total}} models plotted.</b> All plotted points sit at TRL&nbsp;9 (mature, commercially sold
    on their native fuel) — the horizontal clustering is the honest picture: these machines are proven on natural
    gas / conventional fuel, which is precisely the maturity gap Tabs&nbsp;2–3 show they have not yet closed on
    ammonia. Most marine-first ammonia engines (Wärtsilä 25A aside, via its 34SG anchor) have no sourced native-fuel
    efficiency in this dataset and are not plotted.`);
 
-buildChart("chart-t5","legend-t5","nodata-t5","callout-t5","cc","ng",65,10,
+buildChart("t5","chart-t5","legend-t5","nodata-t5","callout-t5","cc","ng",65,10,
   `<b>{{plotted}} of {{total}} models plotted.</b> Combined-cycle data exists on natural gas for only two turbine
    frames and one engine-CC product (Wärtsilä Flexicycle, a different model than the 25A, used as context only).
    The "&gt;" values are OEM-stated minimums. IM270 and NovaLT16 are excluded here because neither has a true
