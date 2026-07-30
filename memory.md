@@ -588,6 +588,25 @@ utilization for IPPs, 2026-07-28**
 
 ## 8. Changelog
 
+- **2026-07-29 (6)** — User asked to edit the "default" Mitsubishi H-25 (T3)
+  point — previously the dashboard's editable side-list only covered models
+  with **no** repo value, so the one model that already had a plotted figure
+  (H-25's contested 34.8%/50.9%, and on the NG tabs, all 5 sourced anchors)
+  had no edit affordance at all. Added a second panel, **"Sourced / flagged
+  value(s) — override if you have your own input"**, above the existing
+  no-data panel on every chart tab, listing every model that already has a
+  repo value with its default shown for reference (e.g. "Repo value: 34.8% ★
+  flagged assumption") and the same TRL/Eff. inputs, pre-filled with the
+  sourced figures as placeholders. Entering your own number there **replaces**
+  the sourced/flagged point on that chart with your value (dashed ✎ ring,
+  amber "flagged" ring disappears since it's no longer the repo's assumption);
+  clearing reverts cleanly to the original sourced point. Reused the existing
+  override storage/event-delegation machinery unchanged — only the rendering
+  needed a second `mode` ("sourced" vs "blank") through a shared `chipList()`
+  and a new `sourcedEditable` bucket alongside `plotted`/`noData` in
+  `buildChart()`. Verified for H-25 on Tab 2 (override → clear → point returns
+  to the amber contested marker) and for all 5 NG-tab sourced anchors on
+  Tab 4 — zero console errors.
 - **2026-07-29 (5)** — Extended the editable side-list from efficiency-only to
   **TRL as well**: each chip now has two inline inputs (TRL + Eff.) instead of
   one. Overrides restructured from a flat `{key: number}` map to

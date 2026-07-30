@@ -891,14 +891,23 @@ function buildChart(tabKey, svgId, legendId, nodataId, calloutId, cycle, fuel, y
 
   const plotted = [];
   const noData = [];
+  const sourcedEditable = [];
   DATA.forEach(item=>{
     const cell = item[fuel][cycle];
     const trlMid = (item.trlLo + item.trlHi)/2;
     const trlForFuel = fuel === "ng" ? (cell.trl || null) : trlMid;
     const overrideEff = getOverrideEff(item.id, fuel, cycle);
     const overrideTrl = getOverrideTrl(item.id, fuel, cycle);
-    if(cell.v != null && trlForFuel != null){
-      plotted.push({item, cell, trl: trlForFuel, isOverride:false});
+    const hasSourced = cell.v != null && trlForFuel != null;
+    if(hasSourced){
+      sourcedEditable.push(item); // repo has a value here — still let the user override it if they have their own input
+      if(overrideEff != null){
+        // your own number replaces the repo's sourced/flagged figure entirely — no longer plotted as "contested", it's yours now
+        plotted.push({item, trl: (overrideTrl != null ? overrideTrl : trlForFuel), isOverride:true,
+          cell:{ v: overrideEff, note:`Replaces the repo's sourced figure (${cell.gt?'&gt;':''}${cell.v}%). ${cell.note}` }});
+      } else {
+        plotted.push({item, cell, trl: trlForFuel, isOverride:false});
+      }
     } else if(overrideEff != null){
       // your own working assumption — TRL defaults to the model's own assessed midpoint unless you've overridden that too
       plotted.push({item, trl: (overrideTrl != null ? overrideTrl : trlMid), isOverride:true,
@@ -968,66 +977,95 @@ function buildChart(tabKey, svgId, legendId, nodataId, calloutId, cycle, fuel, y
   }
   legend.innerHTML = legendHtml;
 
-  // no-data / editable panel
+  // editable panel(s): sourced/flagged values you can override, and models with no data you can populate
   const nodataEl = document.getElementById(nodataId);
-  if(noData.length === 0){
+  function chipList(arr, cls, mode){
+    return arr.map(d=>{
+      const cellD = d[fuel][cycle];
+      const trlText = d.trlLo===d.trlHi ? d.trlLo : `${d.trlLo}–${d.trlHi}`;
+      const trlMid = (d.trlLo + d.trlHi)/2;
+      const trlForFuelD = fuel === "ng" ? (cellD.trl || trlMid) : trlMid;
+      const trlMidStr = fmtNum(trlForFuelD);
+      const oemShort = d.oem.split("(")[0].trim();
+      const modelShort = d.model.split(" (")[0];
+      const label = modelShort.toLowerCase().startsWith(oemShort.toLowerCase())
+        ? modelShort : `${oemShort} ${modelShort}`;
+      const effOv = getOverrideEff(d.id, fuel, cycle);
+      const trlOv = getOverrideTrl(d.id, fuel, cycle);
+      const hasEff = effOv != null;
+      const hasTrl = trlOv != null;
+      const anyOv = hasEff || hasTrl;
+      const effPlaceholder = mode === "sourced" ? `${cellD.gt ? '>' : ''}${cellD.v}` : "—";
+      const sourcedNote = mode === "sourced"
+        ? `<div class="edithint" style="margin:0;">Repo value: <b>${cellD.gt?'&gt;':''}${cellD.v}%</b>${cellD.contested ? ' <span class="star">★ flagged assumption</span>' : ''} — override below replaces it on this chart only.</div>`
+        : "";
+      return `<div class="chip${hasEff ? ' is-edited' : ''}">
+        <div class="chip-top">
+          <span class="mk ${cls}"></span>
+          <span class="name">${label}</span>
+          <span class="trl">TRL ${trlText}</span>
+        </div>
+        ${sourcedNote}
+        <div class="chip-edit">
+          <label class="miniedit">
+            <span class="miniedit-label">TRL</span>
+            <input type="number" inputmode="decimal" step="0.5" min="1" max="9"
+                   class="trlinput ${hasTrl ? 'has-value' : ''}" placeholder="${trlMidStr}"
+                   value="${hasTrl ? trlOv : ''}"
+                   data-id="${d.id}" data-fuel="${fuel}" data-cycle="${cycle}" data-tab="${tabKey}" data-field="trl"
+                   aria-label="Your TRL override for ${label}" />
+          </label>
+          <label class="miniedit">
+            <span class="miniedit-label">Eff.</span>
+            <input type="number" inputmode="decimal" step="0.1" min="0" max="100"
+                   class="effinput ${hasEff ? 'has-value' : ''}" placeholder="${effPlaceholder}"
+                   value="${hasEff ? effOv : ''}"
+                   data-id="${d.id}" data-fuel="${fuel}" data-cycle="${cycle}" data-tab="${tabKey}" data-field="eff"
+                   aria-label="Your efficiency override for ${label}" />
+            <span class="unit">%</span>
+          </label>
+          <button type="button" class="clearbtn" title="Clear both values" data-id="${d.id}" data-fuel="${fuel}" data-cycle="${cycle}" data-tab="${tabKey}" ${anyOv ? '' : 'style="visibility:hidden"'}>×</button>
+        </div>
+      </div>`;
+    }).join("");
+  }
+
+  let sections = "";
+
+  function typedGroup(list, mode){
+    const t = list.filter(d=>d.type==="turbine").sort((a,b)=>b.trlHi-a.trlHi);
+    const e = list.filter(d=>d.type==="engine").sort((a,b)=>b.trlHi-a.trlHi);
+    return `${t.length ? `<div><b style="font-size:12px;">Turbines</b><div class="chiplist" style="margin-top:6px;">${chipList(t,"turbine",mode)}</div></div>` : ""}
+            ${e.length ? `<div style="margin-top:${t.length?'10px':'0'};"><b style="font-size:12px;">Engines</b><div class="chiplist" style="margin-top:6px;">${chipList(e,"engine",mode)}</div></div>` : ""}`;
+  }
+
+  if(sourcedEditable.length > 0){
+    sections += `
+      <div class="grp" style="border-color:var(--contested); border-style:dashed;">
+        <h3 style="margin-bottom:8px;">Sourced / flagged value${sourcedEditable.length>1?'s':''} — override if you have your own input</h3>
+        ${typedGroup(sourcedEditable, "sourced")}
+      </div>`;
+  }
+
+  if(noData.length > 0){
+    sections += `
+      <div class="grp">
+        <h3 style="margin-bottom:8px;">No ${fuel==="ng"?"native-fuel":"ammonia-specific"} efficiency published — enter your own</h3>
+        ${typedGroup(noData, "blank")}
+      </div>`;
+  }
+
+  if(sections === ""){
     nodataEl.innerHTML = "";
   } else {
-    const turbines = noData.filter(d=>d.type==="turbine").sort((a,b)=>b.trlHi-a.trlHi);
-    const engines = noData.filter(d=>d.type==="engine").sort((a,b)=>b.trlHi-a.trlHi);
-    function chipList(arr, cls){
-      return arr.map(d=>{
-        const trlText = d.trlLo===d.trlHi ? d.trlLo : `${d.trlLo}–${d.trlHi}`;
-        const trlMidStr = fmtNum((d.trlLo + d.trlHi)/2);
-        const oemShort = d.oem.split("(")[0].trim();
-        const modelShort = d.model.split(" (")[0];
-        const label = modelShort.toLowerCase().startsWith(oemShort.toLowerCase())
-          ? modelShort : `${oemShort} ${modelShort}`;
-        const effOv = getOverrideEff(d.id, fuel, cycle);
-        const trlOv = getOverrideTrl(d.id, fuel, cycle);
-        const hasEff = effOv != null;
-        const hasTrl = trlOv != null;
-        const anyOv = hasEff || hasTrl;
-        return `<div class="chip${hasEff ? ' is-edited' : ''}">
-          <div class="chip-top">
-            <span class="mk ${cls}"></span>
-            <span class="name">${label}</span>
-            <span class="trl">TRL ${trlText}</span>
-          </div>
-          <div class="chip-edit">
-            <label class="miniedit">
-              <span class="miniedit-label">TRL</span>
-              <input type="number" inputmode="decimal" step="0.5" min="1" max="9"
-                     class="trlinput ${hasTrl ? 'has-value' : ''}" placeholder="${trlMidStr}"
-                     value="${hasTrl ? trlOv : ''}"
-                     data-id="${d.id}" data-fuel="${fuel}" data-cycle="${cycle}" data-tab="${tabKey}" data-field="trl"
-                     aria-label="Your TRL override for ${label}" />
-            </label>
-            <label class="miniedit">
-              <span class="miniedit-label">Eff.</span>
-              <input type="number" inputmode="decimal" step="0.1" min="0" max="100"
-                     class="effinput ${hasEff ? 'has-value' : ''}" placeholder="—"
-                     value="${hasEff ? effOv : ''}"
-                     data-id="${d.id}" data-fuel="${fuel}" data-cycle="${cycle}" data-tab="${tabKey}" data-field="eff"
-                     aria-label="Your efficiency override for ${label}" />
-              <span class="unit">%</span>
-            </label>
-            <button type="button" class="clearbtn" title="Clear both values" data-id="${d.id}" data-fuel="${fuel}" data-cycle="${cycle}" data-tab="${tabKey}" ${anyOv ? '' : 'style="visibility:hidden"'}>×</button>
-          </div>
-        </div>`;
-      }).join("");
-    }
     const anyEdited = hasAnyOverrideFor(fuel, cycle);
     nodataEl.innerHTML = `
       <div class="nodata-headrow">
-        <h3>No ${fuel==="ng"?"native-fuel":"ammonia-specific"} efficiency published — enter your own</h3>
+        <span class="edithint" style="margin:0;">Any value below (TRL and/or efficiency) plots or repositions a point
+          on the chart with a dashed ✎ ring, saved only in this browser — never written back to the repo.</span>
         <button type="button" class="clearlink" data-clearall="${tabKey}" ${anyEdited ? '' : 'disabled'}>Clear all edits</button>
       </div>
-      <p class="edithint">Enter an efficiency to plot a point (defaults to this model's own assessed TRL); optionally
-        override its TRL too. Shown with a dashed ✎ ring — your own working assumption, never sourced data. Saved
-        only in this browser (not written back to the repo).</p>
-      ${turbines.length ? `<div class="grp"><b style="font-size:12px;">Turbines</b><div class="chiplist" style="margin-top:6px;">${chipList(turbines,"turbine")}</div></div>` : ""}
-      ${engines.length ? `<div class="grp"><b style="font-size:12px;">Engines</b><div class="chiplist" style="margin-top:6px;">${chipList(engines,"engine")}</div></div>` : ""}
+      ${sections}
     `;
   }
 
