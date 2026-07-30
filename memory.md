@@ -588,6 +588,22 @@ utilization for IPPs, 2026-07-28**
 
 ## 8. Changelog
 
+- **2026-07-29 (5)** — Extended the editable side-list from efficiency-only to
+  **TRL as well**: each chip now has two inline inputs (TRL + Eff.) instead of
+  one. Overrides restructured from a flat `{key: number}` map to
+  `{key: {eff, trl}}` (localStorage key bumped `v1` → `v2`; old v1 data is
+  simply orphaned, not migrated — low-stakes scratch data, not worth the
+  complexity). Efficiency remains the field that triggers a point to plot;
+  TRL is an optional repositioning of that same point along the X axis,
+  defaulting to the model's own assessed TRL midpoint (shown as the input's
+  placeholder) when left blank. The single "×" clears both fields for that
+  model at once, since they represent one point. Fixed a rendering bug found
+  while testing: Chromium's native number-input spin buttons were eating into
+  the narrow TRL field's width, clipping placeholders like "7.5" down to "7."
+  — hidden the spinners via `-webkit-appearance:none` and widened the fields
+  slightly. Verified via headless Chromium: setting efficiency then TRL moves
+  the point to the new X position live, clearing resets both, no console
+  errors in light or dark mode.
 - **2026-07-29 (4)** — Made the dashboard's turbine/engine side lists (the
   "no data" panels on Tabs 2–5) **editable**: each model now has an inline
   efficiency input next to its TRL. Typing a value plots it live on that tab's

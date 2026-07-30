@@ -214,27 +214,35 @@
   .clearlink:disabled{ color:var(--ink-3); text-decoration:none; cursor:default; }
   .edithint{ font-size:11.5px; color:var(--ink-3); margin:-4px 0 2px; }
   .nodata .grp{ background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:12px 14px; }
-  .chiplist{ display:flex; flex-direction:column; gap:8px; }
-  .chip{ display:flex; align-items:center; gap:7px; font-size:12.5px; flex-wrap:wrap; }
-  .chip.is-edited{ background:var(--accent-soft); margin:0 -6px; padding:4px 6px; border-radius:6px; }
+  .chiplist{ display:flex; flex-direction:column; gap:10px; }
+  .chip{ display:flex; flex-direction:column; gap:5px; font-size:12.5px; padding:4px 6px; margin:0 -6px; border-radius:6px; }
+  .chip.is-edited{ background:var(--accent-soft); }
+  .chip-top{ display:flex; align-items:center; gap:7px; flex-wrap:wrap; }
   .chip .mk{ width:8px; height:8px; flex:0 0 auto; opacity:.55; }
   .chip .mk.turbine{ border-radius:50%; border:1.5px solid var(--turbine); }
   .chip .mk.engine{ border:1.5px solid var(--engine); }
   .chip .name{ color:var(--ink); flex:1 1 auto; min-width:120px; }
   .chip .trl{ font-family:var(--mono); color:var(--ink-3); white-space:nowrap; }
-  .chip .effedit{ display:flex; align-items:center; gap:3px; }
-  .chip .effedit input{
-    width:60px; font-family:var(--mono); font-size:12px; text-align:right;
+  .chip-edit{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding-left:15px; }
+  .miniedit{ display:flex; align-items:center; gap:4px; }
+  .miniedit-label{ font-family:var(--sans); font-size:10.5px; font-weight:600; color:var(--ink-3); text-transform:uppercase; letter-spacing:.03em; }
+  .miniedit input{
+    font-family:var(--mono); font-size:12px; text-align:right;
     background:var(--surface); color:var(--ink); border:1px solid var(--border); border-radius:5px;
     padding:3px 5px; font-variant-numeric:tabular-nums;
   }
-  .chip .effedit input:focus{ outline:2px solid var(--accent); outline-offset:1px; border-color:var(--accent); }
-  .chip .effedit input.has-value{ border-color:var(--accent); color:var(--accent-ink); font-weight:700; }
-  .chip .effedit .unit{ font-size:11px; color:var(--ink-3); }
-  .chip .effedit .clearbtn{
+  .miniedit input.trlinput{ width:40px; }
+  .miniedit input.effinput{ width:52px; }
+  .miniedit input::-webkit-outer-spin-button,
+  .miniedit input::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+  .miniedit input[type="number"]{ -moz-appearance:textfield; appearance:textfield; }
+  .miniedit input:focus{ outline:2px solid var(--accent); outline-offset:1px; border-color:var(--accent); }
+  .miniedit input.has-value{ border-color:var(--accent); color:var(--accent-ink); font-weight:700; }
+  .miniedit .unit{ font-size:11px; color:var(--ink-3); }
+  .chip-edit .clearbtn{
     font-size:13px; line-height:1; color:var(--ink-3); background:none; border:none; cursor:pointer; padding:2px 3px;
   }
-  .chip .effedit .clearbtn:hover{ color:var(--engine); }
+  .chip-edit .clearbtn:hover{ color:var(--engine); }
 
   .tooltip{
     position:fixed; pointer-events:none; z-index:50; max-width:280px;
@@ -655,27 +663,45 @@ const SOURCES = [
 ];
 
 /* ============ USER OVERRIDES (your own working assumptions — never sourced) ============ */
-const OVERRIDE_KEY = "mysgh2-nh3-dashboard-overrides-v1";
+// each entry: { eff:number|undefined, trl:number|undefined } — eff drives whether a point plots at all;
+// trl (optional) repositions it on the X axis, defaulting to the model's own assessed TRL midpoint.
+const OVERRIDE_KEY = "mysgh2-nh3-dashboard-overrides-v2";
 let overrides = {};
-try{ overrides = JSON.parse(localStorage.getItem(OVERRIDE_KEY) || "{}"); }catch(e){ overrides = {}; }
+try{
+  const loaded = JSON.parse(localStorage.getItem(OVERRIDE_KEY) || "{}");
+  overrides = (loaded && typeof loaded === "object") ? loaded : {};
+}catch(e){ overrides = {}; }
 function ovKey(id, fuel, cycle){ return id+":"+fuel+":"+cycle; }
-function getOverride(id, fuel, cycle){
-  const v = overrides[ovKey(id,fuel,cycle)];
-  return (typeof v === "number" && isFinite(v)) ? v : null;
+function persistOverrides(){ try{ localStorage.setItem(OVERRIDE_KEY, JSON.stringify(overrides)); }catch(e){} }
+function getOverrideEff(id, fuel, cycle){
+  const o = overrides[ovKey(id,fuel,cycle)];
+  return (o && typeof o.eff === "number" && isFinite(o.eff)) ? o.eff : null;
 }
-function setOverride(id, fuel, cycle, value){
+function getOverrideTrl(id, fuel, cycle){
+  const o = overrides[ovKey(id,fuel,cycle)];
+  return (o && typeof o.trl === "number" && isFinite(o.trl)) ? o.trl : null;
+}
+function setOverrideField(id, fuel, cycle, field, value){
   const key = ovKey(id,fuel,cycle);
-  if(value == null || !isFinite(value)) delete overrides[key];
-  else overrides[key] = value;
-  try{ localStorage.setItem(OVERRIDE_KEY, JSON.stringify(overrides)); }catch(e){}
+  const cur = overrides[key] ? {...overrides[key]} : {};
+  if(value == null || !isFinite(value)) delete cur[field];
+  else cur[field] = value;
+  if(Object.keys(cur).length === 0) delete overrides[key];
+  else overrides[key] = cur;
+  persistOverrides();
+}
+function clearOverrideKey(id, fuel, cycle){
+  delete overrides[ovKey(id,fuel,cycle)];
+  persistOverrides();
 }
 function hasAnyOverrideFor(fuel, cycle){
-  return Object.keys(overrides).some(k=>k.endsWith(":"+fuel+":"+cycle));
+  return Object.keys(overrides).some(k=>k.endsWith(":"+fuel+":"+cycle) && overrides[k] && typeof overrides[k].eff === "number");
 }
 function clearOverridesFor(fuel, cycle){
   Object.keys(overrides).filter(k=>k.endsWith(":"+fuel+":"+cycle)).forEach(k=>delete overrides[k]);
-  try{ localStorage.setItem(OVERRIDE_KEY, JSON.stringify(overrides)); }catch(e){}
+  persistOverrides();
 }
+function fmtNum(n){ return (Math.round(n*10)/10).toString(); }
 // registry of {fuel,cycle,...} per tab so an edit can trigger just that chart's rebuild
 const chartRegistry = {};
 
@@ -869,13 +895,14 @@ function buildChart(tabKey, svgId, legendId, nodataId, calloutId, cycle, fuel, y
     const cell = item[fuel][cycle];
     const trlMid = (item.trlLo + item.trlHi)/2;
     const trlForFuel = fuel === "ng" ? (cell.trl || null) : trlMid;
-    const overrideVal = getOverride(item.id, fuel, cycle);
+    const overrideEff = getOverrideEff(item.id, fuel, cycle);
+    const overrideTrl = getOverrideTrl(item.id, fuel, cycle);
     if(cell.v != null && trlForFuel != null){
       plotted.push({item, cell, trl: trlForFuel, isOverride:false});
-    } else if(overrideVal != null){
-      // your own working assumption — plotted at the model's own assessed TRL, ringed distinctly, never mixed with sourced cells
-      plotted.push({item, trl: trlMid, isOverride:true,
-        cell:{ v: overrideVal, note:"Your own working assumption, entered in the side panel — not sourced, not part of the repo's data." }});
+    } else if(overrideEff != null){
+      // your own working assumption — TRL defaults to the model's own assessed midpoint unless you've overridden that too
+      plotted.push({item, trl: (overrideTrl != null ? overrideTrl : trlMid), isOverride:true,
+        cell:{ v: overrideEff, note:"Your own working assumption, entered in the side panel — not sourced, not part of the repo's data." }});
       noData.push(item); // still editable in the side list, shown as "edited" there
     } else {
       noData.push(item);
@@ -951,25 +978,42 @@ function buildChart(tabKey, svgId, legendId, nodataId, calloutId, cycle, fuel, y
     function chipList(arr, cls){
       return arr.map(d=>{
         const trlText = d.trlLo===d.trlHi ? d.trlLo : `${d.trlLo}–${d.trlHi}`;
+        const trlMidStr = fmtNum((d.trlLo + d.trlHi)/2);
         const oemShort = d.oem.split("(")[0].trim();
         const modelShort = d.model.split(" (")[0];
         const label = modelShort.toLowerCase().startsWith(oemShort.toLowerCase())
           ? modelShort : `${oemShort} ${modelShort}`;
-        const current = getOverride(d.id, fuel, cycle);
-        const hasVal = current != null;
-        return `<div class="chip${hasVal ? ' is-edited' : ''}">
-          <span class="mk ${cls}"></span>
-          <span class="name">${label}</span>
-          <span class="trl">TRL ${trlText}</span>
-          <span class="effedit">
-            <input type="number" inputmode="decimal" step="0.1" min="0" max="100"
-                   class="${hasVal ? 'has-value' : ''}" placeholder="—"
-                   value="${hasVal ? current : ''}"
-                   data-id="${d.id}" data-fuel="${fuel}" data-cycle="${cycle}" data-tab="${tabKey}"
-                   aria-label="Your working-assumption efficiency for ${label}" />
-            <span class="unit">%</span>
-            <button type="button" class="clearbtn" title="Clear this value" data-id="${d.id}" data-fuel="${fuel}" data-cycle="${cycle}" data-tab="${tabKey}" ${hasVal ? '' : 'style="visibility:hidden"'}>×</button>
-          </span>
+        const effOv = getOverrideEff(d.id, fuel, cycle);
+        const trlOv = getOverrideTrl(d.id, fuel, cycle);
+        const hasEff = effOv != null;
+        const hasTrl = trlOv != null;
+        const anyOv = hasEff || hasTrl;
+        return `<div class="chip${hasEff ? ' is-edited' : ''}">
+          <div class="chip-top">
+            <span class="mk ${cls}"></span>
+            <span class="name">${label}</span>
+            <span class="trl">TRL ${trlText}</span>
+          </div>
+          <div class="chip-edit">
+            <label class="miniedit">
+              <span class="miniedit-label">TRL</span>
+              <input type="number" inputmode="decimal" step="0.5" min="1" max="9"
+                     class="trlinput ${hasTrl ? 'has-value' : ''}" placeholder="${trlMidStr}"
+                     value="${hasTrl ? trlOv : ''}"
+                     data-id="${d.id}" data-fuel="${fuel}" data-cycle="${cycle}" data-tab="${tabKey}" data-field="trl"
+                     aria-label="Your TRL override for ${label}" />
+            </label>
+            <label class="miniedit">
+              <span class="miniedit-label">Eff.</span>
+              <input type="number" inputmode="decimal" step="0.1" min="0" max="100"
+                     class="effinput ${hasEff ? 'has-value' : ''}" placeholder="—"
+                     value="${hasEff ? effOv : ''}"
+                     data-id="${d.id}" data-fuel="${fuel}" data-cycle="${cycle}" data-tab="${tabKey}" data-field="eff"
+                     aria-label="Your efficiency override for ${label}" />
+              <span class="unit">%</span>
+            </label>
+            <button type="button" class="clearbtn" title="Clear both values" data-id="${d.id}" data-fuel="${fuel}" data-cycle="${cycle}" data-tab="${tabKey}" ${anyOv ? '' : 'style="visibility:hidden"'}>×</button>
+          </div>
         </div>`;
       }).join("");
     }
@@ -979,8 +1023,9 @@ function buildChart(tabKey, svgId, legendId, nodataId, calloutId, cycle, fuel, y
         <h3>No ${fuel==="ng"?"native-fuel":"ammonia-specific"} efficiency published — enter your own</h3>
         <button type="button" class="clearlink" data-clearall="${tabKey}" ${anyEdited ? '' : 'disabled'}>Clear all edits</button>
       </div>
-      <p class="edithint">Type a number to plot it on the chart with a dashed ✎ ring — your own working assumption,
-        never sourced data. Saved only in this browser (not written back to the repo).</p>
+      <p class="edithint">Enter an efficiency to plot a point (defaults to this model's own assessed TRL); optionally
+        override its TRL too. Shown with a dashed ✎ ring — your own working assumption, never sourced data. Saved
+        only in this browser (not written back to the repo).</p>
       ${turbines.length ? `<div class="grp"><b style="font-size:12px;">Turbines</b><div class="chiplist" style="margin-top:6px;">${chipList(turbines,"turbine")}</div></div>` : ""}
       ${engines.length ? `<div class="grp"><b style="font-size:12px;">Engines</b><div class="chiplist" style="margin-top:6px;">${chipList(engines,"engine")}</div></div>` : ""}
     `;
@@ -1005,25 +1050,28 @@ function rebuildTab(tabKey){
 }
 
 function commitEditInput(inputEl){
-  const {id, fuel, cycle, tab} = inputEl.dataset;
+  const {id, fuel, cycle, tab, field} = inputEl.dataset;
   const raw = inputEl.value.trim();
   const num = raw === "" ? null : parseFloat(raw);
-  const clamped = (num != null && isFinite(num)) ? Math.max(0, Math.min(100, num)) : null;
-  setOverride(id, fuel, cycle, clamped);
+  let clamped = null;
+  if(num != null && isFinite(num)){
+    clamped = field === "trl" ? Math.max(1, Math.min(9, num)) : Math.max(0, Math.min(100, num));
+  }
+  setOverrideField(id, fuel, cycle, field, clamped);
   rebuildTab(tab);
 }
 
 document.addEventListener("change", (evt)=>{
-  if(evt.target.matches(".effedit input")) commitEditInput(evt.target);
+  if(evt.target.matches(".chip-edit input")) commitEditInput(evt.target);
 });
 document.addEventListener("keydown", (evt)=>{
-  if(evt.key === "Enter" && evt.target.matches(".effedit input")){ evt.target.blur(); }
+  if(evt.key === "Enter" && evt.target.matches(".chip-edit input")){ evt.target.blur(); }
 });
 document.addEventListener("click", (evt)=>{
-  const clearBtn = evt.target.closest(".effedit .clearbtn");
+  const clearBtn = evt.target.closest(".chip-edit .clearbtn");
   if(clearBtn){
     const {id, fuel, cycle, tab} = clearBtn.dataset;
-    setOverride(id, fuel, cycle, null);
+    clearOverrideKey(id, fuel, cycle);
     rebuildTab(tab);
     return;
   }
