@@ -7,7 +7,7 @@
 
 **Project:** Green ammonia import to Johor (MMHE) → on-site cracking to H₂ →
 cross-border H₂ pipeline to Singapore, defined on a permutation basis.
-**Last updated:** 2026-07-28.
+**Last updated:** 2026-08-14.
 
 ---
 
@@ -32,6 +32,7 @@ cross-border H₂ pipeline to Singapore, defined on a permutation basis.
 | 2026-07-15 | Created `power_generation/` folder + resident domain-expert agent (gas engine vs gas turbine incl. CCGT, on NG/H₂/NH₃) | User request: build the ammonia gas-engine vs ammonia gas-turbine/CCGT power-gen comparison; agent must not fabricate — all numbers sourced/labelled/derived | Agent built |
 | 2026-07-16 | Built first **NH₃-focused 50 MW data-center engine-vs-CCGT comparison matrix** (`power_generation/50MW_datacenter_NH3_engine_vs_CCGT_matrix.md`) | User use-case: 50 MW firm clean block on 100 % NH₃, grid tops up larger total demand until NH₃ affordable for 100 % clean | Matrix-only first pass done; superseded for the general case by the 2026-07-28 comprehensive comparison, but still valid for the 50 MW data-centre framing |
 | 2026-07-28 | Built the **comprehensive NH₃ gas-turbine vs. gas-engine comparison** (`power_generation/NH3_gas_turbine_vs_gas_engine_comprehensive_comparison.md`, Rev 1, 7 axis-blocks / 45 rows) and **changed the provisional recommendation for the stationary P2 / Singapore-offtake case from engine → gas turbine** | Three new sourced developments: (1) IHI+GE Vernova burned 100 % NH₃ in full-scale **F-class** combustion hardware (Mar 2026, 6F.03/7F/9F retrofit, target 2030); (2) IHI **IM270 2 MW** ran ~**3,000 h** on 100 % liquid NH₃ incl. load rejection/dump, NOx **<7 ppm**, **>99 %** GHG cut incl. N₂O; (3) Singapore's own EMA/MPA/Keppel Jurong Island project is **55–65 MW by direct NH₃ combustion in a gas turbine plant**. Ammonia engines remain marine-first (W25 A deliveries 2028; MAN 4-stroke genset R&D to ~2027–28) | Active. The 2026-07-16 engine-favouring read **stands for the load-following / incrementally-grown 50 MW data-centre duty** — the two conclusions are duty-dependent, not contradictory |
+| 2026-08-14 | Agreed with YTL to jointly study ammonia 4-stroke gas engine **maturity, carbon emissions, and performance-contract structure** across a shortlisted OEM set; kickoff **25 Aug 2026**, finish **22 Sep 2026** | User/YTL agreement | Timeline drafted (`power_generation/YTL_ammonia_gas_engine_OEM_study_timeline.md`); OEM shortlist not yet in repo |
 | 2026-07-28 | Built an **interactive HTML infographic/calculator**, `power_generation/NH3_ammonia_energy_pathway_infographic.html`, at user request — storage-to-wire ammonia energy chain (1 kg NH₃ landed = 100 % LHV, in both MJ and kWh) with a live pathway selector (Gas Turbine/IHI IM270, Gas Engine/Wärtsilä 25 Ammonia, MHI Equipment/H-25 with SC↔CC toggle), per-node expandable spec sheets, a loss-waterfall visual, and a plant-scale calculator (capacity MW + stream days/yr → annual GWh, annual NH₃ ktpa, mass flow t/h, % of the 650 ktpa P1/P2 reference stream) | User request: infographic showing each pathway's schematic with per-node detail dropdowns and efficiency, prepopulated from sourced defaults, editable | Published as a Claude Artifact and committed to the repo. Every prepopulated default is tagged sourced/assumption/derived/not-published (color + icon + text) per CLAUDE.md §7 — the IHI IM270 pathway deliberately ships with **no default efficiency** (input left blank, "not published") since no source states one; user must supply their own estimate for that path only |
 
 ## 3. Assumptions Register
@@ -517,6 +518,27 @@ utilization for IPPs, 2026-07-28**
 
 ## 8. Changelog
 
+- **2026-08-14** — Drafted **`power_generation/YTL_ammonia_gas_engine_OEM_study_timeline.md`**:
+  a joint YTL × MYSGH2 work timeline for the agreed study of 4-stroke ammonia
+  gas engine **maturity, carbon emissions, and performance-contract structure**
+  across the shortlisted OEM set. Confirmed anchor dates: **kickoff Tue 25 Aug
+  2026, finish Tue 22 Sep 2026** (exactly 4 calendar weeks). Structure: a
+  weekly milestone table (prep → kickoff/scoping → OEM round 1 + framework
+  build → deep-dive + scorecards → risk/derisking framework + consolidation →
+  final report/close-out) plus a workstream × week Gantt-style view across 7
+  workstreams (governance, OEM engagement, maturity assessment, carbon
+  emissions, performance-contract framework, risk/derisking framework,
+  reporting). Flagged as **assumptions, not facts** (per CLAUDE.md §7): the
+  OEM discussion cadence (Wk2–3), the scope of "performance contract" as a
+  guarantee-structure framework rather than negotiated per-OEM term sheets,
+  and that the 4-week window is tight if the OEM shortlist is long (5+) —
+  recommended parallel-track OEM calls or a scope/timeline flag to YTL at
+  kickoff. Cross-referenced the maturity framework to this repo's existing
+  sourced OEM data (§6 above: Wärtsilä 25 Ammonia, MAN AmmoniaMot 2, Baker
+  Hughes/Hanwha NovaLT16, IHI IM270, MHI H-25) and flagged N₂O
+  (GWP≈273×CO₂) + NH₃ slip as the ammonia-specific items the carbon
+  methodology must not omit. **Open:** actual OEM shortlist/names not yet
+  provided to this repo — populate workstream B once available.
 - **2026-07-28 (8)** — Built **`power_generation/DECK_combined_cycle_GT_vs_GE_100MW_datacenter.md`**
   (Rev 0), a design-ready deck source for Claude Design, at user request: 25
   content slides + appendix, each with key message / body / visual direction.
