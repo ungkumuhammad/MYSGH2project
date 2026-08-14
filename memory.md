@@ -518,6 +518,31 @@ utilization for IPPs, 2026-07-28**
 
 ## 8. Changelog
 
+- **2026-08-14 (3)** — Revised the YTL ammonia gas engine study timeline (all three
+  deliverables: `.md`, `.pdf`, `.xlsx`) per user correction, two structural changes:
+  (1) **OEM engagement re-scoped to MISC.** OEMs are contacted by **MISC**, the
+  partner company under the parent group holding the existing OEM relationships —
+  not by MYSGH2/YTL directly, and not via an RFI MYSGH2 issues. Collapsed what was
+  4 separate OEM-engagement rows (RFI issuance, Round 1, Round 2, follow-ups) into
+  **one continuous task/timeline** ("OEM Engagement & Data Collection (led by
+  MISC)", 31 Aug–16 Sep, 13 working days) — everything MISC does with OEMs happens
+  under that single item, not tracked as MYSGH2 sub-tasks. (2) **Maturity assessment
+  and carbon-emission assessment merged into one workstream, "Technology Risk
+  Assessment"** (was two separate workstreams/colors) — framework build → per-OEM
+  scorecard, covering both TRL/CRI maturity and the carbon methodology (N₂O/GWP273,
+  NOx, NH₃ slip) together. Task count: 25 → 20 rows.
+  **Excel structural change:** rebuilt so **Task List is now the master data-entry
+  sheet** and **Gantt Chart is fully formula-linked to it** — every Gantt Chart
+  column (Task/Workstream/Type/Owner/Start/Finish/Duration) is a live cell
+  reference (`='Task List'!X{row}`), and the conditional-formatting bar colors key
+  off those same linked cells, so editing a task's dates/workstream/type/owner in
+  Task List updates the Gantt bars and their colors automatically — this is a
+  meaningful upgrade from the prior version where the two sheets held independently
+  duplicated data. Verified via `recalc.py` (180 formulas, 0 errors) and a
+  LibreOffice-rendered visual check confirming the linked bars display correctly,
+  including the single 13-day OEM1 bar. All three files re-synced (`.md` timeline
+  tables, `.pdf` 4-page detailed doc, `.xlsx` workbook) so no deliverable is stale
+  relative to the others.
 - **2026-08-14 (2)** — Added two companion deliverables to the YTL study timeline, at user
   request: **`power_generation/YTL_Ammonia_Gas_Engine_Study_Timeline.pdf`** (4-page, landscape,
   detailed day-level task table + milestone summary + workstream×week view + legend + notes,
