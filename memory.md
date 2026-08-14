@@ -518,6 +518,22 @@ utilization for IPPs, 2026-07-28**
 
 ## 8. Changelog
 
+- **2026-08-14 (2)** — Added two companion deliverables to the YTL study timeline, at user
+  request: **`power_generation/YTL_Ammonia_Gas_Engine_Study_Timeline.pdf`** (4-page, landscape,
+  detailed day-level task table + milestone summary + workstream×week view + legend + notes,
+  mirroring the .md timeline) and **`power_generation/YTL_Ammonia_Gas_Engine_Study_Gantt.xlsx`**
+  (3-sheet workbook: Gantt Chart with a 27-working-day conditional-formatting bar grid keyed off
+  Start/Finish/Workstream/Type so bars move if dates are edited, Legend, and a flat Task List with
+  a `NETWORKDAYS()` duration formula and predecessor column). Both recalculated/rendered clean
+  (xlsx: 50 formulas, 0 errors after `recalc.py`; PDF: visually verified via page-image render).
+  **Environment note:** `libreoffice-calc` was missing from this session's LibreOffice install
+  (only `libreoffice-core`/`-common` present), causing all `recalc.py` runs to fail with
+  "source file could not be loaded" — fixed by `apt-get install libreoffice-calc`, not a defect
+  in the workbook. **Two PDF rendering bugs found and fixed** before delivery: literal `Q&A` in
+  a Paragraph broke ReportLab's mini-XML entity parser (needed `&amp;`), and decomposed-Unicode
+  "Wärtsilä" (NFD combining diaeresis, not precomposed) plus HTML numeric-entity subscripts
+  (`&#8322;`/`&#8323;`) rendered as tofu boxes in base-14 Helvetica — fixed by ASCII-spelling the
+  OEM name in that document and switching to ReportLab `<sub>` tags per the pdf skill's guidance.
 - **2026-08-14** — Drafted **`power_generation/YTL_ammonia_gas_engine_OEM_study_timeline.md`**:
   a joint YTL × MYSGH2 work timeline for the agreed study of 4-stroke ammonia
   gas engine **maturity, carbon emissions, and performance-contract structure**
