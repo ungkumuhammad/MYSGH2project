@@ -89,6 +89,11 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
 - [ ] Cracker technology/vendor and heat source (and its carbon intensity)?
 - [ ] Subsea vs. land crossing of the Johor Strait — permitting & ROW?
 - [ ] Which permutations are in/out of scope for the first study round?
+- [ ] **NH₃ fuel-supply pressure (barg) for the Wärtsilä 25 Ammonia / AmmoniaPac**
+      — not published; needs an OEM query (added 2026-08-18, see §6).
+- [ ] **NH₃-specific fuel-supply pressure for the MHI H-25 and the GE/IHI
+      6F.03/7F/9F ammonia retrofit** — not published; follows each frame's
+      compressor discharge pressure, which is also unsourced (added 2026-08-18).
 
 ## 6. Sourced Data Registry (technical baseline)
 
@@ -371,6 +376,77 @@ utilization for IPPs, 2026-07-28**
   Markets; Data Center Frontier; TechCrunch (Chevron/Microsoft Project Kilby);
   DCD (ProEnergy).
 
+**Ammonia fuel-supply PRESSURE requirements — engine vs. gas turbine, 2026-08-18**
+
+> ⚠️ **Verification caveat for this whole entry:** every primary domain
+> (ihi.co.jp, wartsila.com, ammoniaenergy.org, turbomachinerymag.com, arxiv.org,
+> auramarine.com, swri.org) was **blocked by the network egress proxy** this
+> session. Figures below come from **search-result extracts quoting those
+> sources**, not from a direct read of the source document. Treat as
+> **sourced-but-not-directly-verified**; re-open each link before
+> investment-grade use.
+
+*Gas turbine side (better sourced than the engine side)*
+- **IHI IM270 2 MW ammonia GT cogeneration package** — the ammonia supply unit has
+  **two** systems: (a) fuel ammonia **gas at 2.0 MPaG (= 20 barg)**; (b) ammonia at
+  **0.3 MPaG (= 3 barg)** as the **reducing agent to the NOx-removal (DeNOx) unit**.
+  Architecture: liquid NH₃ **pumped in the liquid phase** (less compression power
+  and smaller footprint than compressing after gasification) → **hot-water-type
+  evaporator** → **accumulator** to damp pressure fluctuation → gas turbine.
+  ⇒ The commercial IM270 cogen package delivers **vaporised NH₃ at ~20 barg**, not
+  liquid spray. — IHI Engineering Review Vol.53 No.1 (via search extract).
+- **IHI liquid-ammonia DIRECT SPRAY combustion** (separate development line):
+  NH₃ phase-changes at **~0.8 MPa (~8 bar) at ambient temperature**, so it can only
+  be sprayed as a stable liquid where **combustor pressure ≥ 0.8 MPa** — which IHI
+  states is satisfied by "medium and large gas turbines" (combustor pressure
+  **0.8 MPa or more**). This is why direct liquid spray is a **gas-turbine-only**
+  trick and does not transfer to an atmospheric-combustor machine. Verification
+  tests: liquid NH₃ up to **70 % co-firing ratio** with emissions suppressed.
+  — IHI *Development of Liquid Ammonia Direct Spray Combustion Gas Turbine*
+  (Engineering Review Vol.55 No.1) (via search extract).
+  *(Consistent with CLAUDE.md §5's "~8.6 bar at ambient" NH₃ vapour pressure.)*
+- **General GT convention (NOT ammonia-specific):** fuel gas pressure at skid edge
+  must exceed **combustor pressure (≈ compressor discharge pressure) + fuel-system
+  losses** (strainers, valves, piping, nozzles). Historically **up to ~300 psig
+  (≈20 barg)** was adequate for most **industrial** GTs; modern high-pressure-ratio
+  and **aeroderivative** machines need **>900 psig (≈62 barg)**.
+  — Turbomachinery Magazine, *Fuel gas requirements for aeroderivative gas
+  turbines* (via search extract). **No NH₃-specific version of this rule located.**
+
+*Engine side (weaker — the headline number is NOT published)*
+- **Wärtsilä 25 Ammonia / AmmoniaPac: NO published fuel-supply pressure in bar.**
+  Wärtsilä states only that it is a **low-pressure Otto cycle**, that the **Gas
+  Valve Unit (GVU) regulates engine-specific gas pressure as a function of load**,
+  and that pumps + heat exchanger deliver "the correct pressure and temperature".
+  **A numeric barg figure for the W25 Ammonia could not be sourced — do not quote
+  one.** AmmoniaPac configurable for **refrigerated or fully pressurised** NH₃
+  (Type-C tanks). — Wärtsilä AmmoniaPac / W25 Ammonia product pages (via extract).
+- **Everllence/MAN B&W ME-LGIA two-stroke (high-pressure liquid injection, Diesel
+  cycle — the opposite architecture):** **supply pressure ~50–70 bar**, **injection
+  pressure 600–700 bar**, NH₃ liquid from −33 °C. *(Two figures appear across
+  sources — ~70 bar in the MAN ammonia-engine update, 50 bar in a MAN
+  spec table — hence the range, not a point value.)* — Ammonia Energy Association,
+  *MAN ammonia engine update*; MAN ES ME-LGI presentation (via search extracts).
+- **Research four-stroke NH₃ dual-fuel, low-pressure PORT injection:** NH₃ gas
+  supplied at **4 ± 0.2 bar** via a pressure regulator. **Lab research engine, not
+  a commercial genset** — use only as an order-of-magnitude indicator for the
+  low-pressure-Otto architecture. — arXiv 2307.03797 (via search extract).
+- **NG benchmark for the same architecture (not NH₃):** Jenbacher supplies its
+  **pre-chamber** gas valves at **~2–2.5 bar** (pre-chamber only, not main fuel
+  train). — Jenbacher fuel gas system doc (via search extract).
+
+*Derived / interpretation (this repo's calculation, flagged)*
+- Unit conversions used: 2.0 MPaG = **20 barg**; 0.3 MPaG = **3 barg**;
+  0.8 MPa ≈ **8 bar**.
+- ⇒ **The order-of-magnitude split is ~20 barg (turbine, vaporised NH₃) vs. single-
+  digit barg (low-pressure Otto engine) vs. 50–70 barg supply / 600–700 bar
+  injection (high-pressure two-stroke Diesel-cycle engine).** The turbine number is
+  set by **compressor discharge pressure**; the low-pressure engine number is set by
+  **intake-manifold/port-admission pressure**. Different physics — do not average.
+- **Open:** no NH₃-specific fuel-supply pressure has been located for the **MHI
+  H-25** or the **GE/IHI 6F.03/7F/9F retrofit**; those would follow each frame's
+  compressor discharge pressure, which is itself not sourced here.
+
 ## 7. References
 
 - Ammonia Energy Association — "Liquid Ammonia for Hydrogen Storage":
@@ -515,8 +591,57 @@ utilization for IPPs, 2026-07-28**
   (boiler application, Nagasaki, Nov 2023): https://www.mhi.com/news/23112801.html ;
   Power Engineering — same: https://www.power-eng.com/gas/turbines/mitsubishi-says-it-successfully-tested-an-ammonia-single-fuel-burner/
 
+- **Fuel-supply pressure sources (2026-08-18; all fetched-blocked, see §6 caveat):**
+  - IHI Engineering Review Vol.53 No.1 — Development of Ammonia Gas Turbine
+    Co-Generation System (ammonia supply unit 2.0 MPaG fuel / 0.3 MPaG DeNOx):
+    https://www.ihi.co.jp/en/technology/sdgs/topic01/pdf/Vol53No1_H.pdf
+  - IHI — Development of Liquid Ammonia Direct Spray Combustion Gas Turbine
+    (combustor pressure ≥0.8 MPa; NH₃ phase change ~0.8 MPa at ambient):
+    https://www.ihi.co.jp/en/technology/techinfo/contents_no/1199391_13586.html
+    and https://www.ihi.co.jp/en/technology/techinfo/contents_no/__icsFiles/afieldfile/2023/06/17/Vol55No1_04.pdf
+  - Turbomachinery Magazine — Fuel gas requirements for aeroderivative gas
+    turbines (skid-edge pressure vs. compressor discharge; ~300 psig industrial,
+    >900 psig aeroderivative):
+    https://www.turbomachinerymag.com/view/fuel-gas-requirements-for-aeroderivative-gas-turbines
+  - Wärtsilä — AmmoniaPac fuel supply system (GVU regulates gas pressure by load;
+    no barg figure published):
+    https://www.wartsila.com/marine/products/gas-solutions/ammonia-supply-systems/ammoniapac
+  - Ammonia Energy Association — MAN ammonia engine update (~70 bar supply,
+    600–700 bar injection): https://ammoniaenergy.org/articles/man-ammonia-engine-update/
+  - MAN ES — The 2-stroke B&W ME-LGIM/ME-LGI engine presentation (NH₃ liquid
+    −33 °C, 50 bar supply, 600–700 bar injection):
+    https://www.maritimes-zentrum.de/fileadmin/user_upload/Flensburg_ISF_tagung_2019_-_MAN_ES.pdf
+  - arXiv 2307.03797 — Nitro-compounds and GHG exhaust emissions of a pilot
+    diesel-ignited ammonia dual-fuel engine (NH₃ gas at 4 ± 0.2 bar, lab engine):
+    https://arxiv.org/pdf/2307.03797
+  - Jenbacher fuel gas system overview (pre-chamber gas ~2–2.5 bar, NG basis):
+    https://www.scribd.com/document/467056145/5-1-6-B-BR6E-EN
+
 ## 8. Changelog
 
+- **2026-08-18 (1)** — Answered a direct question ("what NH₃ fuel-supply pressure
+  do ammonia engines and ammonia gas turbines need?") and recorded the findings as
+  a new §6 registry block **"Ammonia fuel-supply PRESSURE requirements — engine vs.
+  gas turbine"** plus eight new §7 references. **Key sourced result: IHI's IM270
+  ammonia GT cogeneration package supplies vaporised NH₃ at 2.0 MPaG (20 barg)**,
+  with a separate **0.3 MPaG (3 barg)** stream as DeNOx reducing agent, produced by
+  **pumping NH₃ as a liquid then vaporising** (cheaper than compressing gas) with an
+  accumulator for pulsation. **IHI's liquid direct-spray route is enabled purely by
+  combustor pressure ≥0.8 MPa** exceeding NH₃'s ~0.8 MPa ambient vapour pressure —
+  a gas-turbine-only capability. **Honest negative finding: no numeric fuel-supply
+  pressure is published for the Wärtsilä 25 Ammonia / AmmoniaPac low-pressure Otto
+  engine** — Wärtsilä publishes only "GVU regulates engine-specific gas pressure
+  based on load"; the nearest sourced proxies are a **lab** NH₃ dual-fuel engine at
+  **4 ± 0.2 bar** port injection and Jenbacher's **2–2.5 bar** NG pre-chamber
+  supply, neither of which is a W25-Ammonia spec. **Do not quote a barg figure for
+  the W25 Ammonia.** The contrasting high-pressure engine architecture
+  (Everllence/MAN B&W **ME-LGIA** two-stroke) is sourced at **~50–70 bar supply /
+  600–700 bar injection**. ⚠️ **All of the above was obtained via search-result
+  extracts because every primary domain was blocked by the network egress proxy
+  this session — flagged in-line in §6; re-open the links before any
+  investment-grade use.** Added to the Open Questions implicitly: no NH₃-specific
+  supply pressure located for the **MHI H-25** or the **GE/IHI 6F.03/7F/9F**
+  retrofit frames.
 - **2026-07-28 (8)** — Built **`power_generation/DECK_combined_cycle_GT_vs_GE_100MW_datacenter.md`**
   (Rev 0), a design-ready deck source for Claude Design, at user request: 25
   content slides + appendix, each with key message / body / visual direction.
