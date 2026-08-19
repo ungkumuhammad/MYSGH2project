@@ -41,3 +41,22 @@ values are left blank and flagged — never invented. (Repo `CLAUDE.md §7`.)
 ## Status
 
 Agent scaffolding created. Comparison deliverables to follow as the next task.
+
+## OEM assessment pack (2026-08-19)
+
+`OEM_NH3_4stroke_gas_engine_assessment.xlsx` — a 7-sheet pack for meetings with
+reciprocating-engine OEMs offering **ammonia-fuelled 4-stroke engines**.
+
+| Sheet | Contents |
+|-------|----------|
+| `0 README` | Purpose, how to use, cell legend, worked example, no-fabrication statement |
+| `1 Questionnaire` | **149 questions, 14 sections (A–N)** — combustor maturity, fuel supply, emission control, fuel transition & loss of firing, efficiency, contracts, long-lead & schedule, preferred EPC |
+| `2 Assessment Criteria` | 10 weighted criteria, 1–5 rubric anchored at 1 / 3 / 5, plus **7 knock-out gates** |
+| `3 Scorecard` | Live weighted scoring for 3 OEMs (weights linked from sheet 2), knock-out verdict, sensitivity check |
+| `4 Long Lead and Schedule` | 24-item long-lead register + 20-milestone purchase-order-to-COD template |
+| `5 Contract De-risking` | Our target position vs. OEM position vs. gap vs. de-risk action |
+| `6 Reference Notes` | 18 sourced anchors from `../memory.md`, each tagged Sourced / Derived / Assumption / Not published |
+
+**No OEM data is pre-filled.** Every quantitative OEM cell is blank by design
+(repo `CLAUDE.md §7`). The only pre-entered numbers are the proposed criterion
+weights (a labelled judgement call) and the sourced reference anchors on sheet 6.

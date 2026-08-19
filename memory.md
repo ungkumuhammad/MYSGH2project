@@ -7,7 +7,7 @@
 
 **Project:** Green ammonia import to Johor (MMHE) → on-site cracking to H₂ →
 cross-border H₂ pipeline to Singapore, defined on a permutation basis.
-**Last updated:** 2026-07-28.
+**Last updated:** 2026-08-19.
 
 ---
 
@@ -33,6 +33,7 @@ cross-border H₂ pipeline to Singapore, defined on a permutation basis.
 | 2026-07-16 | Built first **NH₃-focused 50 MW data-center engine-vs-CCGT comparison matrix** (`power_generation/50MW_datacenter_NH3_engine_vs_CCGT_matrix.md`) | User use-case: 50 MW firm clean block on 100 % NH₃, grid tops up larger total demand until NH₃ affordable for 100 % clean | Matrix-only first pass done; superseded for the general case by the 2026-07-28 comprehensive comparison, but still valid for the 50 MW data-centre framing |
 | 2026-07-28 | Built the **comprehensive NH₃ gas-turbine vs. gas-engine comparison** (`power_generation/NH3_gas_turbine_vs_gas_engine_comprehensive_comparison.md`, Rev 1, 7 axis-blocks / 45 rows) and **changed the provisional recommendation for the stationary P2 / Singapore-offtake case from engine → gas turbine** | Three new sourced developments: (1) IHI+GE Vernova burned 100 % NH₃ in full-scale **F-class** combustion hardware (Mar 2026, 6F.03/7F/9F retrofit, target 2030); (2) IHI **IM270 2 MW** ran ~**3,000 h** on 100 % liquid NH₃ incl. load rejection/dump, NOx **<7 ppm**, **>99 %** GHG cut incl. N₂O; (3) Singapore's own EMA/MPA/Keppel Jurong Island project is **55–65 MW by direct NH₃ combustion in a gas turbine plant**. Ammonia engines remain marine-first (W25 A deliveries 2028; MAN 4-stroke genset R&D to ~2027–28) | Active. The 2026-07-16 engine-favouring read **stands for the load-following / incrementally-grown 50 MW data-centre duty** — the two conclusions are duty-dependent, not contradictory |
 | 2026-07-28 | Built an **interactive HTML infographic/calculator**, `power_generation/NH3_ammonia_energy_pathway_infographic.html`, at user request — storage-to-wire ammonia energy chain (1 kg NH₃ landed = 100 % LHV, in both MJ and kWh) with a live pathway selector (Gas Turbine/IHI IM270, Gas Engine/Wärtsilä 25 Ammonia, MHI Equipment/H-25 with SC↔CC toggle), per-node expandable spec sheets, a loss-waterfall visual, and a plant-scale calculator (capacity MW + stream days/yr → annual GWh, annual NH₃ ktpa, mass flow t/h, % of the 650 ktpa P1/P2 reference stream) | User request: infographic showing each pathway's schematic with per-node detail dropdowns and efficiency, prepopulated from sourced defaults, editable | Published as a Claude Artifact and committed to the repo. Every prepopulated default is tagged sourced/assumption/derived/not-published (color + icon + text) per CLAUDE.md §7 — the IHI IM270 pathway deliberately ships with **no default efficiency** (input left blank, "not published") since no source states one; user must supply their own estimate for that path only |
+| 2026-08-19 | Built the **OEM ammonia 4-stroke gas engine assessment pack** (`power_generation/OEM_NH3_4stroke_gas_engine_assessment.xlsx`) — 7 sheets: 149-question OEM questionnaire (14 sections A–N), 10 weighted assessment criteria with 1/3/5 rubric anchors, 7 knock-out gates, a live weighted scorecard for 3 OEMs, a long-lead + PO-to-COD schedule template, a contract de-risking checklist, and a sourced reference-anchor sheet | User is meeting engine OEMs to assess ammonia 4-stroke technology: efficiency, technical maturity (combustor, fuel supply, emission control), fuel-transition/loss-of-firing behaviour, performance-contract de-risking, long-lead items and timeline, preferred EPC | Active — issue to OEMs ahead of meetings |
 
 ## 3. Assumptions Register
 
@@ -89,6 +90,18 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
 - [ ] Cracker technology/vendor and heat source (and its carbon intensity)?
 - [ ] Subsea vs. land crossing of the Johor Strait — permitting & ROW?
 - [ ] Which permutations are in/out of scope for the first study round?
+- [ ] Which engine OEMs are we meeting, and on what date? (Assessment pack:
+      `power_generation/OEM_NH3_4stroke_gas_engine_assessment.xlsx`)
+- [ ] What is the NH₃ CAPEX premium in $/kW over an equivalent NG genset? (No
+      public figure exists — OEM question N-03.)
+- [ ] Will any OEM guarantee availability in **ammonia mode**, or only on
+      back-up fuel? (OEM question M-08; knock-out gate K2/K3.)
+- [ ] Will any OEM fire ammonia at the works during FAT? (OEM question K-07 —
+      the largest single schedule/technical de-risking opportunity.)
+- [ ] Preferred/approved EPC contractors per OEM for Malaysia, and will any OEM
+      wrap the ammonia fuel system turnkey? (OEM question L-02/L-03.)
+- [ ] Unit size and number of engines for the Singapore-offtake block — not yet
+      fixed; the pack is written to be size-agnostic.
 
 ## 6. Sourced Data Registry (technical baseline)
 
@@ -371,6 +384,42 @@ utilization for IPPs, 2026-07-28**
   Markets; Data Center Frontier; TechCrunch (Chevron/Microsoft Project Kilby);
   DCD (ProEnergy).
 
+**OEM assessment pack — ammonia 4-stroke gas engine, 2026-08-19**
+- Deliverable: `power_generation/OEM_NH3_4stroke_gas_engine_assessment.xlsx`
+  (7 sheets). Contains **no invented OEM data** — every OEM-data cell is left
+  blank for the OEM to fill (CLAUDE.md §7).
+- **Only pre-entered numbers** are (a) the proposed criterion weights on sheet 2
+  (an explicit judgement call, labelled as such, with the basis recorded on the
+  sheet), and (b) the reference anchors on sheet 6, each carried over from §6 of
+  this file with its source and a Sourced / Derived / Assumption / Not-published
+  tag.
+- **Proposed criterion weights** (sum 100 %, editable): C1 ammonia combustion
+  system maturity **16 %**; C2 technology readiness & demonstrated evidence
+  **15 %**; C3 fuel-transition integrity & loss-of-firing **11 %**; C4 efficiency
+  & performance on NH₃ **11 %**; C5 emissions & GHG integrity **10 %**;
+  C7 contractual de-risking **10 %**; C6 NH₃ fuel supply & safety design **9 %**;
+  C8 schedule certainty & long-lead exposure **7 %**; C9 RAM & regional support
+  **6 %**; C10 execution model / EPC fit & lifecycle cost **5 %**.
+  **Basis:** maturity (C1+C2 = 31 %) and de-risking (C3+C7 = 21 %) outweigh
+  efficiency (C4 = 11 %) because **no OEM sells a proven stationary ammonia
+  4-stroke genset today** (§6 above) — the credible efficiency spread between
+  competing offers is narrow relative to the maturity spread. *Judgement call,
+  not a sourced figure.*
+- **Seven knock-out gates** (fail = eliminated, not scored): K1 no multi-cylinder
+  engine has run on NH₃ at the offered energy share; K2 no performance parameter
+  guaranteed on NH₃; K3 no automatic fallback to back-up fuel on loss of NH₃ or
+  loss of firing; K4 no dedicated N₂O control and no untreated N₂O measurement;
+  K5 no HAZOP/QRA on the NH₃ package; K6 no committed commercial release date
+  for a **stationary** NH₃ genset; K7 no credible route to insurability for a
+  FOAK unit.
+- **Open items the pack is designed to close** (currently unpublished, must come
+  from the OEM): the **NH₃ CAPEX premium in $/kW** over an equivalent NG genset
+  (§6 records the NG RICE anchor ≈$1,250–1,500/kW and that the NH₃ premium is
+  **not published for either engines or turbines**); measured **raw (engine-out)
+  NOx / N₂O / NH₃-slip across the load range**; **COV(IMEP) and misfire rate** on
+  ammonia; observed **flame-loss rate during fuel transition**; and whether
+  availability is guaranteed **in ammonia mode** or only on back-up fuel.
+
 ## 7. References
 
 - Ammonia Energy Association — "Liquid Ammonia for Hydrogen Storage":
@@ -516,6 +565,41 @@ utilization for IPPs, 2026-07-28**
   Power Engineering — same: https://www.power-eng.com/gas/turbines/mitsubishi-says-it-successfully-tested-an-ammonia-single-fuel-burner/
 
 ## 8. Changelog
+
+- **2026-08-19 (1)** — Built **`power_generation/OEM_NH3_4stroke_gas_engine_assessment.xlsx`**,
+  a 7-sheet OEM meeting and assessment pack for **ammonia-fuelled 4-stroke gas
+  engines**, at user request ahead of OEM technology meetings. Sheets:
+  **0 README** (how to use, legend, worked example, no-fabrication statement);
+  **1 Questionnaire** — **149 questions in 14 sections**: A company/reference
+  fleet, B rating & site conditions, C **combustion system & combustor
+  maturity** (18 Q — combustion concept, pilot/SPOC share, flame-speed
+  engineering, per-cylinder sensing, COV(IMEP)/misfire, **loss of firing**,
+  unburnt-NH₃ exhaust excursion, lube-oil nitrate/corrosion, materials, TC
+  re-match, endurance/teardown evidence, type approval), D NH₃ fuel supply,
+  E **fuel transition / mode change / loss of firing** (12 Q — mode map,
+  substitution ramp, transition load window, measured electrical disturbance,
+  **observed flame-loss rate**, automatic bumpless reversion, failure matrix,
+  purge & restart), F efficiency & performance, G emissions & after-treatment
+  (raw vs treated NOx/N₂O/slip, **dedicated N₂O catalyst**, catalyst temperature
+  window, transient emissions), H safety/toxicity/codes, I RAM & regional
+  support, J maturity evidence & TRL, K **long-lead items & PO-to-COD schedule**,
+  L **execution model & preferred EPC**, M **contracts, guarantees & de-risking**
+  (16 Q — guarantee list, test basis, LDs & caps, rejection threshold, LTSA,
+  **ammonia-mode availability guarantee**, security, FOAK staged acceptance,
+  **insurability**, escrow/continuity), N commercial basis (incl. the **NH₃
+  premium in $/kW**);
+  **2 Assessment Criteria** — 10 weighted criteria with rubric anchors at 1/3/5
+  plus evidence-required column, and **7 knock-out gates**;
+  **3 Scorecard** — live weighted scoring for 3 OEMs, weights and criterion names
+  pulled by formula from sheet 2, knock-out verdict block, sensitivity-check
+  instructions; **4 Long Lead and Schedule** — 24-item long-lead register
+  (checklist only, no fabricated lead times) + 20-milestone PO→COD template with
+  cumulative-week formulas; **5 Contract De-risking** — target position vs OEM
+  position vs gap vs action; **6 Reference Notes** — 18 sourced anchors carried
+  from §6 of this file, each tagged Sourced/Derived/Assumption/Not-published, to
+  challenge OEM answers in the room.
+  **Deliberately contains no invented OEM numbers** — all OEM-data cells blank
+  (CLAUDE.md §7). Weights and knock-out gates recorded in §6 above.
 
 - **2026-07-28 (8)** — Built **`power_generation/DECK_combined_cycle_GT_vs_GE_100MW_datacenter.md`**
   (Rev 0), a design-ready deck source for Claude Design, at user request: 25
