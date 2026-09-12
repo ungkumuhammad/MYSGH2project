@@ -7,7 +7,7 @@
 
 **Project:** Green ammonia import to Johor (MMHE) → on-site cracking to H₂ →
 cross-border H₂ pipeline to Singapore, defined on a permutation basis.
-**Last updated:** 2026-07-28.
+**Last updated:** 2026-09-12.
 
 ---
 
@@ -33,6 +33,7 @@ cross-border H₂ pipeline to Singapore, defined on a permutation basis.
 | 2026-07-16 | Built first **NH₃-focused 50 MW data-center engine-vs-CCGT comparison matrix** (`power_generation/50MW_datacenter_NH3_engine_vs_CCGT_matrix.md`) | User use-case: 50 MW firm clean block on 100 % NH₃, grid tops up larger total demand until NH₃ affordable for 100 % clean | Matrix-only first pass done; superseded for the general case by the 2026-07-28 comprehensive comparison, but still valid for the 50 MW data-centre framing |
 | 2026-07-28 | Built the **comprehensive NH₃ gas-turbine vs. gas-engine comparison** (`power_generation/NH3_gas_turbine_vs_gas_engine_comprehensive_comparison.md`, Rev 1, 7 axis-blocks / 45 rows) and **changed the provisional recommendation for the stationary P2 / Singapore-offtake case from engine → gas turbine** | Three new sourced developments: (1) IHI+GE Vernova burned 100 % NH₃ in full-scale **F-class** combustion hardware (Mar 2026, 6F.03/7F/9F retrofit, target 2030); (2) IHI **IM270 2 MW** ran ~**3,000 h** on 100 % liquid NH₃ incl. load rejection/dump, NOx **<7 ppm**, **>99 %** GHG cut incl. N₂O; (3) Singapore's own EMA/MPA/Keppel Jurong Island project is **55–65 MW by direct NH₃ combustion in a gas turbine plant**. Ammonia engines remain marine-first (W25 A deliveries 2028; MAN 4-stroke genset R&D to ~2027–28) | Active. The 2026-07-16 engine-favouring read **stands for the load-following / incrementally-grown 50 MW data-centre duty** — the two conclusions are duty-dependent, not contradictory |
 | 2026-07-28 | Built an **interactive HTML infographic/calculator**, `power_generation/NH3_ammonia_energy_pathway_infographic.html`, at user request — storage-to-wire ammonia energy chain (1 kg NH₃ landed = 100 % LHV, in both MJ and kWh) with a live pathway selector (Gas Turbine/IHI IM270, Gas Engine/Wärtsilä 25 Ammonia, MHI Equipment/H-25 with SC↔CC toggle), per-node expandable spec sheets, a loss-waterfall visual, and a plant-scale calculator (capacity MW + stream days/yr → annual GWh, annual NH₃ ktpa, mass flow t/h, % of the 650 ktpa P1/P2 reference stream) | User request: infographic showing each pathway's schematic with per-node detail dropdowns and efficiency, prepopulated from sourced defaults, editable | Published as a Claude Artifact and committed to the repo. Every prepopulated default is tagged sourced/assumption/derived/not-published (color + icon + text) per CLAUDE.md §7 — the IHI IM270 pathway deliberately ships with **no default efficiency** (input left blank, "not published") since no source states one; user must supply their own estimate for that path only |
+| 2026-09-12 | Landed on a **3-OEM shortlist for ammonia-fired gas engines** from the gas-engine assessment: **Wärtsilä** (Wärtsilä 25 Ammonia), **HD Hyundai/Himsen** (HiMSEN ammonia engine), **IHI** (IHI Power Systems ammonia engine, via Ammonia Value Chain business). Converted each OEM's supplied PDF deck to Markdown with [`microsoft/markitdown`](https://github.com/microsoft/markitdown) and committed both `.md` and source `.pdf` to `power_generation/oem_surveys/gas_engine_oem_datasheets/` | User request: shortlist + machine-readable copies of vendor decks for citation | Conversions done, **not yet normalised into the comparison matrix** — see Open Questions |
 | 2026-09-10 | Built two **OEM "who's who" surveys** (`power_generation/oem_surveys/Ammonia-Fired_PowerGen_OEM_Survey.{md,pdf}`, `Hydrogen-Fired_PowerGen_OEM_Survey.{md,pdf}`) covering gas turbines + 2-stroke + 4-stroke gas engines, one row per OEM, News-link column citing every claim | User request: PDF deliverables surveying OEMs and their fuel-fired solutions, ammonia and hydrogen separately | Done. PDFs delivered to user. See Changelog 2026-09-10 for key findings (Malaysia IHI/PETRONAS ammonia-GT precedent; IHI 18V28ADF first stationary ammonia genset with a sales date; Wärtsilä 31H2 100 %-H₂ grid demo; Wärtsilä 25 Ammonia delivery-year conflict flagged unresolved) |
 
 ## 3. Assumptions Register
@@ -98,6 +99,12 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
 - [ ] Does the **IHI–PETRONAS–Gentari Terengganu ammonia-GT demo (2 MW IM270,
       start 2027)** create a usable Malaysian permitting/technical precedent for
       MYSGH2? (See `power_generation/oem_surveys/Ammonia-Fired_PowerGen_OEM_Survey.md`.)
+- [ ] Fold the three shortlisted gas-engine OEM decks (Wärtsilä 25 Ammonia,
+      HD Hyundai HiMSEN, IHI) — converted to Markdown in
+      `power_generation/oem_surveys/gas_engine_oem_datasheets/` — into the
+      comprehensive engine-vs-turbine comparison matrix. `markitdown`'s
+      extraction of slide layouts is imperfect (tables/labels can reorder);
+      verify each pulled number against the source PDF before citing it.
 
 ## 6. Sourced Data Registry (technical baseline)
 
