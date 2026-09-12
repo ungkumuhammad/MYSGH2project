@@ -33,6 +33,8 @@ cross-border H₂ pipeline to Singapore, defined on a permutation basis.
 | 2026-07-16 | Built first **NH₃-focused 50 MW data-center engine-vs-CCGT comparison matrix** (`power_generation/50MW_datacenter_NH3_engine_vs_CCGT_matrix.md`) | User use-case: 50 MW firm clean block on 100 % NH₃, grid tops up larger total demand until NH₃ affordable for 100 % clean | Matrix-only first pass done; superseded for the general case by the 2026-07-28 comprehensive comparison, but still valid for the 50 MW data-centre framing |
 | 2026-07-28 | Built the **comprehensive NH₃ gas-turbine vs. gas-engine comparison** (`power_generation/NH3_gas_turbine_vs_gas_engine_comprehensive_comparison.md`, Rev 1, 7 axis-blocks / 45 rows) and **changed the provisional recommendation for the stationary P2 / Singapore-offtake case from engine → gas turbine** | Three new sourced developments: (1) IHI+GE Vernova burned 100 % NH₃ in full-scale **F-class** combustion hardware (Mar 2026, 6F.03/7F/9F retrofit, target 2030); (2) IHI **IM270 2 MW** ran ~**3,000 h** on 100 % liquid NH₃ incl. load rejection/dump, NOx **<7 ppm**, **>99 %** GHG cut incl. N₂O; (3) Singapore's own EMA/MPA/Keppel Jurong Island project is **55–65 MW by direct NH₃ combustion in a gas turbine plant**. Ammonia engines remain marine-first (W25 A deliveries 2028; MAN 4-stroke genset R&D to ~2027–28) | Active. The 2026-07-16 engine-favouring read **stands for the load-following / incrementally-grown 50 MW data-centre duty** — the two conclusions are duty-dependent, not contradictory |
 | 2026-07-28 | Built an **interactive HTML infographic/calculator**, `power_generation/NH3_ammonia_energy_pathway_infographic.html`, at user request — storage-to-wire ammonia energy chain (1 kg NH₃ landed = 100 % LHV, in both MJ and kWh) with a live pathway selector (Gas Turbine/IHI IM270, Gas Engine/Wärtsilä 25 Ammonia, MHI Equipment/H-25 with SC↔CC toggle), per-node expandable spec sheets, a loss-waterfall visual, and a plant-scale calculator (capacity MW + stream days/yr → annual GWh, annual NH₃ ktpa, mass flow t/h, % of the 650 ktpa P1/P2 reference stream) | User request: infographic showing each pathway's schematic with per-node detail dropdowns and efficiency, prepopulated from sourced defaults, editable | Published as a Claude Artifact and committed to the repo. Every prepopulated default is tagged sourced/assumption/derived/not-published (color + icon + text) per CLAUDE.md §7 — the IHI IM270 pathway deliberately ships with **no default efficiency** (input left blank, "not published") since no source states one; user must supply their own estimate for that path only |
+| 2026-09-12 | Built the **OEM-facing joint-development milestone proposal** (`power_generation/oem_collaboration/Ammonia_Engine_Joint_Development_Milestones.docx`, 15 pp) — 5 stages G0–G4, technical milestones T0.x–T4.x, technical gap register T1–T10, commercial milestones C0.x–C4.x, gate criteria, respondent self-assessment. Target: **first fire on ammonia Q4 2028, performance-tested and in commercial operation Q1 2029** | User decision: none of the three OEMs is commercially/technically ready before ~2029, so rather than wait, propose co-developing to maturity and issue the same document to all three to see who will embark | Done. **Written deliberately OEM-neutral** — contains no competitor specification, roadmap date or readiness claim, because the three source decks are confidential (IHI marked Confidential/addressed to Gentari; Wärtsilä carries an explicit no-disclosure notice). Comparative read held internally in `oem_collaboration/INTERNAL_OEM_readiness_read.md` |
+| 2026-09-12 | Adopted the position that the gap to close is **stationary duty, consent and carbon assurance — not combustion**. Made the full GHG balance **including N₂O and pilot-fuel carbon** a formal programme gate criterion (G3), not a performance footnote | N₂O GWP₁₀₀ ≈ 273 (IPCC AR6; vendor decks cite AR5's 298). At that potency a fractional slip consumes most of the CO₂ benefit, and a hyperscale customer buying carbon-free energy will have it audited. All three OEMs quote relative ">90 % TtW vs diesel" reductions; none publishes a measured g CO₂e/kWh incl. N₂O | Active — drives T2/T3 and self-assessment B3/B5 |
 | 2026-09-12 | Landed on a **3-OEM shortlist for ammonia-fired gas engines** from the gas-engine assessment: **Wärtsilä** (Wärtsilä 25 Ammonia), **HD Hyundai/Himsen** (HiMSEN ammonia engine), **IHI** (IHI Power Systems ammonia engine, via Ammonia Value Chain business). Converted each OEM's supplied PDF deck to Markdown with [`microsoft/markitdown`](https://github.com/microsoft/markitdown) and committed both `.md` and source `.pdf` to `power_generation/oem_surveys/gas_engine_oem_datasheets/` | User request: shortlist + machine-readable copies of vendor decks for citation | Conversions done, **not yet normalised into the comparison matrix** — see Open Questions |
 | 2026-09-10 | Built two **OEM "who's who" surveys** (`power_generation/oem_surveys/Ammonia-Fired_PowerGen_OEM_Survey.{md,pdf}`, `Hydrogen-Fired_PowerGen_OEM_Survey.{md,pdf}`) covering gas turbines + 2-stroke + 4-stroke gas engines, one row per OEM, News-link column citing every claim | User request: PDF deliverables surveying OEMs and their fuel-fired solutions, ammonia and hydrogen separately | Done. PDFs delivered to user. See Changelog 2026-09-10 for key findings (Malaysia IHI/PETRONAS ammonia-GT precedent; IHI 18V28ADF first stationary ammonia genset with a sales date; Wärtsilä 31H2 100 %-H₂ grid demo; Wärtsilä 25 Ammonia delivery-year conflict flagged unresolved) |
 
@@ -91,11 +93,26 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
 - [ ] Cracker technology/vendor and heat source (and its carbon intensity)?
 - [ ] Subsea vs. land crossing of the Johor Strait — permitting & ROW?
 - [ ] Which permutations are in/out of scope for the first study round?
-- [ ] **Wärtsilä 25 Ammonia first-delivery year: 2026 or 2028?** Repo previously
-      recorded 2028; 2026-09-10 OEM survey found a Sep-2026 reading of the same
-      16 Apr 2026 Wärtsilä release stating deliveries "due from 2026 onward."
-      wartsila.com was proxy-blocked in both passes — needs a direct
-      OEM confirmation before either date is quoted again.
+- [x] ~~**Wärtsilä 25 Ammonia first-delivery year: 2026 or 2028?**~~ **Resolved
+      2026-09-12 (pending public confirmation).** Wärtsilä's own deck to MISC
+      (1 Sep 2026) shows a development timeline with **first W25DF NH₃ customer
+      delivery in 2025**, and **4 vessels contracted as at 1 Apr 2026** with
+      engine deliveries Q4/26 → Sep/27. The repo's "2028" was wrong for *first
+      delivery*. Source is an OEM deck supplied in confidence, not a public
+      release — confirm publicly before quoting externally.
+- [ ] **Capacity and site for the AWS block are still unset.** The proposal
+      document ships with both flagged "To be confirmed — Stage 1". Repo's
+      working reference remains the 50 MW firm clean block (2026-07-16
+      assumption). Confirm actual AWS requirement, and whether the power block
+      sits in Johor (JS-SEZ), Singapore, or both.
+- [ ] **Is `NH3_gas_turbine_vs_gas_engine_comprehensive_comparison.md` due a
+      Rev 2?** Its row A4 ("no stationary ammonia genset in service", engines
+      "TRL 5–6 stationary") and A6 ("≥2028 and marine-first") are out of date:
+      IHI has had a 6 MW-class land-based ammonia genset (18V28ADF) in
+      demonstration at Ota Works since 15 Jul 2026, with commercial sales
+      targeted JFY2027. The engine/turbine *recommendation* is probably
+      unchanged — IHI strengthened both sides at once — but the TRL rows are
+      stale. See `oem_collaboration/INTERNAL_OEM_readiness_read.md` §3.
 - [ ] Does the **IHI–PETRONAS–Gentari Terengganu ammonia-GT demo (2 MW IM270,
       start 2027)** create a usable Malaysian permitting/technical precedent for
       MYSGH2? (See `power_generation/oem_surveys/Ammonia-Fired_PowerGen_OEM_Survey.md`.)
