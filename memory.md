@@ -50,6 +50,7 @@ cross-border H₂ pipeline to Singapore, defined on a permutation basis.
 | 2026-06-30 | H₂ 16″ pipeline parasitic retention ~0.99 | Compression to maintain 15–20 barg over short cross-strait run | Pipeline hydraulics |
 | 2026-07-01 | **100 %-H₂ CCGT installed capital cost ≈ $1,000–1,400/kW ("normal" market) or ≈ $2,400–3,200/kW (2025–26 supply-constrained market)** — derived, *not* an OEM quote | NG H-class CCGT baseline (EIA/S&L) + literature hydrogen-firing premium (~+8.5 % on GT subsystem, Chalmers 2022), sanity-checked vs. real hydrogen-ready projects (IPP Renewed ~$1,030/kW, Long Ridge ~$1,235/kW) | OEM/EPC quote sized to actual Singapore offtake MW |
 | 2026-07-16 | Data-center 50 MW clean block framed as **firm NH₃ generation + temporary grid top-up**, transitioning to 100 % clean as NH₃ becomes affordable | User use-case definition; favours modular/phased capacity that can grow the clean share unit-by-unit | Confirm total DC demand, target 100 %-clean date, and grid interconnection terms |
+| 2026-09-18 | **Gentari study-to-commercialisation schedule** (illustrative, not sourced): RFP issued Q1 2027 (1 month, timed to follow Wärtsilä engine commercialisation — user input) → bilateral OEM agreement (2 months, user input) → kickoff (user input) → pre-FEED (6–9 months, shown at 9, user input) → **FEED ~10 months → FID → EPC ~30 months → commissioning ~6 months → commercialisation ~early 2032 (all Claude-filled, industry-typical benchmarks, NOT sourced to any published Gentari schedule)** | User asked for a Gantt/arrow visual of the full pathway to commercialisation; only the first 4 stages were user-specified, so FEED/FID/EPC/commissioning durations were filled in to complete the picture | Replace FEED/FID/EPC/commissioning durations with actual Gentari project-schedule figures once available; do not cite the ~2032 commercialisation date externally as a real project date |
 
 *(No project-specific capacities, distances, costs, or vessel sizes have been
 fixed yet — none should be invented. See CLAUDE.md §7.)*
@@ -526,6 +527,20 @@ utilization for IPPs, 2026-07-28**
 
 ## 8. Changelog
 
+- **2026-09-18** — Built `power_generation/gas_engine_readiness_timeline_gantt.png`
+  at user request: a Gantt chart of IHI / HD Hyundai / Wärtsilä gas-engine and
+  -turbine readiness/commercialisation dates (from the 2026-09-10 OEM surveys),
+  grouped one shaded section per OEM, dual year/quarter axis, star markers for
+  readiness (filled = confirmed, hollow = unverified target). Added a second
+  panel below it: a single left-to-right arrow for **Gentari's study →
+  commercialisation pathway**, numbered ①–⑧ with a decoding legend. Stages
+  ①–④ (RFP, bilateral agreement, kickoff, pre-FEED) are user-specified inputs;
+  stages ⑤–⑧ (FEED, FID, EPC, commissioning) are Claude-filled indicative
+  assumptions needed to reach a commercialisation milestone — see §3
+  Assumptions Register, 2026-09-18 row. Chart uses the repo's actual Gentari
+  brand purple `#7030A0` (from `presentationstyle/Design_Style_Guide.md`) for
+  the Gentari track, and Carlito (metric-compatible with Calibri, per user's
+  font request) throughout.
 - **2026-09-10** — Built two **OEM "who's who" surveys** at user request, each
   covering gas turbines, 2-stroke and 4-stroke gas engines, one column per
   fuel-mode + a News-link column: `power_generation/oem_surveys/
