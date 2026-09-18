@@ -527,6 +527,18 @@ utilization for IPPs, 2026-07-28**
 
 ## 8. Changelog
 
+- **2026-09-18** — Built `power_generation/ammonia_gas_engine_readiness_timeline.pptx`
+  at user request: a scoped-down remake of the readiness-timeline PPTX
+  covering **only ammonia-fired reciprocating gas engines** — IHI 18V28ADF
+  (6 MW), HD Hyundai HiMSEN ammonia genset, Wärtsilä 25 Ammonia. Excludes
+  all hydrogen-fired engines (Wärtsilä 31H2, HD Hyundai HiMSEN pure-H₂,
+  Infracore 11L H₂) **and** the ammonia gas turbines (IHI IM270, IHI+GE
+  Vernova F-class) — "gas engine" read as reciprocating engine, distinct
+  from turbine, per the repo's own engine-vs-turbine framing. Same design,
+  Calibri font, and Gentari brand purple as the full-scope version; the
+  Gentari pathway's connector now references Wärtsilä 25 Ammonia's earliest
+  unverified date (2026?) as the "commercialisation" trigger instead of the
+  excluded 31H2 hydrogen engine's confirmed Jun-2026 date.
 - **2026-09-18** — Built `power_generation/gas_engine_readiness_timeline.pptx`: a
   fully editable native-PowerPoint rebuild of the Gantt PNG (same layout, same
   Calibri font, same Gentari brand purple `#7030A0`) using pptxgenjs — every
