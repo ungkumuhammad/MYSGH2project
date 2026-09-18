@@ -527,6 +527,18 @@ utilization for IPPs, 2026-07-28**
 
 ## 8. Changelog
 
+- **2026-09-18** — Built `power_generation/gas_engine_readiness_timeline.pptx`: a
+  fully editable native-PowerPoint rebuild of the Gantt PNG (same layout, same
+  Calibri font, same Gentari brand purple `#7030A0`) using pptxgenjs — every
+  bar, star, circle, line and text box is a real PPT shape, not an embedded
+  image. True diagonal hatch fill has no editable-shape equivalent in
+  pptxgenjs, so "planned/uncertain" segments use a lighter fill + dashed
+  border instead (same meaning). Note for future sessions: this sandbox's
+  LibreOffice initially had only `libreoffice-core`/`-common` installed, so
+  `soffice --convert-to pdf` failed with "source file could not be loaded"
+  on *any* file, not just this deck — fixed by `apt-get install -y
+  libreoffice-impress` (pulls in `libreoffice-draw` too), after which visual
+  QA rendering worked normally.
 - **2026-09-18** — Built `power_generation/gas_engine_readiness_timeline_gantt.png`
   at user request: a Gantt chart of IHI / HD Hyundai / Wärtsilä gas-engine and
   -turbine readiness/commercialisation dates (from the 2026-09-10 OEM surveys),
