@@ -99,6 +99,33 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
 - [ ] Does the **IHI–PETRONAS–Gentari Terengganu ammonia-GT demo (2 MW IM270,
       start 2027)** create a usable Malaysian permitting/technical precedent for
       MYSGH2? (See `power_generation/oem_surveys/Ammonia-Fired_PowerGen_OEM_Survey.md`.)
+- [ ] **"28AGS-AM" (IHI) — unconfirmed, likely not a real product.** User asked
+      2026-09-19 whether IHI's ammonia land-engine should be called "28AGS-AM."
+      Websearch found **28AGS** is a real but *different* IHI product (natural-gas
+      spark-ignition lean-burn engine, 2,000–6,000 kWe, e.g. Yokohama Works
+      cogen) with no located ammonia ("-AM") variant. The actual Ota Works
+      (Gunma) 6 MW-class land-based ammonia demo engine is confirmed by IHI's
+      own press release as the **18V28ADF** — already the name used in
+      `power_generation/oem_surveys/Ammonia-Fired_PowerGen_OEM_Survey.md`, the
+      Gantt PNGs, and both PPTX decks. Do not rename to "28AGS-AM" unless the
+      user supplies a source confirming it as a distinct/real product.
+- [ ] **PICKUP — "continue develop OEM timeline" (opened 2026-09-19).** User
+      wants to redevelop the IHI/HD Hyundai/Wärtsilä readiness-timeline PNG
+      again, this time sourcing OEM data from a folder they referred to as
+      `AWS/comm_OEM` (three files). That folder/repo **could not be located**
+      in this session — not in this repo, not on the sandbox filesystem, not
+      in the user's other GitHub repos (`taurusgentari`, `Gentari-ammoniacracker`,
+      `Gentari-TCOE`, `Gentari-LH2`, `greensteel`, `dialectica`, etc.), and no
+      upload files were present. **Next session should ask the user directly**
+      where `AWS/comm_OEM` lives (a specific GitHub repo to attach via
+      `add_repo`, a local folder they need to upload/attach to the chat, or an
+      actual AWS S3 path needing credentials) before redoing the chart.
+      Existing chart assets to build from once the data lands:
+      `power_generation/gas_engine_readiness_timeline_gantt.png` (full OEM +
+      Gentari pathway, matplotlib/Carlito font), and the two native-PowerPoint
+      versions `power_generation/gas_engine_readiness_timeline.pptx` (full) and
+      `power_generation/ammonia_gas_engine_readiness_timeline.pptx`
+      (ammonia-reciprocating-engines-only, ⁠excludes H₂ + turbines).
 
 ## 6. Sourced Data Registry (technical baseline)
 
@@ -527,6 +554,16 @@ utilization for IPPs, 2026-07-28**
 
 ## 8. Changelog
 
+- **2026-09-19** — Session close-out. Investigated user's "28AGS-AM" (IHI)
+  naming question — found no source for it; confirmed the existing 18V28ADF
+  attribution is correct per IHI's own press release (see §5 open question).
+  User then asked to redevelop the OEM readiness-timeline PNG using data
+  from a folder referred to as `AWS/comm_OEM` (3 files) — that location could
+  not be found anywhere accessible this session (repo, sandbox filesystem,
+  other GitHub repos, chat uploads); flagged as a pickup item in §5 for the
+  next session ("continue develop OEM timeline"). No chart changes made this
+  entry — see the two prior 2026-09-18 entries below for the current state
+  of the readiness-timeline PNG/PPTX assets.
 - **2026-09-18** — Built `power_generation/ammonia_gas_engine_readiness_timeline.pptx`
   at user request: a scoped-down remake of the readiness-timeline PPTX
   covering **only ammonia-fired reciprocating gas engines** — IHI 18V28ADF
