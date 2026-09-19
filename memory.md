@@ -620,6 +620,20 @@ utilization for IPPs, 2026-07-28**
 
 ## 8. Changelog
 
+- **2026-09-19** — Built `AWS/research_OEM/gas_engine_readiness_timeline_merged.png`
+  at user request: a single merged timeline combining the full original
+  research_OEM survey (all 8 rows — turbines, H₂ engines, and ammonia
+  engines/gensets across IHI/HD Hyundai/Wärtsilä) with the 5 comm_OEM rows
+  from the entry below. Visual convention: **research_OEM rows render in
+  grey with italic labels** (bars, dots, and confirmed-stars all use a
+  muted grey, `#9a9992`/`#87857d`); **comm_OEM rows keep each OEM's normal
+  categorical colour** and gold confirmed-stars. Legend has three star
+  states (confirmed-comm/gold, confirmed-research/grey, unverified-research/
+  hollow) plus the bar-style keys. Each engine appears once: where comm_OEM
+  covers the same product as research_OEM (18V28ADF, Wärtsilä 25 Ammonia),
+  the comm_OEM version wins as the higher-confidence row; research_OEM
+  supplies the rows comm_OEM doesn't cover (IHI turbines, HD Hyundai's two
+  H₂ engines and unconfirmed genset, Wärtsilä 31H2).
 - **2026-09-19** — Merged the parallel `claude/gas-engine-vendors-confirm-rg6f1j`
   branch into `main` (commit `4ee996e`), bringing together this session's
   chart work with another session's repo reorg (`power_generation/` split
