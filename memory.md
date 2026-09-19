@@ -91,53 +91,111 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
 - [ ] Cracker technology/vendor and heat source (and its carbon intensity)?
 - [ ] Subsea vs. land crossing of the Johor Strait — permitting & ROW?
 - [ ] Which permutations are in/out of scope for the first study round?
-- [ ] **Wärtsilä 25 Ammonia first-delivery year: 2026 or 2028?** Repo previously
-      recorded 2028; 2026-09-10 OEM survey found a Sep-2026 reading of the same
-      16 Apr 2026 Wärtsilä release stating deliveries "due from 2026 onward."
-      wartsila.com was proxy-blocked in both passes — needs a direct
-      OEM confirmation before either date is quoted again.
+- [x] ~~Wärtsilä 25 Ammonia first-delivery year: 2026 or 2028?~~ **RESOLVED
+      2026-09-19** via `AWS/comm_OEM/WA_rtsilA_25_Ammonia_for_MISC_01092026.md`
+      (Wärtsilä's own commercial deck): first confirmed deliveries are
+      **2026** (Eidesvik Viking Energy PSV operation start end 2026; Skarv
+      Shipping II genset delivery Q4/2026), continuing into 2027 (Skarv
+      vessel Q3/2027; Navigator Amon May/Sep 2027). See §6 for full detail.
+      2028 does not appear anywhere in this source as a Wärtsilä 25 Ammonia
+      date — treat the old "2028" reading as superseded.
 - [ ] Does the **IHI–PETRONAS–Gentari Terengganu ammonia-GT demo (2 MW IM270,
-      start 2027)** create a usable Malaysian permitting/technical precedent for
-      MYSGH2? (See `power_generation/oem_surveys/Ammonia-Fired_PowerGen_OEM_Survey.md`.)
-- [ ] **"28AGS-AM" (IHI) — unconfirmed, likely not a real product.** User asked
-      2026-09-19 whether IHI's ammonia land-engine should be called "28AGS-AM."
-      Websearch found **28AGS** is a real but *different* IHI product (natural-gas
-      spark-ignition lean-burn engine, 2,000–6,000 kWe, e.g. Yokohama Works
-      cogen) with no located ammonia ("-AM") variant. The actual Ota Works
-      (Gunma) 6 MW-class land-based ammonia demo engine is confirmed by IHI's
-      own press release as the **18V28ADF** — already the name used in
-      `AWS/power_generation/oem_surveys/Ammonia-Fired_PowerGen_OEM_Survey.md`,
-      the Gantt PNGs, and both PPTX decks. Do not rename to "28AGS-AM" unless
-      the user supplies a source confirming it as a distinct/real product.
-- [ ] **PICKUP — "continue develop OEM timeline" (opened 2026-09-19).** User
-      wants to redevelop the IHI/HD Hyundai/Wärtsilä readiness-timeline PNG
-      again, this time sourcing OEM data from **`AWS/comm_OEM/`** (3 files,
-      confirmed to exist as of this entry — see below). Mid-session the folder
-      could not be located because it landed on `main` (via a parallel
-      session, commits `0e1dac4`/`a2529b7`) *after* the chart-building branch
-      had diverged from it; a repo-structure reorg happened at the same time
-      (old `power_generation/` split into `AWS/power_generation/oem_surveys/`
-      and `AWS/research_OEM/`). Both branches have since been merged into
-      `main`, so **`AWS/comm_OEM/` is now present and should be read directly**
-      next session — no need to ask the user where it is. Its 3 files (OEM
-      commercial docs, markitdown-converted from PDF):
-      `AWS/comm_OEM/20260827_For_Gentari_IHI_AVC_Business_Ammonia_Engine_Presentation.md`,
-      `AWS/comm_OEM/HiMSEN_Ammonia_Engine.md`,
-      `AWS/comm_OEM/WA_rtsilA_25_Ammonia_for_MISC_01092026.md`. These are
-      **commercially-sourced OEM documents** (heavier-weight than the public
-      web-search survey used previously) — cross-check their figures against
-      `AWS/power_generation/oem_surveys/*_OEM_Survey.md` and flag any
-      conflicts per the No-Fabrication Rule rather than silently picking one.
-      Existing chart assets to build from (now at `AWS/research_OEM/` after
-      the merge): `gas_engine_readiness_timeline_gantt.png` (full OEM +
-      Gentari pathway, matplotlib/Carlito font), and two native-PowerPoint
-      versions, `gas_engine_readiness_timeline.pptx` (full) and
-      `ammonia_gas_engine_readiness_timeline.pptx`
-      (ammonia-reciprocating-engines-only, excludes H₂ + turbines).
-
+      start FY2027, at PCG's Kertih Integrated Petrochemical Complex per
+      the 2026-09-19 IHI→Gentari deck)** create a usable Malaysian
+      permitting/technical precedent for MYSGH2? (See
+      `AWS/power_generation/oem_surveys/Ammonia-Fired_PowerGen_OEM_Survey.md`.)
+- [x] ~~"28AGS-AM" (IHI) — unconfirmed~~ **RESOLVED 2026-09-19, CORRECTED**:
+      user supplied `AWS/comm_OEM/20260827_..._Ammonia_Engine_Presentation.md`
+      (IHI's own confidential deck to Gentari), which explicitly names
+      **28AGS-AM** as IHI's 100%-ammonia land engine, commercialization from
+      **2028** — the earlier "likely not a real product" conclusion (based on
+      public websearch only) was wrong; retracted. See §6 for the
+      AGX-vs-28AGS-AM naming/date inconsistency still open within IHI's own
+      deck (2028 vs "2028-2029").
 ## 6. Sourced Data Registry (technical baseline)
 
 > Reference values for first-pass sizing only — not vendor data. Keep sources.
+
+**Ammonia gas engines — commercially-sourced OEM documents (`AWS/comm_OEM/`, added 2026-09-19)**
+> These are the OEMs' own commercial/confidential decks (not public web pages)
+> — higher confidence than the earlier public-search survey where they
+> overlap or correct it. Provenance: user-supplied files, converted PDF→MD.
+
+- **IHI** — `AWS/comm_OEM/20260827_For_Gentari_IHI_AVC_Business_Ammonia_Engine_Presentation.md`
+  (confidential deck, IHI Corporation → Gentari Hydrogen Sdn Bhd, 27 Aug 2026):
+  - **18V28ADF** (6,000 kW-class, land-based, ammonia/diesel-or-LFO dual fuel,
+    Ota Works Gunma): demo commenced 15 Jul 2026, demo complete **JFY2026**,
+    **commercial sales from JFY2027** — confirms prior entry, now sourced to
+    IHI's own deck in addition to the press release.
+  - **28ADF series (land use), full line-up sourced**: 6L28ADF (2,000 kWe) /
+    8L28ADF (2,500) / 9L28ADF (3,000) / 12V28ADF (4,000) / 16V28ADF (5,000) /
+    18V28ADF (6,000), all 50 Hz kWe (60 Hz figures also given); generator
+    efficiency 96.0–97.0%; fuel MDO/ammonia dual-fuel. "Ready for
+    Commercialization: **From 2027**" (whole 28ADF line, per IHI's own
+    IM270-vs-28ADF comparison table).
+  - **28AGS-AM** — **confirmed real product**, resolving the user's 2026-09-19
+    question (previously flagged in §5 as unconfirmed — that flag was wrong).
+    Per the deck: "**28AGS-AM Ammonia 100% Engine will be ready for
+    commercialization from 2028**" (100% ammonia, land use, distinct from the
+    dual-fuel 28ADF). ⚠️ **Internal naming/date inconsistency in IHI's own
+    deck**: an earlier slide in the same document instead calls this same
+    100%-ammonia land engine "**AGX**" and gives its commercialization window
+    as "**2028-2029**" rather than "from 2028." Both labels/dates are quoted
+    directly from the same source deck — flagged, not resolved; ask IHI which
+    is current before quoting either externally.
+  - **IM270 gas turbine** — same table lists "Ready for Commercialization:
+    **From 2026**" (not 2027 as the public survey's Terengganu-demo framing
+    implied). This is a turbine, not a gas engine, so out of scope for the
+    ammonia-*engine* chart, but note the date discrepancy if IM270 is used
+    elsewhere.
+  - IHI–PETRONAS–Gentari JCDA (IM270 demo) signed **10 Apr 2026** (signing
+    ceremony 26 Mar 2026 at METI Japan); site confirmed as **PCG's ammonia
+    plant at the PETRONAS Kertih Integrated Petrochemical Complex,
+    Terengganu** (more specific than "Terengganu integrated chemical
+    complex"); demonstration start targeted **FY2027**.
+- **HD Hyundai (HiMSEN)** — `AWS/comm_OEM/HiMSEN_Ammonia_Engine.md`:
+  **No stationary/land genset appears in this document at all.** The prior
+  chart row "HiMSEN ammonia genset (stationary)" was built from the public
+  survey's note that HD Hyundai merely "states an intent" to enter land
+  power — this commercial doc doesn't confirm or even mention that intent.
+  What it actually shows is HiMSEN's **marine** ammonia dual-fuel engines
+  (Diesel-cycle, chosen over Otto for lower N₂O and de-rating):
+  - **H22CDF-LA** (220 mm bore, 1.4–2.2 MW, 240 kW/cyl): Type Approval Test
+    **completed 30 Sep–2 Oct 2024** (ABS, BV, DNV, KR, LR, NK, RINA).
+  - **H32CDF-LA** (320 mm bore, 3.6–5.4 MW, 600 kW/cyl): Type Approval Test
+    **completed 29 Sep–2 Oct 2025**.
+  - **H32DF-LM** (320 mm bore, 3.0–4.5 MW, 500 kW/cyl) and **H22CDF-LM**
+    (same envelope as -LA) also listed, no TAT date given for these two.
+  - No commercial-sales date stated for any HiMSEN ammonia engine in this
+    doc — TAT completion is the latest confirmed milestone. **Action:
+    HiMSEN's stationary-genset "intent" open question (§5) stands
+    unconfirmed; the chart should show H22CDF-LA/H32CDF-LA (marine) instead
+    of the unconfirmed stationary genset.**
+- **Wärtsilä** — `AWS/comm_OEM/WA_rtsilA_25_Ammonia_for_MISC_01092026.md`
+  (commercial deck for MISC, 1 Sep 2026): **resolves the 2026-vs-2028 open
+  question in §5 — first commercial deliveries are 2026, not 2028.**
+  - **Wärtsilä 25 Ammonia**: 1.9–3.1 MW (6L–9L), dual-fuel Otto (low-pressure)
+    concept chosen over Diesel/high-pressure for safety + ~3%-point
+    efficiency; launched Nov 2023; engine efficiency now **~47%**; ammonia
+    energy share **~95%**; GHG reduction **>90%** (Tank-to-Wake, press
+    release 27 May 2025); power increased from 280/305 to **315/345 kW/cyl**
+    (parity with W25DF natural-gas output); TBO up to 32,000 h (24,000 h on
+    ammonia); EIAPP + Type Approval completed.
+  - **4 vessels contracted as of 1 Apr 2026** with confirmed named deliveries:
+    - **Eidesvik Offshore** (PSV *Viking Energy*, for Equinor): contract
+      signed Jun 2024; 1× 9L25 Ammonia + AmmoniaPac + WARMS + NOx Reducer;
+      conversion planned early 2026, **vessel starts operation end 2026**.
+    - **Skarv Shipping II AS** (7,800 DWT bulk carrier, Huanghai shipyard,
+      for Grieg Edge/Peak CSL): contract signed Oct 2025; 1× W6L25 Ammonia
+      genset — **genset delivery Q4/2026**, AmmoniaPac system Q1/2027,
+      **vessel delivery Q3/2027**.
+    - **Navigator Amon Shipping** (2× 51,350 m³ LPG/ammonia carriers, Nantong
+      CIMC Sinopacific): W8L25 Ammonia auxiliary engines — **first ship end
+      May 2027, second ship end Sep 2027**.
+  - R&D lineage (from-lab-to-product graphic): 2020 NH₃ combustion fuel lab
+    → 2021 6L32 NH₃ research engine → 2023 6L34DF NH₃ research engine (tested
+    at Sustainable Energy Katapult, Norway) → **2025 first W25DF NH₃ customer
+    delivery**.
 
 **Ammonia as H₂ carrier**
 - 17.8 wt% H₂; ≈121 kg H₂/m³ liquid (−33 °C / ~8.6 bar); boil-off ~0.025 %/day;
@@ -562,16 +620,30 @@ utilization for IPPs, 2026-07-28**
 
 ## 8. Changelog
 
-- **2026-09-19** — Session close-out. Investigated user's "28AGS-AM" (IHI)
-  naming question — found no source for it; confirmed the existing 18V28ADF
-  attribution is correct per IHI's own press release (see §5 open question).
-  User then asked to redevelop the OEM readiness-timeline PNG using data
-  from a folder referred to as `AWS/comm_OEM` (3 files) — that location could
-  not be found anywhere accessible this session (repo, sandbox filesystem,
-  other GitHub repos, chat uploads); flagged as a pickup item in §5 for the
-  next session ("continue develop OEM timeline"). No chart changes made this
-  entry — see the two prior 2026-09-18 entries below for the current state
-  of the readiness-timeline PNG/PPTX assets.
+- **2026-09-19** — Merged the parallel `claude/gas-engine-vendors-confirm-rg6f1j`
+  branch into `main` (commit `4ee996e`), bringing together this session's
+  chart work with another session's repo reorg (`power_generation/` split
+  into `AWS/power_generation/oem_surveys/` and `AWS/research_OEM/`) and the
+  new `AWS/comm_OEM/` folder (3 OEM commercial docs). The three new chart
+  files were relocated to `AWS/research_OEM/` per git's rename-conflict
+  resolution. Re-investigated the user's "28AGS-AM" (IHI) question with
+  those newly-available files and **retracted the earlier "not a real
+  product" conclusion** — it's a real, IHI-confirmed engine (see §5, §6).
+  Also resolved the Wärtsilä 2026-vs-2028 open question and corrected the
+  HD Hyundai row (marine dual-fuel engines, not a stationary genset) — see
+  §6 for full detail. Rebuilt
+  `AWS/research_OEM/ammonia_gas_engine_readiness_timeline_commOEM.png` from
+  this newly-sourced commercial data: IHI 18V28ADF + 28AGS-AM, HD Hyundai
+  H22CDF-LA + H32CDF-LA (Type Approval Test dates only, no bar — no
+  development-start date sourced), Wärtsilä 25 Ammonia with three named,
+  OEM-confirmed 2026–2027 vessel deliveries (Eidesvik Viking Energy, Skarv
+  Shipping II, Navigator Amon) replacing the old hollow/unverified
+  "2026?/2028?" stars. Same design system (Carlito/Calibri font, categorical
+  OEM colours, Gentari brand purple `#7030A0`) as the prior PNG/PPTX
+  versions, which remain at `AWS/research_OEM/gas_engine_readiness_timeline_gantt.png`,
+  `gas_engine_readiness_timeline.pptx`, and
+  `ammonia_gas_engine_readiness_timeline.pptx` (not yet updated with this
+  session's comm_OEM data — only the PNG was redone this entry).
 - **2026-09-18** — Built `power_generation/ammonia_gas_engine_readiness_timeline.pptx`
   at user request: a scoped-down remake of the readiness-timeline PPTX
   covering **only ammonia-fired reciprocating gas engines** — IHI 18V28ADF
