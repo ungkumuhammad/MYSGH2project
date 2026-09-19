@@ -50,6 +50,7 @@ cross-border H₂ pipeline to Singapore, defined on a permutation basis.
 | 2026-06-30 | H₂ 16″ pipeline parasitic retention ~0.99 | Compression to maintain 15–20 barg over short cross-strait run | Pipeline hydraulics |
 | 2026-07-01 | **100 %-H₂ CCGT installed capital cost ≈ $1,000–1,400/kW ("normal" market) or ≈ $2,400–3,200/kW (2025–26 supply-constrained market)** — derived, *not* an OEM quote | NG H-class CCGT baseline (EIA/S&L) + literature hydrogen-firing premium (~+8.5 % on GT subsystem, Chalmers 2022), sanity-checked vs. real hydrogen-ready projects (IPP Renewed ~$1,030/kW, Long Ridge ~$1,235/kW) | OEM/EPC quote sized to actual Singapore offtake MW |
 | 2026-07-16 | Data-center 50 MW clean block framed as **firm NH₃ generation + temporary grid top-up**, transitioning to 100 % clean as NH₃ becomes affordable | User use-case definition; favours modular/phased capacity that can grow the clean share unit-by-unit | Confirm total DC demand, target 100 %-clean date, and grid interconnection terms |
+| 2026-09-18 | **Gentari study-to-commercialisation schedule** (illustrative, not sourced): RFP issued Q1 2027 (1 month, timed to follow Wärtsilä engine commercialisation — user input) → bilateral OEM agreement (2 months, user input) → kickoff (user input) → pre-FEED (6–9 months, shown at 9, user input) → **FEED ~10 months → FID → EPC ~30 months → commissioning ~6 months → commercialisation ~early 2032 (all Claude-filled, industry-typical benchmarks, NOT sourced to any published Gentari schedule)** | User asked for a Gantt/arrow visual of the full pathway to commercialisation; only the first 4 stages were user-specified, so FEED/FID/EPC/commissioning durations were filled in to complete the picture | Replace FEED/FID/EPC/commissioning durations with actual Gentari project-schedule figures once available; do not cite the ~2032 commercialisation date externally as a real project date |
 
 *(No project-specific capacities, distances, costs, or vessel sizes have been
 fixed yet — none should be invented. See CLAUDE.md §7.)*
@@ -98,6 +99,41 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
 - [ ] Does the **IHI–PETRONAS–Gentari Terengganu ammonia-GT demo (2 MW IM270,
       start 2027)** create a usable Malaysian permitting/technical precedent for
       MYSGH2? (See `power_generation/oem_surveys/Ammonia-Fired_PowerGen_OEM_Survey.md`.)
+- [ ] **"28AGS-AM" (IHI) — unconfirmed, likely not a real product.** User asked
+      2026-09-19 whether IHI's ammonia land-engine should be called "28AGS-AM."
+      Websearch found **28AGS** is a real but *different* IHI product (natural-gas
+      spark-ignition lean-burn engine, 2,000–6,000 kWe, e.g. Yokohama Works
+      cogen) with no located ammonia ("-AM") variant. The actual Ota Works
+      (Gunma) 6 MW-class land-based ammonia demo engine is confirmed by IHI's
+      own press release as the **18V28ADF** — already the name used in
+      `AWS/power_generation/oem_surveys/Ammonia-Fired_PowerGen_OEM_Survey.md`,
+      the Gantt PNGs, and both PPTX decks. Do not rename to "28AGS-AM" unless
+      the user supplies a source confirming it as a distinct/real product.
+- [ ] **PICKUP — "continue develop OEM timeline" (opened 2026-09-19).** User
+      wants to redevelop the IHI/HD Hyundai/Wärtsilä readiness-timeline PNG
+      again, this time sourcing OEM data from **`AWS/comm_OEM/`** (3 files,
+      confirmed to exist as of this entry — see below). Mid-session the folder
+      could not be located because it landed on `main` (via a parallel
+      session, commits `0e1dac4`/`a2529b7`) *after* the chart-building branch
+      had diverged from it; a repo-structure reorg happened at the same time
+      (old `power_generation/` split into `AWS/power_generation/oem_surveys/`
+      and `AWS/research_OEM/`). Both branches have since been merged into
+      `main`, so **`AWS/comm_OEM/` is now present and should be read directly**
+      next session — no need to ask the user where it is. Its 3 files (OEM
+      commercial docs, markitdown-converted from PDF):
+      `AWS/comm_OEM/20260827_For_Gentari_IHI_AVC_Business_Ammonia_Engine_Presentation.md`,
+      `AWS/comm_OEM/HiMSEN_Ammonia_Engine.md`,
+      `AWS/comm_OEM/WA_rtsilA_25_Ammonia_for_MISC_01092026.md`. These are
+      **commercially-sourced OEM documents** (heavier-weight than the public
+      web-search survey used previously) — cross-check their figures against
+      `AWS/power_generation/oem_surveys/*_OEM_Survey.md` and flag any
+      conflicts per the No-Fabrication Rule rather than silently picking one.
+      Existing chart assets to build from (now at `AWS/research_OEM/` after
+      the merge): `gas_engine_readiness_timeline_gantt.png` (full OEM +
+      Gentari pathway, matplotlib/Carlito font), and two native-PowerPoint
+      versions, `gas_engine_readiness_timeline.pptx` (full) and
+      `ammonia_gas_engine_readiness_timeline.pptx`
+      (ammonia-reciprocating-engines-only, excludes H₂ + turbines).
 
 ## 6. Sourced Data Registry (technical baseline)
 
@@ -526,6 +562,54 @@ utilization for IPPs, 2026-07-28**
 
 ## 8. Changelog
 
+- **2026-09-19** — Session close-out. Investigated user's "28AGS-AM" (IHI)
+  naming question — found no source for it; confirmed the existing 18V28ADF
+  attribution is correct per IHI's own press release (see §5 open question).
+  User then asked to redevelop the OEM readiness-timeline PNG using data
+  from a folder referred to as `AWS/comm_OEM` (3 files) — that location could
+  not be found anywhere accessible this session (repo, sandbox filesystem,
+  other GitHub repos, chat uploads); flagged as a pickup item in §5 for the
+  next session ("continue develop OEM timeline"). No chart changes made this
+  entry — see the two prior 2026-09-18 entries below for the current state
+  of the readiness-timeline PNG/PPTX assets.
+- **2026-09-18** — Built `power_generation/ammonia_gas_engine_readiness_timeline.pptx`
+  at user request: a scoped-down remake of the readiness-timeline PPTX
+  covering **only ammonia-fired reciprocating gas engines** — IHI 18V28ADF
+  (6 MW), HD Hyundai HiMSEN ammonia genset, Wärtsilä 25 Ammonia. Excludes
+  all hydrogen-fired engines (Wärtsilä 31H2, HD Hyundai HiMSEN pure-H₂,
+  Infracore 11L H₂) **and** the ammonia gas turbines (IHI IM270, IHI+GE
+  Vernova F-class) — "gas engine" read as reciprocating engine, distinct
+  from turbine, per the repo's own engine-vs-turbine framing. Same design,
+  Calibri font, and Gentari brand purple as the full-scope version; the
+  Gentari pathway's connector now references Wärtsilä 25 Ammonia's earliest
+  unverified date (2026?) as the "commercialisation" trigger instead of the
+  excluded 31H2 hydrogen engine's confirmed Jun-2026 date.
+- **2026-09-18** — Built `power_generation/gas_engine_readiness_timeline.pptx`: a
+  fully editable native-PowerPoint rebuild of the Gantt PNG (same layout, same
+  Calibri font, same Gentari brand purple `#7030A0`) using pptxgenjs — every
+  bar, star, circle, line and text box is a real PPT shape, not an embedded
+  image. True diagonal hatch fill has no editable-shape equivalent in
+  pptxgenjs, so "planned/uncertain" segments use a lighter fill + dashed
+  border instead (same meaning). Note for future sessions: this sandbox's
+  LibreOffice initially had only `libreoffice-core`/`-common` installed, so
+  `soffice --convert-to pdf` failed with "source file could not be loaded"
+  on *any* file, not just this deck — fixed by `apt-get install -y
+  libreoffice-impress` (pulls in `libreoffice-draw` too), after which visual
+  QA rendering worked normally.
+- **2026-09-18** — Built `power_generation/gas_engine_readiness_timeline_gantt.png`
+  at user request: a Gantt chart of IHI / HD Hyundai / Wärtsilä gas-engine and
+  -turbine readiness/commercialisation dates (from the 2026-09-10 OEM surveys),
+  grouped one shaded section per OEM, dual year/quarter axis, star markers for
+  readiness (filled = confirmed, hollow = unverified target). Added a second
+  panel below it: a single left-to-right arrow for **Gentari's study →
+  commercialisation pathway**, numbered ①–⑧ with a decoding legend. Stages
+  ①–④ (RFP, bilateral agreement, kickoff, pre-FEED) are user-specified inputs;
+  stages ⑤–⑧ (FEED, FID, EPC, commissioning) are Claude-filled indicative
+  assumptions needed to reach a commercialisation milestone — see §3
+  Assumptions Register, 2026-09-18 row. Chart uses the repo's actual Gentari
+  brand purple `#7030A0` (from `presentationstyle/Design_Style_Guide.md`) for
+  the Gentari track, and Carlito (metric-compatible with Calibri, per user's
+  font request) throughout.
 - **2026-09-10** — Built two **OEM "who's who" surveys** at user request, each
   covering gas turbines, 2-stroke and 4-stroke gas engines, one column per
   fuel-mode + a News-link column: `power_generation/oem_surveys/
