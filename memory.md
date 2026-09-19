@@ -620,6 +620,16 @@ utilization for IPPs, 2026-07-28**
 
 ## 8. Changelog
 
+- **2026-09-19** — Built `AWS/research_OEM/ammonia_gas_engine_readiness_timeline_merged.pptx`:
+  fully editable native-PowerPoint version of the merged ammonia-only PNG
+  (entry below), via pptxgenjs. Same grey/colour provenance convention and
+  Calibri font. One layout deviation from the PNG: the two Wärtsilä
+  milestones only 6 weeks apart (Skarv Shipping II genset delivery Q4 2026;
+  Eidesvik Viking Energy ops start end 2026) are combined into a single
+  star/label — at this chart's multi-year timescale, two separate label
+  boxes that close together could not be laid out without overlapping text
+  in native (non-wrapping-avoidance) PPT shapes. Both facts are still
+  shown, just under one marker instead of two.
 - **2026-09-19** — Built `AWS/research_OEM/ammonia_gas_engine_readiness_timeline_merged.png`:
   same merged research_OEM(grey)+comm_OEM(colour) convention as the entry
   below, but scoped to **ammonia-fired reciprocating engines only** — drops
