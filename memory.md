@@ -620,6 +620,14 @@ utilization for IPPs, 2026-07-28**
 
 ## 8. Changelog
 
+- **2026-09-19** — Built `AWS/research_OEM/ammonia_gas_engine_readiness_timeline_merged.png`:
+  same merged research_OEM(grey)+comm_OEM(colour) convention as the entry
+  below, but scoped to **ammonia-fired reciprocating engines only** — drops
+  IHI's two ammonia gas turbines (IM270, IHI+GE Vernova F-class) and all
+  three hydrogen-engine rows (HD Hyundai HiMSEN pure-H₂, Infracore 11L H₂,
+  Wärtsilä 31H2). Net 6 engine rows: IHI 18V28ADF + 28AGS-AM (comm_OEM),
+  HD Hyundai HiMSEN ammonia genset (research_OEM, grey/unconfirmed) +
+  H22CDF-LA + H32CDF-LA (comm_OEM), Wärtsilä 25 Ammonia (comm_OEM).
 - **2026-09-19** — Built `AWS/research_OEM/gas_engine_readiness_timeline_merged.png`
   at user request: a single merged timeline combining the full original
   research_OEM survey (all 8 rows — turbines, H₂ engines, and ammonia
