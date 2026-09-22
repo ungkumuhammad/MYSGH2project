@@ -91,6 +91,12 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
 - [ ] Cracker technology/vendor and heat source (and its carbon intensity)?
 - [ ] Subsea vs. land crossing of the Johor Strait — permitting & ROW?
 - [ ] Which permutations are in/out of scope for the first study round?
+- [ ] Should a fuel cell vendor RFI (HyAxiom, FuelCell Energy, Bloom Energy)
+      be pursued for real CAPEX $/kW, footprint, and hydrogen-specific
+      efficiency numbers? Desk research (2026-09-22,
+      `reports/Fuel cell power generation players.md`) found no current
+      (2024–2026), vendor-confirmed CAPEX figure for any fuel cell chemistry,
+      and footprint data limited to one vendor-linked MCFC data point.
 - [x] ~~Wärtsilä 25 Ammonia first-delivery year: 2026 or 2028?~~ **RESOLVED
       2026-09-19** via `AWS/comm_OEM/WA_rtsilA_25_Ammonia_for_MISC_01092026.md`
       (Wärtsilä's own commercial deck): first confirmed deliveries are
@@ -620,6 +626,58 @@ utilization for IPPs, 2026-07-28**
 
 ## 8. Changelog
 
+- **2026-09-22** — Opened a new power-generation technology track: **fuel
+  cells** (PAFC/MCFC/SOFC/PEMFC), as a third offtake-side candidate alongside
+  the existing gas turbine vs. gas engine study. User requested deep research
+  on players/offerings/specs/efficiency/land requirements; ran 5 parallel
+  research subagents + 1 report-writer subagent (deep-research skill).
+  Deliverables: `research_notes/Fuel cell power generation players/` (5 notes
+  files: PAFC/MCFC OEMs, SOFC OEMs, PEMFC OEMs, footprint/cost/efficiency
+  benchmarks, APAC/Korea deployments) and synthesized report
+  `reports/Fuel cell power generation players.md`. **Key findings:**
+  (1) Only two commercial dedicated pure-hydrogen fuel cell products exist:
+  HyAxiom (Doosan) PureCell M400 Hydrogen (PAFC, 440 kW, ~50 % electrical
+  efficiency, basis unstated) and Bloom Energy's Hydrogen-Powered Energy
+  Server (SOFC, 300 kW+ on ≥99.90 % purity H₂, ~52 % avg/60 % peak) — neither
+  has a verified multi-MW long-duration hydrogen operating record.
+  (2) FuelCell Energy's shipping MCFC line (SureSource, up to 58.8 MW parks)
+  runs on NG/biogas/NG-H₂ blends up to only 40–50 % H₂ — cannot directly
+  consume MMHE's cracked hydrogen stream without blending back down with NG;
+  a 100 % H₂ product is described as "in development" on a separate SOFC
+  line. (3) The only confirmed multi-MW plant genuinely fed by hydrogen
+  (not NG-reformed) found anywhere is South Korea's 50 MW Daesan PAFC plant
+  (Hanwha/Doosan) — and it runs on industrial by-product hydrogen, not
+  imported/ammonia-cracked hydrogen. (4) **No Malaysia fuel cell power
+  generation deployment of any kind, at any scale, on any fuel, was found.**
+  (5) **No Singapore hydrogen-fed fuel cell deployment was found**; Singapore's
+  one confirmed fuel cell activity (Bloom SOFC at an SK ecoplant/GDS data
+  center) is NG-fed, and the closest hydrogen-linked activity (DayOne 20 MW
+  data center, Sembcorp-partnered) is only a 0.3 MW SOFC hydrogen
+  proof-of-concept, not a commercial plant. (6) Singapore's own flagship
+  hydrogen-ready (600 MW Keppel Sakra Cogen) and ammonia-fed pilot
+  (55–65 MW, Jurong Island) power projects both chose **gas turbines, not
+  fuel cells** — read as a market signal, not a cited ranking.
+  (7) Electrical efficiency across sourced fuel cell figures spans ~41–65 %
+  LHV (several unstated LHV/HHV basis, flagged), comparable to or better than
+  this project's gas turbine simple-cycle baseline (35–46 % LHV) and in/above
+  the CCGT band (~55–63 % LHV) in places — but **no current (2024–2026),
+  vendor-confirmed CAPEX $/kW figure exists for any chemistry** (only stale
+  2018-era Bloom data, DOE/EU aspirational targets, or unverified rules of
+  thumb), and footprint data is limited to essentially one vendor-linked MCFC
+  data point (~0.088 acres/MW, FuelCell Energy 59 MW Gyeonggi Green Energy
+  park) with no comparable figure for PAFC/SOFC/PEMFC.
+  **Conclusion carried forward:** fuel cells are technically plausible for
+  the Singapore-side offtake but sit behind gas turbines in commercial
+  readiness for grid-scale, pure-hydrogen duty in this exact region; any
+  MYSGH2 permutation specifying fuel cells would be pioneering an unproven
+  fuel pathway (imported/ammonia-cracked H₂ at MW+ scale), not adopting a
+  precedented one. **Open question added to §5:** should a fuel cell vendor
+  RFI (HyAxiom, FuelCell Energy, Bloom Energy) be pursued to get real CAPEX/
+  footprint/hydrogen-efficiency numbers, since desk research is now thin on
+  all three. All quantitative claims in the notes/report carry inline
+  citations or are explicitly flagged as gaps/inferences per the
+  No-Fabrication Rule; no numbers were fabricated. Work done on branch
+  `claude/fuel-cell-power-research-uz4vm7`.
 - **2026-09-19** — Built `AWS/research_OEM/ammonia_gas_engine_readiness_timeline_merged.pptx`:
   fully editable native-PowerPoint version of the merged ammonia-only PNG
   (entry below), via pptxgenjs. Same grey/colour provenance convention and
