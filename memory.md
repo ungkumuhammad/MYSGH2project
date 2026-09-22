@@ -112,6 +112,22 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
       public websearch only) was wrong; retracted. See §6 for the
       AGX-vs-28AGS-AM naming/date inconsistency still open within IHI's own
       deck (2028 vs "2028-2029").
+- [ ] **H₂ reciprocating engine efficiency on 100 % hydrogen** — unpublished by
+      every MW-class OEM (Wärtsilä explicitly defers it to the 31H2 sales
+      release). Needs a direct OEM query before any P1 well-to-wire or LCOE use;
+      do not substitute the NG-basis platform efficiency.
+- [ ] **Bergen H₂ rating** — 10 % / 25 % / "target 60 %" / 100 %-fired are from
+      different sources and dates; which is the current commercial rating?
+- [ ] **Kawasaki KG-18-T** — 7.5 MW vs "8 MW class"; and no published electrical
+      efficiency located (kawasaki.com proxy-blocked).
+- [ ] **H₂ engine NOx / after-treatment and tropical ambient derate** — not
+      published by any engine OEM located; both needed before an engine-vs-turbine
+      P1 power-block comparison.
+- [ ] **Cummins** — any hydrogen *genset* product, as distinct from on-/off-highway
+      ICE? (carried forward unresolved from the 2026-09-10 survey)
+- [ ] **Chinese engine OEMs** (Jichai/CSIC, Weichai, Yuchai, Sinotruk) — not
+      surveyed for hydrogen gensets in either pass.
+
 ## 6. Sourced Data Registry (technical baseline)
 
 > Reference values for first-pass sizing only — not vendor data. Keep sources.
@@ -474,6 +490,127 @@ utilization for IPPs, 2026-07-28**
   Markets; Data Center Frontier; TechCrunch (Chevron/Microsoft Project Kilby);
   DCD (ProEnergy).
 
+**H₂ RECIPROCATING GAS ENGINE (genset) OEM survey — engine-only, sizes &
+efficiencies, 2026-09-22**
+
+> Extends the 2026-09-10 `AWS/power_generation/oem_surveys/
+> Hydrogen-Fired_PowerGen_OEM_Survey.md` by closing that survey's own open
+> question ("no unit size / efficiency figure has been assigned to any
+> machine"). **Turbines excluded** — reciprocating engines only, for the
+> **P1 H₂-fired Singapore-offtake** power block. Basis: H₂ fractions quoted
+> **as the source states them** (all engine figures located are **vol %**
+> unless noted); efficiencies are **natural-gas-basis electrical efficiency**
+> unless the source explicitly states a hydrogen basis — this distinction is
+> load-bearing and must not be collapsed.
+
+- **★ Headline finding: NO OEM publishes an electrical efficiency for a
+  100 %-hydrogen reciprocating engine.** Wärtsilä states this explicitly for
+  the 31H2: *"Switching fuel from natural gas to pure hydrogen will impact the
+  engine performance such as output and efficiency, the exact impact will be
+  communicated in conjunction with the sales release."* This is an
+  **OEM-confirmed non-publication**, not a failed search. Every efficiency
+  figure in the table below is therefore an **NG-basis** number for the same
+  platform, and **must not be quoted as an H₂ efficiency**. The only
+  H₂-specific efficiencies located anywhere are **2G Energy's sub-MW H₂ CHP
+  models (37.7–41.2 %)**, whose models carry an explicit "H2" suffix.
+- **Unit sizes (sourced, NG/platform basis):**
+  - Wärtsilä **31H2** — **4.6–10.4 MW/unit** (Wärtsilä 31 platform, 8–16 cyl,
+    310/430 mm); NG sibling **31SG simple-cycle efficiency >50 %** (Wärtsilä's
+    own claim, "world's most efficient 4-stroke"). Tendering 2025, delivery
+    2026; 100 % H₂ to the **Spanish national grid, Bermeo, Jun 2026**.
+    Also **31SG-H2** = NG engine running NG or **25 % H₂**, upgradeable to
+    100 % H₂.
+  - Kawasaki **KG-18-T** — **7.5 MW** (verification unit described as
+    "8 MW class"); **30 vol % H₂ co-firing**, commercial **sales launched
+    30 Sep 2025** (OEM claims world first for a large gas engine); Kobe Works
+    verification Oct 2024→Sep 2025; >240 KG-series units sold since 2011.
+    Efficiency figure **not obtained** (kawasaki.com proxy-blocked this pass).
+  - Bergen **B36:45V** — **6,750–11,785 kW** (V-engine datasheet) /
+    **6,900–9,600 kW** (genset datasheet), 600 kW/cyl. **25 % H₂ across the
+    full NG range without modification**; **100 % H₂ firing achieved Dec 2024**,
+    industrialisation continuing. ⚠️ **Internal source conflict**: a Modern
+    Power Systems piece describes the commercial target as **"up to 60 % H₂,
+    with 100 % for new engines to come"**, and an older commitment at only
+    **10 vol % H₂** — the 25 %/60 %/100 % claims are from different dates and
+    should not be merged. Electrical efficiency on H₂ **not published**.
+  - Caterpillar / **Cat Electric Power** — H₂-blend genset portfolio
+    **400 kW–4.5 MW** (CG132B, CG170B, CG260, G3500H) via factory hardware or
+    retrofit kits, **up to 25 vol % H₂** (CG260 rating); **G3516
+    100 %-H₂ demonstrator since 2022, max 1,000 kW** at 50 or 60 Hz continuous.
+    Cat also claims **35 years** of experience with projects running blends
+    **up to 80 % H₂** (application-specific, not a product rating).
+  - Caterpillar / **MWM** (Caterpillar Energy Solutions) — **TCG 3020**
+    (V12/V16/V20) **1,380–2,300 kWₑ**, electrical efficiency **up to 45 %
+    (natural gas)** / 43.6 % (biogas); **25 vol % H₂ admixture** via the
+    **25H2-Kit** (new engines and retrofit). **TCG 3016** likewise 25 vol %.
+    **No 100 % H₂ MWM product located.**
+  - INNIO **Jenbacher Type 4 / J420** — **up to 1,694 kW**, electrical
+    efficiency **up to 42.6 %** (NG basis); J420 D/E **up to 1,562 kW**,
+    +~1 pt vs J420 B. Type 4 available on **100 % H₂**; rest of line
+    **"Ready for H2" at 25 vol %**, convertible. Field ref: **1.4 MW J420 on
+    100 % hydrogen, Hychico Diadema, Argentina**; **3 MW 100 %-H₂ data-centre
+    backup demo, 23 Apr 2026**; **Hyosung Ulsan, Korea = first 100 %-H₂ engine
+    power plant in APAC** (closest thing to an Asian reference).
+  - Rolls-Royce **mtu Series 4000 FNER/FV** — **TÜV SÜD H₂-readiness
+    certificate, 11 Jul 2024**, covering **25 vol % blend and 100 vol %
+    operation**, newbuild and retrofit; first 100 %-H₂ installation Enerport II
+    (Duisburg). New **Series 4000 L64**, 60 Hz, **2.8 MW full output from
+    2026**, 45 s to full load. Efficiency on H₂ **not published**.
+  - **2G Energy** — the **only OEM with published hydrogen-basis electrical
+    efficiencies**: agenitor **404c H2 115 kW / 37.7 %**, **406 H2 170 kW /
+    39.0 %**, **408 H2 240 kW / 40.2 %**, **412 H2 360 kW / 40.5 %**, **avus
+    1000plus H2 750 kW / 41.2 %**. CHP range 20–4,500 kW across fuels; first
+    fully H₂-operated CHP commissioned **2014**. **Sub-MW class** — auxiliary/
+    distributed, not utility duty. *(Useful as the de-rate benchmark: 2G's NG
+    agenitor 406/408 reach 42.5 %, vs 39.0/40.2 % on H₂ ⇒ an observed
+    **~2.3–3.5 pt** H₂ penalty **within one OEM's own sub-MW line**. Do NOT
+    extrapolate this to MW-class engines — different combustion system,
+    different platform; flagged as indicative only.)*
+  - **DEUTZ TCG 7.8 H2** — **200 kW**, genset pilot to **170 kVA** electrical;
+    volume production stated from **2024**; **~100 H₂ gensets commissioned in
+    China**. Sub-MW.
+  - **HD Hyundai Infracore** — **11 L "HX12"** H₂ engine; **1,500 h completed
+    on a 200 kW generator**; mass production for **power generation targeted
+    2026**. Sub-MW, trucks-first programme.
+  - **Everllence (ex-MAN ES)** — series **35/44GTS and 51/60G** accept
+    **25 % H₂ blended**; **35/44DF H2 single-cylinder research engine**
+    commissioned Augsburg late 2025, already run on **100 % H₂**. No commercial
+    100 %-H₂ MAN power-gen engine.
+  - **Cummins** — H₂ ICE (**B6.7H**, 6.7 L, 290 hp; 15 L in development) is
+    **on-/off-highway**; **no power-gen genset product located** — unconfirmed,
+    not absent.
+  - **Liebherr H966** (13 L, 6-cyl, PFI, 100 % H₂) — **off-highway/construction
+    prototype, no genset product located.** Listed only so it is not
+    mis-scoped as a power-gen offering.
+  - **Yanmar** — ~**500 kW** pilot-ignition H₂ 4-stroke demonstrated at rated
+    output (30 Oct 2024); marine-aux framing; H₂ ratio value not stated in the
+    release.
+- **Singapore / SEA relevance (searched 2026-09-22):** **no hydrogen
+  reciprocating-engine deployment or certification located in Singapore or
+  anywhere in SEA.** Every Singapore hydrogen power project found is a **gas
+  turbine**: Keppel Sakra Cogen **600 MW, 30 % H₂-capable, ~80 % complete, H1
+  2026** (MHI + Jurong Engineering); **GE Vernova 9HA.01, 600 MW H₂-capable
+  CCGT at Pulau Seraya**; Sembcorp H₂-ready plant (MHI); **Senoko Energy +
+  Gentari** feasibility on **importing H₂ from Malaysia into Senoko's CCGTs,
+  supply from ~2029**; Bridge Data Centres + Concord New Energy MoU (2 Mar
+  2026) on a **barge-based** H₂ power solution (technology not specified).
+  ⇒ **The nearest engine reference for Asia-Pacific is INNIO's Hyosung Ulsan
+  (Korea) plant, not anything in SEA.** The Senoko–Gentari thread is the most
+  directly MYSGH2-relevant item and is **turbine-side**.
+- **Cross-read vs. the ammonia side:** the H₂ engine is roughly **two product
+  generations ahead** of the NH₃ engine at MW scale — a 4.6–10.4 MW machine has
+  fed 100 % H₂ into a national grid (Jun 2026) whereas the largest ammonia
+  engines with sales dates are **1.9–3.1 MW (Wärtsilä 25 Ammonia)** and
+  **2–6 MW (IHI 28ADF, from 2027)**. This *strengthens* P1 (hydrogen) on the
+  **engine** axis, independently of the turbine-axis argument already recorded
+  for 2026-07-28.
+  — Wärtsilä; INNIO/Jenbacher; Kawasaki; Bergen Engines; Caterpillar; MWM/
+  Caterpillar Energy Solutions; Rolls-Royce Power Systems (mtu); 2G Energy;
+  DEUTZ; HD Hyundai Infracore/HD Hyundai ESG; Everllence; Cummins; Liebherr;
+  Yanmar; EDB Singapore; Keppel; Mitsubishi Power APAC; Enlit World;
+  Turbomachinery Magazine; Power Progress; Modern Power Systems; Hydrogen
+  Central; h2-tech; Global Hydrogen Review. (URLs in §7.)
+
 ## 7. References
 
 - Ammonia Energy Association — "Liquid Ammonia for Hydrogen Storage":
@@ -618,8 +755,80 @@ utilization for IPPs, 2026-07-28**
   (boiler application, Nagasaki, Nov 2023): https://www.mhi.com/news/23112801.html ;
   Power Engineering — same: https://www.power-eng.com/gas/turbines/mitsubishi-says-it-successfully-tested-an-ammonia-single-fuel-burner/
 
+**H₂ reciprocating gas-engine OEM survey (engine-only), added 2026-09-22**
+- Wärtsilä — 31H2, world's first large-scale 100 % H₂ engine to the Spanish grid (11 Jun 2026): https://www.wartsila.com/media/news/11-06-2026-world-s-first-large-scale-100-hydrogen-engine-tested-at-wartsila-s-bermeo-laboratory-to-support-the-spanish-grid-3760292
+- Wärtsilä — hydrogen-ready power plant solutions (tendering 2025 / delivery 2026; efficiency impact "communicated in conjunction with the sales release"): https://www.wartsila.com/energy/sustainable-fuels/hydrogen-power-plant
+- Wärtsilä — 31SG gas engine, simple-cycle efficiency >50 %: https://www.wartsila.com/energy/engine-power-plant-solutions/engine-power-plant-products/wartsila-31sg-gas-engine ; https://www.wartsila.com/media/news/15-11-2017-simple-cycle-efficiency-raised-to-entirely-new-level-with-the-wartsila-31sg-engine
+- Kawasaki — world's first commercial launch of a 30 % H₂ co-firing large gas engine (KG-18-T, 7.5 MW; 30 Sep 2025): https://global.kawasaki.com/en/corp/newsroom/news/detail/?f=20250930_4865 ; Green Gas Engine line-up: https://global.kawasaki.com/en/energy/equipment/gas_engines/line_up.html
+- Bergen Engines — B36:45V genset datasheet (6,900–9,600 kW): https://www.bergenengines.com/wp-content/uploads/2024/11/Bergen-B36-45V-Genset.pdf ; B36:45V engine datasheet (6,750–11,785 kW): https://www.bergenengines.com/wp-content/uploads/2021/12/Bergen-Engines-B36-45V.pdf
+- Modern Power Systems — Bergen demonstrates 100 % hydrogen (and the ≤60 % commercial-target wording): https://www.modernpowersystems.com/analysis/bergen-demonstrates-100-hydrogen/
+- Caterpillar — CG260 added to the hydrogen lineup (25 vol % blend): https://www.cat.com/en_US/news/engine-press-releases/caterpillar-advances-hydrogen-program-by-adding-cat-cg260-gas-generator-set-to-lineup.html ; 400 kW–4.5 MW H₂-blend portfolio + G3516 100 % H₂ demonstrator (1,000 kW): https://www.cat.com/en_US/news/engine-press-releases/caterpillar-expands-lineup-of-hydrogen-fueled-power-solutions-with-generator-sets-and-upgrade-kits.html
+- MWM (Caterpillar Energy Solutions) — TCG 3020 gas engine (1,380–2,300 kWₑ; up to 45 % electrical efficiency on NG): https://www.mwm.net/en/gas-engines-gensets/gas-engine-tcg-3020-v20/ ; TCG 3020 engines and retrofit kits for up to 25 vol % H₂: https://www.mwm.net/en/news/news-releases/mwm-launches-tcg-3020-gas-engines-and-retrofit-kits-for-hydrogen-operation-with-admixture-of-up-to-25-vol/ ; TCG 3016 25 vol % H₂: https://www.mwm.net/en/news/news-releases/mwm-tcg-3016-gas-engines-and-retrofit-kits-for-hydrogen-operation-with-admixture-of-up-to-25-vol-now-available/
+- INNIO Jenbacher — J420 (up to 1,694 kW, up to 42.6 % electrical efficiency): https://www.jenbacher.com/en/gas-engines/type-4/jenbacher-j420/ ; https://www.jenbacher.com/en/gas-engines/type-4/j420/
+- INNIO — hydrogen application sheet (H₂ portfolio): https://www.innio.com/wp-content/uploads/2024/08/innio_appsheet_h2_a4_en_screen_ijb-323009-en.pdf *(proxy-blocked this pass)*
+- INNIO — 3 MW 100 %-H₂ data-centre backup demonstration (23 Apr 2026): https://www.innio.com/en/news-media/press-releases/innio-and-net-zero-innovation-hub-deliver-world-first-3-mw-demonstration-of-100-hydrogen-backup-power-for-data-centers/ ; first 100 %-H₂ engine power plant in APAC (Hyosung, Ulsan): https://www.innio.com/en/news-media/press-releases/innio-technology-selected-for-first-100-hydrogen-engine-power-plant-in-asia-pacific/
+- Rolls-Royce — TÜV SÜD H₂-ready certificate for mtu Series 4000 (25 vol % blend and 100 vol %): https://www.rolls-royce.com/media/press-releases/2024/11-7-2024-energy-transition-rr-reaches-milestone-with-h2-ready-certificate-for-mtu-engines.aspx ; fast-start mtu gensets (Series 4000 L64, 2.8 MW from 2026): https://www.rolls-royce.com/media/press-releases/2025/02-10-2025-rr-introduces-fast-start-mtu-gas-gensets-for-powering-data-centers.aspx
+- 2G Energy — H₂ CHP / H2-ready (agenitor H2 models, kW and electrical efficiency): https://2-g.com/en/solutions/h2-ready ; agenitor range: https://2-g.com/en/products/chp-systems/agenitor
+- DEUTZ — hydrogen engines (TCG 7.8 H2, 200 kW): https://www.deutz.com/en/products/hydrogen-engines/ ; H₂ gensets in operation in China: https://www.deutz.com/en/news/press-releases/news-detail/deutz-puts-hydrogen-powered-generator-sets-into-operation-in-china/
+- HD Hyundai — Infracore hydrogen engine business roadmap (11 L HX12; power generation 2026): https://esg.hd.com/en/news/842 ; 1,500 h on a 200 kW H₂ generator: https://esg.hd.com/en/news/876
+- Everllence / MAN ES — hydrogen power solutions (35/44DF H2 research engine; 25 % H₂ on 35/44GTS and 51/60G): https://www.man-es.com/energy-storage/campaigns/hydrogen-power-solutions
+- Cummins — B6.7H hydrogen ICE development completed (on-highway, not genset): https://www.route-one.net/suppliers/cummins-b6-7h-hydrogen-engine-development-is-completed/
+- Liebherr — H966 hydrogen engine (13 L, off-highway; no genset product): https://www.liebherr.com/en-int/components/solutions/combustion-engines/product-portfolio-diesel-engines/h966-6725400
+- Yanmar — ~500 kW pilot-ignition hydrogen 4-stroke at rated output (30 Oct 2024): https://www.yanmar.com/global/news/2024/10/30/143738.html
+- Singapore EDB — new hydrogen-ready power plant by 2026 (Keppel Sakra Cogen, 600 MW, 30 % H₂): https://www.edb.gov.sg/en/business-insights/insights/new-hydrogen-ready-power-plant-to-be-built-by-2026-as-singapore-seeks-greener-energy-generators.html ; two more H₂-ready plants by 2030: https://www.edb.gov.sg/en/business-insights/insights/singapore-plans-to-build-two-more-hydrogen-ready-natural-gas-power-plants-by-2030.html
+- Keppel — gas turbine installed at Singapore's first hydrogen-compatible cogeneration plant: https://www.keppel.com/media/keppel-installs-state-of-the-art-gas-turbine-at-singapores-first-hydrogen-compatible-cogeneration-power-plant/
+- Enlit World — GE Vernova 9HA.01 order for a 600 MW hydrogen-capable CCGT, Pulau Seraya, Singapore: https://www.enlit.world/library/ge-vernova-confirms-order-for-hydrogen-ready-power-plant-in-singapore
+- Mitsubishi Power APAC — hydrogen-ready plant for Sembcorp: https://power.mhi.com/regions/apac/news/gro20230524
+- Senoko Energy + Gentari — hydrogen import from Malaysia into Senoko CCGTs (supply from ~2029): https://www.malaymail.com/amp/news/money/mediaoutreach/2024/10/24/senoko-energy-and-gentari-collaborate-to-enhance-sustainable-energy-solutions-in-singapore-with-hydrogen/335624
+- Bird & Bird — Hydrogen developments in Singapore and around ASEAN (2026): https://www.twobirds.com/en/insights/2026/singapore/hydrogen-developments-in-singapore-and-around-asean
+
 ## 8. Changelog
 
+- **2026-09-22** — **H₂ reciprocating gas-engine (genset) OEM survey, engine-only**
+  — chat-delivered comparison table + new §6 entry and §7 reference block. Scope:
+  hydrogen-capable **reciprocating** engines only (turbines excluded), for the
+  **P1 H₂-fired Singapore-offtake** power block. This closes the explicit open
+  question left by the 2026-09-10 `Hydrogen-Fired_PowerGen_OEM_Survey.md` §4
+  ("no efficiency, heat-rate or unit-size figure has been assigned to any
+  machine"). Key outcomes:
+  - **No OEM publishes an electrical efficiency for a 100 %-H₂ reciprocating
+    engine.** Wärtsilä states outright that the 31H2's output/efficiency impact
+    "will be communicated in conjunction with the sales release" — an
+    OEM-confirmed non-publication. All MW-class efficiency figures in the table
+    are **NG-basis for the same platform** and are labelled as such.
+  - **Only 2G Energy publishes H₂-basis efficiencies** — sub-MW agenitor H2
+    models, **37.7–41.2 %** — giving an **indicative ~2.3–3.5 pt H₂ penalty**
+    within one OEM's own line (NG agenitor 406/408 = 42.5 %). Flagged as
+    **not transferable** to MW-class machines.
+  - **Sourced unit-size spine:** Wärtsilä 31H2 **4.6–10.4 MW** (100 % H₂, grid
+    demo Jun 2026, delivery from 2026) › Bergen B36:45V **6.75–11.8 MW**
+    (25 % today, 100 % fired Dec 2024) › Kawasaki KG-18-T **7.5 MW** (30 %
+    H₂, commercially on sale 30 Sep 2025) › MWM TCG 3020 **1.38–2.3 MW** (25 %)
+    › INNIO J420 **≤1.69 MW** (100 % H₂ at Type 4) › mtu 4000 L64 **2.8 MW**
+    (25 %/100 % certified) › Cat G3516 **1.0 MW** (100 % H₂ demonstrator) ›
+    2G / DEUTZ / HD Hyundai / Yanmar **0.2–0.75 MW**.
+  - **Maturity split is clean:** genuine **commercial** product today =
+    **blends (25–30 vol %)**; **100 % H₂** is **demonstrator/first-of-a-kind**
+    at MW scale and **commercial only sub-MW** (INNIO Type 4, 2G).
+  - **Singapore/SEA: nothing.** No H₂ reciprocating-engine deployment or
+    certification located in Singapore or SEA — every Singapore H₂ power
+    project found is a **gas turbine** (Keppel Sakra Cogen 600 MW 30 % H₂,
+    H1 2026; GE 9HA.01 Pulau Seraya; Sembcorp/MHI; Senoko–Gentari H₂-import
+    feasibility from ~2029). Nearest engine reference in Asia-Pacific is
+    **INNIO's Hyosung Ulsan (Korea)** 100 %-H₂ engine plant.
+  - **Cross-read to the ammonia work:** the H₂ engine is ~two product
+    generations ahead of the NH₃ engine at MW scale (4.6–10.4 MW on 100 % H₂
+    into a national grid, vs 1.9–3.1 MW Wärtsilä 25 Ammonia / 2–6 MW IHI 28ADF
+    from 2027) — **strengthens P1 on the engine axis**, independently of the
+    turbine-axis argument recorded 2026-07-28.
+  - **Two conflicts flagged, not resolved:** (a) **Bergen** H₂ rating quoted as
+    10 % / 25 % / "commercial target 60 %" / 100 %-fired across different
+    sources and dates — do not merge; (b) **Kawasaki** KG-18-T stated as
+    **7.5 MW** in one release and "8 MW class" in the verification framing.
+  - **Fetch-blocking recurred** (innio.com, 2-g.com, global.kawasaki.com,
+    newatlas.com, h2-tech.com proxy-blocked); figures taken from search-engine
+    extracts of those same canonical pages, URLs cited — re-open at source
+    before investment-grade use. No number originates from model memory alone.
 - **2026-09-19** — Built `AWS/research_OEM/ammonia_gas_engine_readiness_timeline_merged.pptx`:
   fully editable native-PowerPoint version of the merged ammonia-only PNG
   (entry below), via pptxgenjs. Same grey/colour provenance convention and
