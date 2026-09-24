@@ -7,7 +7,7 @@
 
 **Project:** Green ammonia import to Johor (MMHE) → on-site cracking to H₂ →
 cross-border H₂ pipeline to Singapore, defined on a permutation basis.
-**Last updated:** 2026-07-28.
+**Last updated:** 2026-09-24.
 
 ---
 
@@ -34,6 +34,7 @@ cross-border H₂ pipeline to Singapore, defined on a permutation basis.
 | 2026-07-28 | Built the **comprehensive NH₃ gas-turbine vs. gas-engine comparison** (`power_generation/NH3_gas_turbine_vs_gas_engine_comprehensive_comparison.md`, Rev 1, 7 axis-blocks / 45 rows) and **changed the provisional recommendation for the stationary P2 / Singapore-offtake case from engine → gas turbine** | Three new sourced developments: (1) IHI+GE Vernova burned 100 % NH₃ in full-scale **F-class** combustion hardware (Mar 2026, 6F.03/7F/9F retrofit, target 2030); (2) IHI **IM270 2 MW** ran ~**3,000 h** on 100 % liquid NH₃ incl. load rejection/dump, NOx **<7 ppm**, **>99 %** GHG cut incl. N₂O; (3) Singapore's own EMA/MPA/Keppel Jurong Island project is **55–65 MW by direct NH₃ combustion in a gas turbine plant**. Ammonia engines remain marine-first (W25 A deliveries 2028; MAN 4-stroke genset R&D to ~2027–28) | Active. The 2026-07-16 engine-favouring read **stands for the load-following / incrementally-grown 50 MW data-centre duty** — the two conclusions are duty-dependent, not contradictory |
 | 2026-07-28 | Built an **interactive HTML infographic/calculator**, `power_generation/NH3_ammonia_energy_pathway_infographic.html`, at user request — storage-to-wire ammonia energy chain (1 kg NH₃ landed = 100 % LHV, in both MJ and kWh) with a live pathway selector (Gas Turbine/IHI IM270, Gas Engine/Wärtsilä 25 Ammonia, MHI Equipment/H-25 with SC↔CC toggle), per-node expandable spec sheets, a loss-waterfall visual, and a plant-scale calculator (capacity MW + stream days/yr → annual GWh, annual NH₃ ktpa, mass flow t/h, % of the 650 ktpa P1/P2 reference stream) | User request: infographic showing each pathway's schematic with per-node detail dropdowns and efficiency, prepopulated from sourced defaults, editable | Published as a Claude Artifact and committed to the repo. Every prepopulated default is tagged sourced/assumption/derived/not-published (color + icon + text) per CLAUDE.md §7 — the IHI IM270 pathway deliberately ships with **no default efficiency** (input left blank, "not published") since no source states one; user must supply their own estimate for that path only |
 | 2026-09-10 | Built two **OEM "who's who" surveys** (`power_generation/oem_surveys/Ammonia-Fired_PowerGen_OEM_Survey.{md,pdf}`, `Hydrogen-Fired_PowerGen_OEM_Survey.{md,pdf}`) covering gas turbines + 2-stroke + 4-stroke gas engines, one row per OEM, News-link column citing every claim | User request: PDF deliverables surveying OEMs and their fuel-fired solutions, ammonia and hydrogen separately | Done. PDFs delivered to user. See Changelog 2026-09-10 for key findings (Malaysia IHI/PETRONAS ammonia-GT precedent; IHI 18V28ADF first stationary ammonia genset with a sales date; Wärtsilä 31H2 100 %-H₂ grid demo; Wärtsilä 25 Ammonia delivery-year conflict flagged unresolved) |
+| 2026-09-24 | Built an **interactive "Scenario 1" HTML calculator/infographic**, published as a Claude Artifact (`Ammonia Cracker Pathway`, https://claude.ai/artifact/XCuaSJ8De1N9GwcjMzQuiQ) — NOT yet committed as a repo file (artifact-only; ask user if they want the HTML source added under this repo, e.g. `permutations/` or a new `scenario1/` folder). Models: MGC 40,000 m³ / LGC 60,000 m³ ammonia import → jetty → refrigerated NH₃ storage (sized to ≥1.5× a cargo parcel) → ammonia cracker (default 160 ktpa H₂, user-adjustable, licensor/fuel-mode selectable — defaults to KBR's Johor-specific package, clean/ammonia-fuelled mode) → H₂ pipeline (Darcy–Weisbach/Colebrook-White/ASME B31.12 sizing, adapted from `frontendengineeringmodel`'s pipeline-sizing.html) → a power-generation demand (default 300 MW @ 50 % generator efficiency, both adjustable) met by cracker H₂ first and topped up with Malaysia biomethane (fixed CI 32.9 gCO₂e/MJ, per user) against a fixed 4.0 kgCO₂e/kgH₂ blended-CI cap. **Important scope note:** the cracker/storage coordinate the user gave (`1.459514418631106, 103.87409973011694`) and the demand coordinate (`1.462088023116447, 103.79331282170612`) are only **≈9.0 km apart by Haversine calculation and both sit inside Johor** — this is a **local/domestic Johor offtake**, not the cross-border Johor→Singapore pipeline in §4's P1/P2 permutation set. Treat "Scenario 1" here as a third, distinct case sitting alongside P1/P2, not a rename of either. **Naming collision to watch:** `Gentari-ammoniacracker/memory.md` already uses "Scenario 1" for a different thing — KBR's own 12 ktpa/100 %-NG Block Flow Diagram case (`I.B_GENTARIBFD_12kTPA_100NG_Rev0.md`). The two "Scenario 1"s are unrelated; disambiguate explicitly in any cross-repo discussion. Full sourced/assumption/derived register for every constant used is printed on the artifact page itself; the load-bearing new assumptions are logged in §3 below and new sourced figures in §6 | User request: build a calculator to model Scenario 1 (ammonia cracker pathway) end-to-end from user-adjustable demand, with an infographic; explicitly asked to reuse `Gentari-ammoniacracker`'s cracker database and `frontendengineeringmodel`'s pipeline-sizing/blend-calculator logic, extended with a biomethane blend that the existing blend calculator lacks | Published as a private Claude Artifact (owner: ungkumuhammad). Not yet committed to any repo as a file — flag to user next session if that's wanted |
 
 ## 3. Assumptions Register
 
@@ -53,7 +54,17 @@ cross-border H₂ pipeline to Singapore, defined on a permutation basis.
 | 2026-09-18 | **Gentari study-to-commercialisation schedule** (illustrative, not sourced): RFP issued Q1 2027 (1 month, timed to follow Wärtsilä engine commercialisation — user input) → bilateral OEM agreement (2 months, user input) → kickoff (user input) → pre-FEED (6–9 months, shown at 9, user input) → **FEED ~10 months → FID → EPC ~30 months → commissioning ~6 months → commercialisation ~early 2032 (all Claude-filled, industry-typical benchmarks, NOT sourced to any published Gentari schedule)** | User asked for a Gantt/arrow visual of the full pathway to commercialisation; only the first 4 stages were user-specified, so FEED/FID/EPC/commissioning durations were filled in to complete the picture | Replace FEED/FID/EPC/commissioning durations with actual Gentari project-schedule figures once available; do not cite the ~2032 commercialisation date externally as a real project date |
 
 *(No project-specific capacities, distances, costs, or vessel sizes have been
-fixed yet — none should be invented. See CLAUDE.md §7.)*
+fixed yet for the P1/P2 cross-border pipeline study — none should be invented.
+See CLAUDE.md §7. The Scenario 1 local-demand calculator below carries its
+own, separate assumptions since it is a different case — see row above and
+the rows immediately below.)*
+
+| 2026-09-24 | Scenario 1 calculator: green NH₃ import share defaults to 50/50 green/grey | Not specified by user; neutral starting split, slider adjustable | Confirm actual planned import mix |
+| 2026-09-24 | Scenario 1 calculator: green NH₃ feedstock CI = 0.20 kgCO₂e/kgNH₃ (range ≈0.10–0.50); grey NH₃ feedstock CI = 2.50 kgCO₂e/kgNH₃ (range ≈1.7–4.3, methane-leakage-accounting dependent) | Public LCA literature (ScienceDirect S0360544224033358 & S0360319925004616; MDPI Energies 10.3390/en14206721; MDPI Sustainability 15/2/1623) — no Johor/Gentari-specific ammonia CI figure exists in either repo | Replace with actual offtake-contract CI once ammonia suppliers are selected |
+| 2026-09-24 | Scenario 1 calculator: vessel max cargo fill 98 %; NH₃ cargo discharge rate 1,000 m³/h; berth turnaround buffer 0.5 day | 98 % = IGC Code standard fill limit for fully refrigerated liquefied-gas cargo (not ammonia-specific-verified); discharge rate and turnaround are NOT terminal-confirmed — informed only by published marine ammonia/LNG cargo-pump ranges (~100–1,800 m³/h/pump) | MMHE jetty design once available — this is the same open question at line 89 below |
+| 2026-09-24 | Scenario 1 calculator: storage tank sized to ≥1.5× a single vessel cargo parcel | Common LNG/LPG import-terminal convention (receive a full parcel without interrupting cracker feed); not Johor-specific or vendor-confirmed | Same open question as line 90 below |
+| 2026-09-24 | Scenario 1 calculator: pipeline routing factor 1.3× the Haversine straight-line distance between the two given coordinates | Typical onshore transmission-pipeline routing uplift (~1.2–1.4×); the ≈9.0 km straight-line figure itself is calculated, not assumed | Real alignment once route-surveyed |
+| 2026-09-24 | Scenario 1 calculator: 8,760 h/yr continuous operation (cracker, pipeline, demand) | Default full-availability basis; KBR's own Johor package assumes 350 on-stream days/yr (8,400 h) as an alternate reference | Confirm planned availability/turnaround philosophy |
 
 ## 4. Permutation Set (pipeline & configuration)
 
@@ -86,8 +97,21 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
 
 - [ ] Singapore-side landfall / offtake point(s) and H₂ purity spec?
 - [ ] Import volume / annual NH₃ throughput target (Phase 1 and ultimate)?
-- [ ] Ammonia carrier size class and unloading rate at MMHE jetty?
-- [ ] Storage autonomy (days) between ship arrivals?
+- [ ] Ammonia carrier size class and unloading rate at MMHE jetty? — **partially
+      informed 2026-09-24**: the Scenario 1 calculator lets the user choose
+      MGC 40,000 m³ or LGC 60,000 m³ (both given by the user, not yet a
+      project decision) and assumes a 1,000 m³/h discharge rate that is
+      explicitly flagged as unconfirmed — see Assumptions Register. Still
+      open: which class MMHE will actually berth, and the real pump rate.
+- [ ] Storage autonomy (days) between ship arrivals? — **partially informed
+      2026-09-24**: the Scenario 1 calculator sizes the tank to ≥1.5× a
+      single cargo parcel (an LNG/LPG import-terminal convention, not
+      Johor-specific) and reports the resulting autonomy as an output
+      (≈12–15 days at default inputs), cross-checked against a derived
+      ≈14.5-day figure implied by a chart caption in
+      `Gentari-ammoniacracker/tcoedatabase/WIP_Ammonia_Cracker_Database.md`
+      §8.0 ("140 ktpa H₂, 40 kt NH₃ storage"). Still open: an actual
+      Johor-specific design basis.
 - [ ] Cracker technology/vendor and heat source (and its carbon intensity)?
 - [ ] Subsea vs. land crossing of the Johor Strait — permitting & ROW?
 - [ ] Which permutations are in/out of scope for the first study round?
@@ -115,6 +139,38 @@ stronger: **P1**. Deck: `permutations/P1_vs_P2_comparison_deck.pptx`.
 ## 6. Sourced Data Registry (technical baseline)
 
 > Reference values for first-pass sizing only — not vendor data. Keep sources.
+
+**Scenario 1 local-demand calculator — new sourced figures (added 2026-09-24)**
+> Gathered via web search while building the Ammonia Cracker Pathway artifact
+> (see Decisions Log 2026-09-24). Not previously in this repo or Gentari-ammoniacracker.
+
+- **Biomethane LHV ≈ 50.2 MJ/kg** — derived: 36 MJ/m³ (IEA, "Outlook for biogas
+  and biomethane: Prospects for organic growth") ÷ 0.717 kg/m³ standard CH₄
+  density at STP.
+- **IGC Code max fill limit ≈ 98 %** for fully refrigerated liquefied-gas cargo
+  tanks at reference temperature — general Code convention, not verified as
+  ammonia-specific.
+- **Largest single ammonia storage tanks in service**: Gulf Coast Ammonia /
+  Tarsco, Texas City — 70,000 t (largest built to date, completed Dec 2022);
+  QAFCO — two 50,000 t net-capacity tanks.
+- **Grey (SMR) ammonia CI**: commonly cited mid-range ≈2.5–2.9 kgCO₂e/kgNH₃;
+  wider literature range ≈1.7–4.3 kgCO₂e/kgNH₃ depending on upstream methane-
+  leakage accounting (no CCS). Public LCA literature (ScienceDirect
+  S0360319925004616; MDPI Sustainability 15/2/1623).
+- **Green (renewable-electrolysis) ammonia CI**: ≈0.79 kgCO₂e/kgNH₃ baseline,
+  falling to ≈0.11–0.28 with co-product allocation; literature range commonly
+  given as ≈0.1–0.5 kgCO₂e/kgNH₃. Public LCA literature (ScienceDirect
+  S0360544224033358; MDPI Energies 10.3390/en14206721).
+- **KBR H2ACT Johor package — capacity-dependent NH₃:H₂ ratio & fuel-mode CI**
+  (from `Gentari-ammoniacracker/tools/cracker_model/data.py`, citing
+  `Licensor/kbr/kbr-johor-hub.md` §3.3/§4.2, Rev 0, 23-Dec-2025): at 12 ktpa /
+  80 ktpa H₂ respectively — NG100 mode 6.40 / 6.35 t/t (CI ≈0.80–0.81
+  kgCO₂/kgH₂); NG50 mode 6.74 / 6.72 t/t (CI ≈0.45); CF100 (clean,
+  ammonia/H₂-off-gas-fuelled) mode 7.22 / 7.20 t/t (CI 0.00 direct). KBR's
+  package does not extend past 80 ktpa H₂ — any use beyond that (e.g. the
+  Scenario 1 calculator's 160 ktpa default) holds the ratio flat at the 80
+  ktpa point and flags it as outside the vendor-confirmed range, rather than
+  extrapolating.
 
 **Ammonia gas engines — commercially-sourced OEM documents (`AWS/comm_OEM/`, added 2026-09-19)**
 > These are the OEMs' own commercial/confidential decks (not public web pages)
