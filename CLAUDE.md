@@ -117,6 +117,8 @@ by — at minimum — the following independent variables:
   is explicitly flagged as an assumption.
 - Prefer **permutation tables / comparison matrices** over single-point answers
   for anything touching the pipeline or sizing.
+- **Brand:** Gentari is the main brand — apply [`presentationstyle/Brand.md`](./presentationstyle/Brand.md)
+  (Purple `#60269E`, Cyan `#00C8E8`) to all decks, charts and documents.
 - Keep units **explicit and SI-first** (t/yr, MW, bar, °C, km, mm). State
   whether energy figures are LHV or HHV.
 - When a number is uncertain, give a **range + basis**, never a fabricated

@@ -7,7 +7,7 @@
 
 **Project:** Green ammonia import to Johor (MMHE) → on-site cracking to H₂ →
 cross-border H₂ pipeline to Singapore, defined on a permutation basis.
-**Last updated:** 2026-07-28.
+**Last updated:** 2026-10-09.
 
 ---
 
@@ -34,6 +34,7 @@ cross-border H₂ pipeline to Singapore, defined on a permutation basis.
 | 2026-07-28 | Built the **comprehensive NH₃ gas-turbine vs. gas-engine comparison** (`power_generation/NH3_gas_turbine_vs_gas_engine_comprehensive_comparison.md`, Rev 1, 7 axis-blocks / 45 rows) and **changed the provisional recommendation for the stationary P2 / Singapore-offtake case from engine → gas turbine** | Three new sourced developments: (1) IHI+GE Vernova burned 100 % NH₃ in full-scale **F-class** combustion hardware (Mar 2026, 6F.03/7F/9F retrofit, target 2030); (2) IHI **IM270 2 MW** ran ~**3,000 h** on 100 % liquid NH₃ incl. load rejection/dump, NOx **<7 ppm**, **>99 %** GHG cut incl. N₂O; (3) Singapore's own EMA/MPA/Keppel Jurong Island project is **55–65 MW by direct NH₃ combustion in a gas turbine plant**. Ammonia engines remain marine-first (W25 A deliveries 2028; MAN 4-stroke genset R&D to ~2027–28) | Active. The 2026-07-16 engine-favouring read **stands for the load-following / incrementally-grown 50 MW data-centre duty** — the two conclusions are duty-dependent, not contradictory |
 | 2026-07-28 | Built an **interactive HTML infographic/calculator**, `power_generation/NH3_ammonia_energy_pathway_infographic.html`, at user request — storage-to-wire ammonia energy chain (1 kg NH₃ landed = 100 % LHV, in both MJ and kWh) with a live pathway selector (Gas Turbine/IHI IM270, Gas Engine/Wärtsilä 25 Ammonia, MHI Equipment/H-25 with SC↔CC toggle), per-node expandable spec sheets, a loss-waterfall visual, and a plant-scale calculator (capacity MW + stream days/yr → annual GWh, annual NH₃ ktpa, mass flow t/h, % of the 650 ktpa P1/P2 reference stream) | User request: infographic showing each pathway's schematic with per-node detail dropdowns and efficiency, prepopulated from sourced defaults, editable | Published as a Claude Artifact and committed to the repo. Every prepopulated default is tagged sourced/assumption/derived/not-published (color + icon + text) per CLAUDE.md §7 — the IHI IM270 pathway deliberately ships with **no default efficiency** (input left blank, "not published") since no source states one; user must supply their own estimate for that path only |
 | 2026-09-10 | Built two **OEM "who's who" surveys** (`power_generation/oem_surveys/Ammonia-Fired_PowerGen_OEM_Survey.{md,pdf}`, `Hydrogen-Fired_PowerGen_OEM_Survey.{md,pdf}`) covering gas turbines + 2-stroke + 4-stroke gas engines, one row per OEM, News-link column citing every claim | User request: PDF deliverables surveying OEMs and their fuel-fired solutions, ammonia and hydrogen separately | Done. PDFs delivered to user. See Changelog 2026-09-10 for key findings (Malaysia IHI/PETRONAS ammonia-GT precedent; IHI 18V28ADF first stationary ammonia genset with a sales date; Wärtsilä 31H2 100 %-H₂ grid demo; Wärtsilä 25 Ammonia delivery-year conflict flagged unresolved) |
+| 2026-10-09 | **Gentari registered as the project's main brand** — core colours Purple `#60269E` / Cyan `#00C8E8`, icon-only on dark/purple, Inter interim font; recorded in `presentationstyle/Brand.md` (+ `brand/Gentari_brand_reference.png`) | User request ("register as main brand"). Source sheet is a working draft from the `frontendengineeringmodel` repo, not an official Gentari guideline | Active — conflicts with `Design_Style_Guide.md` (`#7030A0` title purple, `#00C5E5` cyan, Verdana) surfaced in Brand.md; official typeface/logo files still open |
 
 ## 3. Assumptions Register
 
@@ -620,6 +621,7 @@ utilization for IPPs, 2026-07-28**
 
 ## 8. Changelog
 
+- **2026-10-09** — Registered Gentari as main brand: added `presentationstyle/Brand.md` and `presentationstyle/brand/Gentari_brand_reference.png`; linked from `CLAUDE.md` §6. New decks use `#60269E`/`#00C8E8`; legacy `#7030A0` retained only for matching `Reference_Deck.pptx`. Open: official font, logo files, clear-space rules (see Brand.md gaps).
 - **2026-09-19** — Built `AWS/research_OEM/ammonia_gas_engine_readiness_timeline_merged.pptx`:
   fully editable native-PowerPoint version of the merged ammonia-only PNG
   (entry below), via pptxgenjs. Same grey/colour provenance convention and
