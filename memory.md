@@ -1162,3 +1162,12 @@ utilization for IPPs, 2026-07-28**
   value chain, permutation basis, cited technical baseline, no-fabrication rule)
   and this `memory.md` (facts, decisions, assumptions, permutation template,
   open questions, sourced data registry, references).
+- **2026-11-03** — Built the CRESS blended-tariff calculator artifact
+  (`tariff/cress_blended_tariff.html`, https://claude.ai/artifact/Fp4QdYyb8ACQLjtum4Y9XG).
+  Inputs/sources: tariff schedule supplied by user (HV Non-Domestic Ultra: energy 55.18 sen/kWh peak,
+  51.09 sen/kWh off-peak; capacity RM21.76/kW/month; network RM23.06/kW/month; retail RM250/month);
+  CRESS blended RM0.48/kWh incl. SAC wheeling RM0.14/kWh (balance RM0.34 = solar+BESS) per user brief.
+  **Assumptions (mine, editable in the tool):** capacity and network billed on *full* maximum demand
+  by default (grid kept as backup; toggle for grid-share-only); 100% load factor; 730 h/month (8,760/12);
+  100% of grid energy at peak (user instruction). Taxes/levies excluded. Default case 50 MW, 30% CRESS
+  gives RM0.592/kWh (100% grid RM0.613, 100% CRESS RM0.541), computed from the above.
