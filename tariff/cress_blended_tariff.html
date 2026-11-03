@@ -120,7 +120,10 @@ tfoot td{font-weight:700;border-bottom:0;color:var(--fg)}
           <div class="field"><label for="sac">of which SAC wheeling (RM/kWh)</label><input type="number" id="sac" value="0.14" step="0.01" min="0"></div>
           <div class="field"><label for="peak">Grid peak energy (sen/kWh)</label><input type="number" id="peak" value="55.18" step="0.01" min="0"></div>
           <div class="field"><label for="off">Grid off-peak energy (sen/kWh)</label><input type="number" id="off" value="51.09" step="0.01" min="0"></div>
-          <div class="field"><label for="peakShare">Grid energy at peak (%)</label><input type="number" id="peakShare" value="100" step="1" min="0" max="100"></div>
+          <div class="field" style="grid-column:1/-1"><label for="tou" style="display:flex;gap:8px;align-items:center;color:var(--fg);font-weight:600"><input type="checkbox" id="tou" checked> Split grid energy by ToU time zones</label><span class="hint">Peak 2.00 pm to 10.00 pm, Monday to Friday. Off-peak is all other hours, including weekends and 15 selected days. Untick to bill all grid energy at peak.</span></div>
+          <div class="field"><label for="pkHrs">Peak hours per weekday</label><input type="number" id="pkHrs" value="8" step="1" min="0" max="24"></div>
+          <div class="field"><label for="wkd">Weekdays per year</label><input type="number" id="wkd" value="261" step="1" min="0" max="366"></div>
+          <div class="field"><label for="hol">Selected days falling on weekdays</label><input type="number" id="hol" value="15" step="1" min="0" max="366"></div>
           <div class="field"><label for="lf">Load factor (%)</label><input type="number" id="lf" value="100" step="1" min="1" max="100"></div>
           <div class="field"><label for="cap">Capacity charge (RM/kW/month)</label><input type="number" id="cap" value="21.76" step="0.01" min="0"></div>
           <div class="field"><label for="net">Network charge (RM/kW/month)</label><input type="number" id="net" value="23.06" step="0.01" min="0"></div>
@@ -169,7 +172,7 @@ tfoot td{font-weight:700;border-bottom:0;color:var(--fg)}
         <h2>Method and assumptions</h2>
         <ul class="notes">
           <li><b>CRESS energy</b> RM0.48/kWh is the all-in rate, made up of SAC wheeling RM0.14/kWh and RM0.34/kWh for solar plus BESS (balance). Source: project brief.</li>
-          <li><b>Grid energy</b> uses the High Voltage Non-Domestic Ultra tariff: 55.18 sen/kWh peak, 51.09 sen/kWh off-peak. Default treats all grid energy as peak.</li>
+          <li><b>Grid energy</b> uses the High Voltage Non-Domestic Ultra tariff: 55.18 sen/kWh peak, 51.09 sen/kWh off-peak. Peak is 2.00 pm to 10.00 pm Monday to Friday (8 h); off-peak is every other hour. With a flat load, peak share = 8 h × (261 weekdays − 15 selected days) ÷ 8,760 h = 22.5%. Weekdays are 52 × 5 + 1 for 2026, and the 15 selected days are assumed to fall on weekdays.</li>
           <li><b>Capacity</b> RM21.76/kW and <b>network</b> RM23.06/kW are per kW of maximum demand per month during the peak period; <b>retail</b> is RM250/month. Source: tariff schedule supplied.</li>
           <li><b>Energy</b> = maximum demand × load factor × hours per month. The 100% load factor and 730 h/month (8,760 ÷ 12) are assumptions, not tariff terms. Lower the load factor and the fixed charges weigh more per kWh.</li>
           <li><b>Blended tariff</b> = (CRESS energy + grid energy + capacity + network + retail) ÷ total kWh. Taxes, levies and any other surcharge are not included.</li>
@@ -191,14 +194,18 @@ tfoot td{font-weight:700;border-bottom:0;color:var(--fg)}
   function inputs(){
     return {
       s:num('share',30)/100, mw:num('mw',50), cress:num('cress',.48), sac:num('sac',.14),
-      peak:num('peak',55.18)/100, off:num('off',51.09)/100, pk:Math.min(100,num('peakShare',100))/100,
+      peak:num('peak',55.18)/100, off:num('off',51.09)/100, tou:$('tou').checked, pkHrs:Math.min(24,num('pkHrs',8)), wkd:num('wkd',261), hol:num('hol',15),
       lf:Math.min(100,Math.max(1,num('lf',100)))/100, cap:num('cap',21.76), net:num('net',23.06),
       ret:num('ret',250), hrs:Math.max(1,num('hrs',730))
     };
   }
+  function peakShare(p){
+    if(!p.tou) return 1;
+    return Math.min(1,p.pkHrs*Math.max(0,p.wkd-p.hol)/(p.hrs*12));
+  }
   function calc(p,s){
     var kwh=p.mw*1000*p.lf*p.hrs;
-    var gridRate=p.pk*p.peak+(1-p.pk)*p.off;
+    var pk=peakShare(p), gridRate=pk*p.peak+(1-pk)*p.off;
     var md=p.mw*1000*(basis==='full'?1:(1-s));
     var m={
       solar:s*kwh*(p.cress-p.sac), sac:s*kwh*p.sac, grid:(1-s)*kwh*gridRate,
@@ -234,7 +241,7 @@ tfoot td{font-weight:700;border-bottom:0;color:var(--fg)}
     });
     $('rows').innerHTML=rows; $('bar').innerHTML=bar;
     $('tT').textContent=r.tariff.toFixed(4); $('tM').textContent=fmtM(r.sum);
-    $('vol').textContent='Energy '+(r.kwh/1e6).toLocaleString('en-MY',{maximumFractionDigits:2})+' GWh/month at '+p.mw.toLocaleString('en-MY')+' MW, '+Math.round(p.lf*100)+'% load factor. Grid energy rate '+(r.gridRate*100).toFixed(2)+' sen/kWh.';
+    $('vol').textContent='Energy '+(r.kwh/1e6).toLocaleString('en-MY',{maximumFractionDigits:2})+' GWh/month at '+p.mw.toLocaleString('en-MY')+' MW, '+Math.round(p.lf*100)+'% load factor. Grid energy '+(peakShare(p)*100).toFixed(1)+'% peak, blended rate '+(r.gridRate*100).toFixed(2)+' sen/kWh.';
     drawChart(p,s,r);
   }
 
@@ -259,7 +266,8 @@ tfoot td{font-weight:700;border-bottom:0;color:var(--fg)}
     $('chart').innerHTML=o;
   }
 
-  ['share','mw','cress','sac','peak','off','peakShare','lf','cap','net','ret','hrs'].forEach(function(id){$(id).addEventListener('input',render)});
+  ['share','mw','cress','sac','peak','off','pkHrs','wkd','hol','lf','cap','net','ret','hrs'].forEach(function(id){$(id).addEventListener('input',render)});
+  $('tou').addEventListener('change',render);
   function setBasis(b){basis=b;$('bFull').setAttribute('aria-pressed',b==='full');$('bGrid').setAttribute('aria-pressed',b==='grid');render()}
   $('bFull').addEventListener('click',function(){setBasis('full')});
   $('bGrid').addEventListener('click',function(){setBasis('grid')});
