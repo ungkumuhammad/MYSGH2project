@@ -190,7 +190,7 @@ tfoot td{font-weight:700;border-bottom:0;color:var(--fg)}
         <h2>Ammonia price for parity with the tariff</h2>
         <div class="hero">
           <div>
-            <div class="big"><span id="parT">0</span><small>RM / t NH3</small></div>
+            <div class="big"><span id="parT">0</span><small>USD / t NH3</small></div>
             <div class="sen" id="parSub"></div>
           </div>
           <div class="stack">
@@ -212,11 +212,11 @@ tfoot td{font-weight:700;border-bottom:0;color:var(--fg)}
         </div>
         <div class="tbl" style="margin-top:16px">
           <table>
-            <thead><tr><th>Efficiency</th><th>kWh electric / t NH3</th><th>Parity price RM / t</th><th>Parity price USD / t</th><th>RM / kg</th></tr></thead>
+            <thead><tr><th>Efficiency</th><th>kWh electric / t NH3</th><th>Parity price USD / t</th></tr></thead>
             <tbody id="parRows"></tbody>
           </table>
         </div>
-        <p class="hint" style="margin:12px 0 0">Parity price = blended tariff × ammonia share of LCOE × 5.17 kWh/kg × efficiency. 5.17 kWh/kg is ammonia LHV of 18.6 MJ/kg ÷ 3.6. Parity means ammonia-fired power at the customer's site costs the same per kWh as the blended tariff above; the remaining share of LCOE is CAPEX and OPEX. The 50% efficiency and 70% share are inputs, not sourced values. USD uses the RM/USD rate entered (4.2, set by the project owner). The price always follows the total blended tariff shown at the top, so it changes with the CRESS share and every tariff input.</p>
+        <p class="hint" style="margin:12px 0 0">Parity price = blended tariff × ammonia share of LCOE × 5.17 kWh/kg × efficiency × 1,000 kg/t ÷ RM per USD. 5.17 kWh/kg is ammonia LHV of 18.6 MJ/kg ÷ 3.6. Parity means ammonia-fired power at the customer's site costs the same per kWh as the blended tariff above; the remaining share of LCOE is CAPEX and OPEX. The 50% efficiency and 70% share are inputs, not sourced values. USD uses the RM/USD rate entered (4.2, set by the project owner). The price always follows the total blended tariff shown at the top, so it changes with the CRESS share and every tariff input.</p>
       </section>
 
       <section class="panel" data-collapsed>
@@ -315,13 +315,13 @@ tfoot td{font-weight:700;border-bottom:0;color:var(--fg)}
     var price=function(e){return t*fs*LHV*e*1000};
     var fx=Math.max(.01,num('fx',4.2));
     $('effVal').textContent=Math.round(eta*100)+'%';
-    $('parT').textContent=Math.round(price(eta)).toLocaleString('en-MY');
-    $('parSub').textContent='USD '+Math.round(price(eta)/fx).toLocaleString('en-MY')+'/t at RM'+fx.toFixed(2)+'/USD · RM'+(price(eta)/1000).toFixed(2)+'/kg · fuel budget RM'+(t*fs).toFixed(3)+'/kWh of RM'+t.toFixed(3)+' tariff · CAPEX + OPEX RM'+(t*(1-fs)).toFixed(3)+'/kWh';
+    $('parT').textContent=Math.round(price(eta)/fx).toLocaleString('en-MY');
+    $('parSub').textContent='At RM'+fx.toFixed(2)+'/USD · USD '+(price(eta)/fx/1000).toFixed(3)+'/kg · fuel budget RM'+(t*fs).toFixed(3)+'/kWh of RM'+t.toFixed(3)+' tariff · CAPEX + OPEX RM'+(t*(1-fs)).toFixed(3)+'/kWh';
     var cur=Math.round(eta*100), list=[30,40,50,60], h='';
     if(list.indexOf(cur)<0){list.push(cur);list.sort(function(a,b){return a-b})}
     list.forEach(function(e){
       var x=e/100, hl=e===cur?' style="font-weight:700;color:var(--purple)"':'';
-      h+='<tr'+hl+'><td>'+e+'%</td><td>'+Math.round(LHV*x*1000).toLocaleString('en-MY')+'</td><td>'+Math.round(price(x)).toLocaleString('en-MY')+'</td><td>'+Math.round(price(x)/fx).toLocaleString('en-MY')+'</td><td>'+(price(x)/1000).toFixed(2)+'</td></tr>';
+      h+='<tr'+hl+'><td>'+e+'%</td><td>'+Math.round(LHV*x*1000).toLocaleString('en-MY')+'</td><td>'+Math.round(price(x)/fx).toLocaleString('en-MY')+'</td></tr>';
     });
     $('parRows').innerHTML=h;
   }

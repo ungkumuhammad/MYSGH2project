@@ -1191,3 +1191,4 @@ utilization for IPPs, 2026-07-28**
 - **2026-11-03** — Tariff calculator: parity card has a tariff-basis selector — "Blended tariff" (default,
   follows CRESS+grid result) or "Enter tariff" (user types RM/kWh; pre-fills with the current blended value
   until edited). Same formula, so USD/t NH3 required = tariff × share × 5.17 kWh/kg × efficiency × 1000 ÷ RM/USD.
+- **2026-11-03** — Tariff calculator parity card now reports USD/t NH3 only (RM/t and RM/kg columns removed); RM/USD input (4.2) retained.
