@@ -1188,3 +1188,6 @@ utilization for IPPs, 2026-07-28**
 - **2026-11-03** — Tariff calculator: ammonia parity card now shows USD/t at an editable exchange rate,
   **assumption RM4.2/USD (user-specified)**. Default case ≈USD245/t NH3 (= RM1,030/t ÷ 4.2). Parity price is
   computed from the total blended tariff (CRESS + grid) shown at the top of the page.
+- **2026-11-03** — Tariff calculator: parity card has a tariff-basis selector — "Blended tariff" (default,
+  follows CRESS+grid result) or "Enter tariff" (user types RM/kWh; pre-fills with the current blended value
+  until edited). Same formula, so USD/t NH3 required = tariff × share × 5.17 kWh/kg × efficiency × 1000 ÷ RM/USD.

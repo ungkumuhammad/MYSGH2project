@@ -195,6 +195,14 @@ tfoot td{font-weight:700;border-bottom:0;color:var(--fg)}
           </div>
           <div class="stack">
             <div class="field">
+              <span class="lbl">Tariff basis</span>
+              <div class="seg" role="group" aria-label="Tariff basis">
+                <button type="button" id="tBlend" aria-pressed="true">Blended tariff</button>
+                <button type="button" id="tMan" aria-pressed="false">Enter tariff</button>
+              </div>
+              <div id="manBox" hidden style="display:flex;flex-direction:column;gap:6px"><label for="manT" style="font-weight:500;font-size:12px;color:var(--muted)">Target tariff (RM/kWh)</label><input type="number" id="manT" value="0.55" step="0.01" min="0"></div>
+            </div>
+            <div class="field">
               <div class="row"><label for="eff">Engine / turbine efficiency (LHV)</label><span class="val" id="effVal">50%</span></div>
               <input type="range" id="eff" min="20" max="70" step="1" value="50">
             </div>
@@ -237,7 +245,7 @@ tfoot td{font-weight:700;border-bottom:0;color:var(--fg)}
     while(sec.firstChild) body.appendChild(sec.firstChild);
     d.appendChild(sm); d.appendChild(body); sec.parentNode.replaceChild(d,sec);
   });
-  var basis='full';
+  var basis='full', tmode='blend', lastT=0.55, manTouched=false;
   var LHV=18.6/3.6; /* kWh per kg NH3, from 18.6 MJ/kg */
   var COL={solar:'var(--c-solar)',sac:'var(--c-sac)',grid:'var(--c-grid)',cap:'var(--c-cap)',net:'var(--c-net)',ret:'var(--c-ret)'};
   function num(id,d){var v=parseFloat($(id).value);return isFinite(v)&&v>=0?v:d}
@@ -300,7 +308,9 @@ tfoot td{font-weight:700;border-bottom:0;color:var(--fg)}
     parity(r.tariff);
   }
 
-  function parity(t){
+  function parity(tb){
+    lastT=tb;
+    var t=tmode==='man'?num('manT',tb):tb;
     var eta=num('eff',50)/100, fs=Math.min(100,Math.max(1,num('fuelShare',70)))/100;
     var price=function(e){return t*fs*LHV*e*1000};
     var fx=Math.max(.01,num('fx',4.2));
@@ -337,8 +347,12 @@ tfoot td{font-weight:700;border-bottom:0;color:var(--fg)}
     $('chart').innerHTML=o;
   }
 
-  ['share','eff','fuelShare','fx','mw','solar','sac','peak','off','pkHrs','wkd','hol','lf','cap','net','ret','hrs'].forEach(function(id){$(id).addEventListener('input',render)});
+  ['share','eff','fuelShare','fx','manT','mw','solar','sac','peak','off','pkHrs','wkd','hol','lf','cap','net','ret','hrs'].forEach(function(id){$(id).addEventListener('input',render)});
   $('tou').addEventListener('change',render);
+  function setTmode(m){tmode=m;$('tBlend').setAttribute('aria-pressed',m==='blend');$('tMan').setAttribute('aria-pressed',m==='man');$('manBox').hidden=(m!=='man');if(m==='man'&&!manTouched)$('manT').value=lastT.toFixed(3);render()}
+  $('tBlend').addEventListener('click',function(){setTmode('blend')});
+  $('tMan').addEventListener('click',function(){setTmode('man')});
+  $('manT').addEventListener('input',function(){manTouched=true});
   function setTheme(t){document.documentElement.setAttribute('data-theme',t);$('theme').textContent=t==='dark'?'Light mode':'Night mode';try{localStorage.setItem('cress-theme',t)}catch(e){}}
   setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light');
   $('theme').addEventListener('click',function(){setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')});
