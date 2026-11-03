@@ -1176,3 +1176,7 @@ utilization for IPPs, 2026-07-28**
   flat load across hours; 261 weekdays (2026: 52×5+1); the 15 selected days fall on weekdays → peak share
   = 8×246/8,760 = 22.5%; blended grid energy ≈ 52.0 sen/kWh. Default 50 MW / 30% CRESS → ≈RM0.570/kWh.
   Tick-box in the tool reverts to all-peak.
+- **2026-11-03** — Tariff calculator: CRESS cost split into two editable inputs (Solar+BESS default
+  RM0.34/kWh, SAC wheeling default RM0.14/kWh; total RM0.48 unchanged by default); capacity/network labels
+  shown as RM/kW (per kW of max demand per month); night mode default with light/dark toggle; fonts
+  Montserrat (headings, labels, key figure) + Verdana (body). Per user request.
