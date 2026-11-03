@@ -1174,5 +1174,5 @@ utilization for IPPs, 2026-07-28**
 - **2026-11-03** — Tariff calculator now splits grid energy by ToU zones (user-supplied): peak
   2.00–10.00 pm Mon–Fri, off-peak all other hours incl. weekends and 15 selected days. **Assumptions:**
   flat load across hours; 261 weekdays (2026: 52×5+1); the 15 selected days fall on weekdays → peak share
-  = 8×246/8,760 = 22.5%; blended grid energy ≈ 51.9 sen/kWh. Default 50 MW / 30% CRESS → ≈RM0.570/kWh.
+  = 8×246/8,760 = 22.5%; blended grid energy ≈ 52.0 sen/kWh. Default 50 MW / 30% CRESS → ≈RM0.570/kWh.
   Tick-box in the tool reverts to all-peak.
