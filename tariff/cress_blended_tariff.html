@@ -1,6 +1,6 @@
 <title>CRESS Blended Tariff</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<script>try{var _t=localStorage.getItem('cress-theme');document.documentElement.setAttribute('data-theme',_t==='light'?'light':'dark')}catch(e){document.documentElement.setAttribute('data-theme','dark')}</script>
+<script>try{var _t=localStorage.getItem('cress-theme');document.documentElement.setAttribute('data-theme',_t==='dark'?'dark':'light')}catch(e){document.documentElement.setAttribute('data-theme','light')}</script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap">
 <style>
 /* Layout: inputs panel left, live result + cost breakdown + sensitivity right; stacks on phone. */
@@ -54,7 +54,13 @@ input[type=number]:focus-visible,input[type=range]:focus-visible,button:focus-vi
 .seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:3px}
 .seg button{font:inherit;font-size:12px;font-weight:600;border:0;background:transparent;color:var(--muted);padding:7px 6px;border-radius:6px;cursor:pointer}
 .seg button[aria-pressed=true]{background:var(--purple);color:#fff}
-details{border-top:1px solid var(--line);padding-top:14px}
+details.sub{border-top:1px solid var(--line);padding-top:14px}
+.panel>summary.cardhead{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;font-family:var(--font-main);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.cardhead::-webkit-details-marker{display:none}
+.cardhead::after{content:"";width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);transition:transform .15s;margin:-3px 4px 0 0;flex:none}
+.panel[open]>.cardhead::after{transform:rotate(-135deg);margin-top:3px}
+.panel[open]>.cardhead{margin-bottom:14px}
+.cardbody{min-width:0}
 summary{cursor:pointer;font-weight:600;font-size:13px}
 .adv{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
 .adv .field label{font-weight:500;font-size:12px;color:var(--muted)}
@@ -127,7 +133,7 @@ tfoot td{font-weight:700;border-bottom:0;color:var(--fg)}
         <span class="hint" id="basisHint">Customer keeps the full grid connection as backup, so the whole maximum demand is charged.</span>
       </div>
 
-      <details>
+      <details class="sub">
         <summary>Tariff and load assumptions</summary>
         <div class="adv">
           <div class="field"><label for="peak">Grid peak energy (sen/kWh)</label><input type="number" id="peak" value="55.18" step="0.01" min="0"></div>
@@ -181,6 +187,30 @@ tfoot td{font-weight:700;border-bottom:0;color:var(--fg)}
       </section>
 
       <section class="panel">
+        <h2>Ammonia price for parity with the tariff</h2>
+        <div class="hero">
+          <div>
+            <div class="big"><span id="parT">0</span><small>RM / t NH3</small></div>
+            <div class="sen" id="parSub"></div>
+          </div>
+          <div class="stack">
+            <div class="field">
+              <div class="row"><label for="eff">Engine / turbine efficiency (LHV)</label><span class="val" id="effVal">50%</span></div>
+              <input type="range" id="eff" min="20" max="70" step="1" value="50">
+            </div>
+            <div class="field"><label for="fuelShare">Ammonia share of LCOE (%)</label><input type="number" id="fuelShare" value="70" step="1" min="1" max="100"></div>
+          </div>
+        </div>
+        <div class="tbl" style="margin-top:16px">
+          <table>
+            <thead><tr><th>Efficiency</th><th>kWh electric / t NH3</th><th>Parity price RM / t</th><th>RM / kg</th></tr></thead>
+            <tbody id="parRows"></tbody>
+          </table>
+        </div>
+        <p class="hint" style="margin:12px 0 0">Parity price = blended tariff × ammonia share of LCOE × 5.17 kWh/kg × efficiency. 5.17 kWh/kg is ammonia LHV of 18.6 MJ/kg ÷ 3.6. Parity means ammonia-fired power at the customer's site costs the same per kWh as the blended tariff above; the remaining share of LCOE is CAPEX and OPEX. The 50% efficiency and 70% share are inputs, not sourced values.</p>
+      </section>
+
+      <section class="panel" data-collapsed>
         <h2>Method and assumptions</h2>
         <ul class="notes">
           <li><b>CRESS energy</b> defaults to RM0.48/kWh all-in: RM0.34/kWh solar plus BESS (the balance) and RM0.14/kWh SAC wheeling. Both are editable. Source: project brief.</li>
@@ -197,7 +227,17 @@ tfoot td{font-weight:700;border-bottom:0;color:var(--fg)}
 <script>
 (function(){
   var $=function(id){return document.getElementById(id)};
+  document.querySelectorAll('section.panel').forEach(function(sec){
+    var h=sec.querySelector(':scope > h2'); if(!h) return;
+    var d=document.createElement('details'); d.className='panel'; d.open=!sec.hasAttribute('data-collapsed');
+    var sm=document.createElement('summary'); sm.className='cardhead'; sm.textContent=h.textContent; h.remove();
+    var body=document.createElement('div'); body.className='cardbody'+(sec.classList.contains('stack')?' stack':'');
+    if(sec.getAttribute('aria-live')) body.setAttribute('aria-live',sec.getAttribute('aria-live'));
+    while(sec.firstChild) body.appendChild(sec.firstChild);
+    d.appendChild(sm); d.appendChild(body); sec.parentNode.replaceChild(d,sec);
+  });
   var basis='full';
+  var LHV=18.6/3.6; /* kWh per kg NH3, from 18.6 MJ/kg */
   var COL={solar:'var(--c-solar)',sac:'var(--c-sac)',grid:'var(--c-grid)',cap:'var(--c-cap)',net:'var(--c-net)',ret:'var(--c-ret)'};
   function num(id,d){var v=parseFloat($(id).value);return isFinite(v)&&v>=0?v:d}
   function rm(x,dp){return 'RM'+x.toLocaleString('en-MY',{minimumFractionDigits:dp,maximumFractionDigits:dp})}
@@ -256,6 +296,22 @@ tfoot td{font-weight:700;border-bottom:0;color:var(--fg)}
     $('tT').textContent=r.tariff.toFixed(4); $('tM').textContent=fmtM(r.sum);
     $('vol').textContent='Energy '+(r.kwh/1e6).toLocaleString('en-MY',{maximumFractionDigits:2})+' GWh/month at '+p.mw.toLocaleString('en-MY')+' MW, '+Math.round(p.lf*100)+'% load factor. Grid energy '+(peakShare(p)*100).toFixed(1)+'% peak, blended rate '+(r.gridRate*100).toFixed(2)+' sen/kWh.';
     drawChart(p,s,r);
+    parity(r.tariff);
+  }
+
+  function parity(t){
+    var eta=num('eff',50)/100, fs=Math.min(100,Math.max(1,num('fuelShare',70)))/100;
+    var price=function(e){return t*fs*LHV*e*1000};
+    $('effVal').textContent=Math.round(eta*100)+'%';
+    $('parT').textContent=Math.round(price(eta)).toLocaleString('en-MY');
+    $('parSub').textContent='RM'+(price(eta)/1000).toFixed(2)+'/kg · fuel budget RM'+(t*fs).toFixed(3)+'/kWh of RM'+t.toFixed(3)+' tariff · CAPEX + OPEX RM'+(t*(1-fs)).toFixed(3)+'/kWh';
+    var cur=Math.round(eta*100), list=[30,40,50,60], h='';
+    if(list.indexOf(cur)<0){list.push(cur);list.sort(function(a,b){return a-b})}
+    list.forEach(function(e){
+      var x=e/100, hl=e===cur?' style="font-weight:700;color:var(--purple)"':'';
+      h+='<tr'+hl+'><td>'+e+'%</td><td>'+Math.round(LHV*x*1000).toLocaleString('en-MY')+'</td><td>'+Math.round(price(x)).toLocaleString('en-MY')+'</td><td>'+(price(x)/1000).toFixed(2)+'</td></tr>';
+    });
+    $('parRows').innerHTML=h;
   }
 
   function drawChart(p,s,r){
@@ -279,10 +335,10 @@ tfoot td{font-weight:700;border-bottom:0;color:var(--fg)}
     $('chart').innerHTML=o;
   }
 
-  ['share','mw','solar','sac','peak','off','pkHrs','wkd','hol','lf','cap','net','ret','hrs'].forEach(function(id){$(id).addEventListener('input',render)});
+  ['share','eff','fuelShare','mw','solar','sac','peak','off','pkHrs','wkd','hol','lf','cap','net','ret','hrs'].forEach(function(id){$(id).addEventListener('input',render)});
   $('tou').addEventListener('change',render);
   function setTheme(t){document.documentElement.setAttribute('data-theme',t);$('theme').textContent=t==='dark'?'Light mode':'Night mode';try{localStorage.setItem('cress-theme',t)}catch(e){}}
-  setTheme(document.documentElement.getAttribute('data-theme')==='light'?'light':'dark');
+  setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light');
   $('theme').addEventListener('click',function(){setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')});
   function setBasis(b){basis=b;$('bFull').setAttribute('aria-pressed',b==='full');$('bGrid').setAttribute('aria-pressed',b==='grid');render()}
   $('bFull').addEventListener('click',function(){setBasis('full')});

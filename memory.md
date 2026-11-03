@@ -1180,3 +1180,8 @@ utilization for IPPs, 2026-07-28**
   RM0.34/kWh, SAC wheeling default RM0.14/kWh; total RM0.48 unchanged by default); capacity/network labels
   shown as RM/kW (per kW of max demand per month); night mode default with light/dark toggle; fonts
   Montserrat (headings, labels, key figure) + Verdana (body). Per user request.
+- **2026-11-03** — Tariff calculator: all cards collapsible (Method collapsed by default); default theme
+  changed to **light** (toggle kept; supersedes the earlier night-mode default). New card: ammonia price for
+  parity with the blended tariff = tariff × ammonia share of LCOE (70%, user input) × 5.17 kWh/kg (NH3 LHV
+  18.6 MJ/kg ÷ 3.6) × efficiency (50% default, user input) × 1000 → ≈RM1,030/t NH3 at the default case
+  (tariff ≈RM0.569/kWh). Assumes parity = on-site ammonia-power LCOE equals the blended tariff.
