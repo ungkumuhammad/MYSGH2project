@@ -199,15 +199,16 @@ tfoot td{font-weight:700;border-bottom:0;color:var(--fg)}
               <input type="range" id="eff" min="20" max="70" step="1" value="50">
             </div>
             <div class="field"><label for="fuelShare">Ammonia share of LCOE (%)</label><input type="number" id="fuelShare" value="70" step="1" min="1" max="100"></div>
+            <div class="field"><label for="fx">Exchange rate (RM per USD)</label><input type="number" id="fx" value="4.2" step="0.01" min="0.01"></div>
           </div>
         </div>
         <div class="tbl" style="margin-top:16px">
           <table>
-            <thead><tr><th>Efficiency</th><th>kWh electric / t NH3</th><th>Parity price RM / t</th><th>RM / kg</th></tr></thead>
+            <thead><tr><th>Efficiency</th><th>kWh electric / t NH3</th><th>Parity price RM / t</th><th>Parity price USD / t</th><th>RM / kg</th></tr></thead>
             <tbody id="parRows"></tbody>
           </table>
         </div>
-        <p class="hint" style="margin:12px 0 0">Parity price = blended tariff × ammonia share of LCOE × 5.17 kWh/kg × efficiency. 5.17 kWh/kg is ammonia LHV of 18.6 MJ/kg ÷ 3.6. Parity means ammonia-fired power at the customer's site costs the same per kWh as the blended tariff above; the remaining share of LCOE is CAPEX and OPEX. The 50% efficiency and 70% share are inputs, not sourced values.</p>
+        <p class="hint" style="margin:12px 0 0">Parity price = blended tariff × ammonia share of LCOE × 5.17 kWh/kg × efficiency. 5.17 kWh/kg is ammonia LHV of 18.6 MJ/kg ÷ 3.6. Parity means ammonia-fired power at the customer's site costs the same per kWh as the blended tariff above; the remaining share of LCOE is CAPEX and OPEX. The 50% efficiency and 70% share are inputs, not sourced values. USD uses the RM/USD rate entered (4.2, set by the project owner). The price always follows the total blended tariff shown at the top, so it changes with the CRESS share and every tariff input.</p>
       </section>
 
       <section class="panel" data-collapsed>
@@ -302,14 +303,15 @@ tfoot td{font-weight:700;border-bottom:0;color:var(--fg)}
   function parity(t){
     var eta=num('eff',50)/100, fs=Math.min(100,Math.max(1,num('fuelShare',70)))/100;
     var price=function(e){return t*fs*LHV*e*1000};
+    var fx=Math.max(.01,num('fx',4.2));
     $('effVal').textContent=Math.round(eta*100)+'%';
     $('parT').textContent=Math.round(price(eta)).toLocaleString('en-MY');
-    $('parSub').textContent='RM'+(price(eta)/1000).toFixed(2)+'/kg · fuel budget RM'+(t*fs).toFixed(3)+'/kWh of RM'+t.toFixed(3)+' tariff · CAPEX + OPEX RM'+(t*(1-fs)).toFixed(3)+'/kWh';
+    $('parSub').textContent='USD '+Math.round(price(eta)/fx).toLocaleString('en-MY')+'/t at RM'+fx.toFixed(2)+'/USD · RM'+(price(eta)/1000).toFixed(2)+'/kg · fuel budget RM'+(t*fs).toFixed(3)+'/kWh of RM'+t.toFixed(3)+' tariff · CAPEX + OPEX RM'+(t*(1-fs)).toFixed(3)+'/kWh';
     var cur=Math.round(eta*100), list=[30,40,50,60], h='';
     if(list.indexOf(cur)<0){list.push(cur);list.sort(function(a,b){return a-b})}
     list.forEach(function(e){
       var x=e/100, hl=e===cur?' style="font-weight:700;color:var(--purple)"':'';
-      h+='<tr'+hl+'><td>'+e+'%</td><td>'+Math.round(LHV*x*1000).toLocaleString('en-MY')+'</td><td>'+Math.round(price(x)).toLocaleString('en-MY')+'</td><td>'+(price(x)/1000).toFixed(2)+'</td></tr>';
+      h+='<tr'+hl+'><td>'+e+'%</td><td>'+Math.round(LHV*x*1000).toLocaleString('en-MY')+'</td><td>'+Math.round(price(x)).toLocaleString('en-MY')+'</td><td>'+Math.round(price(x)/fx).toLocaleString('en-MY')+'</td><td>'+(price(x)/1000).toFixed(2)+'</td></tr>';
     });
     $('parRows').innerHTML=h;
   }
@@ -335,7 +337,7 @@ tfoot td{font-weight:700;border-bottom:0;color:var(--fg)}
     $('chart').innerHTML=o;
   }
 
-  ['share','eff','fuelShare','mw','solar','sac','peak','off','pkHrs','wkd','hol','lf','cap','net','ret','hrs'].forEach(function(id){$(id).addEventListener('input',render)});
+  ['share','eff','fuelShare','fx','mw','solar','sac','peak','off','pkHrs','wkd','hol','lf','cap','net','ret','hrs'].forEach(function(id){$(id).addEventListener('input',render)});
   $('tou').addEventListener('change',render);
   function setTheme(t){document.documentElement.setAttribute('data-theme',t);$('theme').textContent=t==='dark'?'Light mode':'Night mode';try{localStorage.setItem('cress-theme',t)}catch(e){}}
   setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light');

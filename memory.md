@@ -1185,3 +1185,6 @@ utilization for IPPs, 2026-07-28**
   parity with the blended tariff = tariff × ammonia share of LCOE (70%, user input) × 5.17 kWh/kg (NH3 LHV
   18.6 MJ/kg ÷ 3.6) × efficiency (50% default, user input) × 1000 → ≈RM1,030/t NH3 at the default case
   (tariff ≈RM0.569/kWh). Assumes parity = on-site ammonia-power LCOE equals the blended tariff.
+- **2026-11-03** — Tariff calculator: ammonia parity card now shows USD/t at an editable exchange rate,
+  **assumption RM4.2/USD (user-specified)**. Default case ≈USD245/t NH3 (= RM1,030/t ÷ 4.2). Parity price is
+  computed from the total blended tariff (CRESS + grid) shown at the top of the page.
